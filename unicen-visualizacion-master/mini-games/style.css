@@ -1,0 +1,30 @@
+/*estilo del footer*/
+footer {
+    width: 1372px;
+    height: 210px;
+    background-color: rgba(0, 39, 78, 1);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+}
+footer ul {
+    list-style: none; /* Quita los puntos de lista */
+    padding: 0;
+    margin: 0;
+}
+footer h3 {
+    font-family: nunito;
+    font-weight: bolder;
+    font-size: 16px;
+    color: #57B300;
+}
+footer a {
+    font-family: nunito;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+footer li {
+    list-style: none;
+    margin-bottom: 10px;
+}
