@@ -35,25 +35,10 @@ function closeMenus() {
 }
 // <== Funcionalidad del header y su nav
 
-
 // Funcionalidad del Breadcrumbs, cambia a partir del String(palabra) dado ==>
-
 document.getElementById("nav_category_icon_home").addEventListener("click", () => {
-    
     setBreadcrumbs("Home");
 });
-document.getElementById("my_profile").addEventListener("click", () => {
-    stopPropagation();
-});
-document.getElementById("sign_out").addEventListener("click", () => {
-    stopPropagation();
-    signOut();
-});
-document.getElementById("user_photo_nav").addEventListener("click", () => {
-    getProfilePicture();
-});
-
-
 
 document.querySelectorAll('#nav_categories_list a').forEach(item => {
     item.addEventListener('click', (event) => {
