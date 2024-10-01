@@ -1,42 +1,59 @@
 // Funcionalidad del header y su nav ==>
-    let isMenuVisible = false;
 
-document.getElementById('hamburger-menu').addEventListener('click', toggleMenu);
-document.addEventListener('click', closeMenus);
+let isMenuVisible = false; //la barra de navegacion se inicia cerrada
 
-function toggleMenu(event) {
-    event.stopPropagation(); // Evita que el clic en el botón cierre el menú inmediatamente
-    isMenuVisible = !isMenuVisible;
-    const headerNav = document.getElementById('header_nav');
-    const icon = document.querySelector('#hamburger-menu img');
+document.getElementById('hamburger-menu').addEventListener('click', toggleMenu);//click boton hamburgesa
+document.addEventListener('click', closeMenus); //click cerrar la barra de navegacion
+
+
+function toggleMenu(event) {//abrir la barra de navegacion
+    //El boton hamburgesa cierra o abre la barra de navegacion:
+
+    event.stopPropagation(); // Evitar que marcas no funcionales en el DOM produzcan eventos (no targest de eventos)
+    isMenuVisible = !isMenuVisible;// cambiar el estado del menu de navegacion (cerrar o abrir)
+    const headerNav = document.getElementById('header_nav'); //referencia de barra de navegacion en el DOM
+    const icon = document.querySelector('#hamburger-menu img');//referencia deL boton hamburgesa en el DOM
 
     // Alterna la visibilidad del menú
-    if (isMenuVisible) {
-        headerNav.classList.add('show');
-        icon.src = "assets/png/hamburger-menu-2.png"; // Nueva imagen al abrir
+    if (isMenuVisible) {//si se ordeno que se abra es true
+        headerNav.classList.add('show');//animagion de despliegue o colapso
+        icon.src = "assets/png/hamburger-menu-2.png"; // nav abierto
     } else {
         headerNav.classList.remove('show');
-        icon.src = "assets/png/hamburger-menu-1.png"; // Volver a la imagen original
+        icon.src = "assets/png/hamburger-menu-1.png"; // nav cerrado
     }
 }
 
-function closeMenus(event) {
-    const headerNav = document.getElementById('header_nav');
-    const hamburgerButton = document.getElementById('hamburger-menu');
-
-    // Verifica si el clic es fuera del header_nav y del botón de hamburguesa
-    if (isMenuVisible && !headerNav.contains(event.target) && !hamburgerButton.contains(event.target)) {
+function closeMenus() {
+    if (isMenuVisible) {
         isMenuVisible = false;
-        headerNav.classList.remove('show');
+        const headerNav = document.getElementById('header_nav');
         const icon = document.querySelector('#hamburger-menu img');
-        icon.src = "assets/png/hamburger-menu-1.png";
+        headerNav.classList.remove('show');
+        icon.src = "assets/png/hamburger-menu-1.png"; // Cambia el ícono al de menú cerrado
     }
-}// Funcionalidad del header y su nav <==
+}
+// <== Funcionalidad del header y su nav
+
 
 // Funcionalidad del Breadcrumbs, cambia a partir del String(palabra) dado ==>
+
 document.getElementById("nav_category_icon_home").addEventListener("click", () => {
+    
     setBreadcrumbs("Home");
 });
+document.getElementById("my_profile").addEventListener("click", () => {
+    stopPropagation();
+});
+document.getElementById("sign_out").addEventListener("click", () => {
+    stopPropagation();
+    signOut();
+});
+document.getElementById("user_photo_nav").addEventListener("click", () => {
+    getProfilePicture();
+});
+
+
 
 document.querySelectorAll('#nav_categories_list a').forEach(item => {
     item.addEventListener('click', (event) => {
@@ -57,17 +74,13 @@ function setBreadcrumbs(palabra) {
             <h3>${palabra}</h3>
         `;
     }
-
-    // Cierra el menú después de establecer las migas de pan
-    isMenuVisible = false; // Actualiza el estado
-    const headerNav = document.getElementById('header_nav');
-    headerNav.classList.remove('show');
-    const icon = document.querySelector('#hamburger-menu img');
-    icon.src = "assets/png/hamburger-menu-1.png"; // Vuelve a la imagen original
+    closeMenus();
 }
-// Funcionalidad del Breadcrumbs <==
+// <== Funcionalidad del Breadcrumbs
+
 
 // Funcionalidad del formulario Log In - frame("form_LogIn") ==>
+
 document.getElementById('login-form').addEventListener('submit', function(event) {
     event.preventDefault();
     const email = document.getElementById('form-email').value;
@@ -108,4 +121,6 @@ function parseJwt(token) {
     );
 
     return JSON.parse(jsonPayload);
-}// Funcionalidad del formulario Log In - frame("form_LogIn") <==
+}
+
+// <== Funcionalidad del formulario Log In - frame("form_LogIn")
