@@ -9,42 +9,96 @@
 </head>
 <body>
     <header>
-        <nav>
-            
-        </nav>
+        <a href="#" id="hamburger-menu"><img src="assets/png/hamburger-menu-1.png" alt="menu hamburger" class="hamburger-menu icon"></a>
+        <img src="assets/mini-games-logo.png" alt="mini games logo" class="logo icon">
     </header>
-    <nav id="breadcrumbs" class="breadcrumbs">
+    <nav id="header_nav" class="header_nav hidden">
+        <div id="user_nav_content" class="user_nav_content">
+            <img id="user_photo" class="user_photo_nav" src="assets/png/nn_profile_pic.png" alt="Foto del usuario">
+            <div class="user_info">
+                <h2 id="username">user123</h2>
+                <div>
+                    <a href=""><h3>Mi Perfil</h3></a>
+                    <h3>|</h3>
+                    <a href=""><h3>Cerrar Sesión</h3></a>
+                </div>
+            </div>
+        </div>
+          <div id="nav_shop_card" class="nav_shop_card">
+            <img id="nav_card_icon" class="nav_card_icon" src="assets/icons/shop-cart.svg" alt="icono de carrito">
+            <a href=""><h2>Mi Carrito</h2></a>
+          </div>
+        <ul id="nav_categories_list" class="nav_categories_list">
+            <li>
+                <img id="nav_category_icon_home" class="nav_category_icon" src="assets/icons/home.svg" alt="Home">
+                <a href="#"><h3>Home</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_aventura" class="nav_category_icon aventura" src="assets/icons/aventura.svg" alt="Categoría Aventura">
+                <a href="#"><h3>Aventura</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_cartas" class="nav_category_icon cartas" src="assets/icons/cartas.svg" alt="Categoría Cartas">
+                <a href="#"><h3>Cartas</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_autos" class="nav_category_icon autos" src="assets/icons/coches.svg" alt="Categoría Autos">
+                <a href="#"><h3>Autos</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_motos" class="nav_category_icon motos" src="assets/icons/motos.svg" alt="Categoría Motos">
+                <a href="#"><h3>Motos</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon deportes" class="nav_category_icon deportes" src="assets/icons/deportes.svg" alt="Categoría Deportes">
+                <a href="#"><h3>Deportes</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_disparos" class="nav_category_icon disparos" src="assets/icons/disparos.svg"Categoría Disparos">
+                <a href="#"><h3>Disparos</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_puzzle" class="nav_category_icon puzzle" src="assets/icons/puzzle.svg" alt="Categoría Puzzle">
+                <a href="#"><h3>Puzzle</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_terror" class="nav_category_icon terror" src="assets/icons/terror.svg" alt="Categoría Terror">
+                <a href="#"><h3>Terror</h3></a>
+            </li>
+        </ul>
+    </nav>
+    <div id="breadcrumbs" class="breadcrumbs">
         <!-- Imagen de "house" -->
         <img src="assets/icons/breadcrums-home.svg" alt="house" class="breadcrumbs_home_icon">
         <!-- Imagen de ">" -->
         <img src="assets/icons/breadcrums-greater-than.svg" alt=">" class="breadcrumbs_greaterthan_icon">
         <h3 id="bcs_content"></h3>
-    </nav>
+    </div>
     <article id="page_content" class="page_content"></article>
     <footer>
         <ul>
-            <h3>Explorar Categorías</h3>
+            <a href=""><h3>Explorar Categorías</h3></a>
             <li><a href="">Acción</a></li>
             <li><a href="">Aventura</a></li>
             <li><a href="">Cooperativos</a></li>
             <li><a href="">De puzzles</a></li>
         </ul>
         <ul>
-            <h3>Mi cuenta</h3>
+            <a href=""><h3>Mi cuenta</h3></a>
             <li><a href="">Mis datos</a></li>
             <li><a href="">Historial de compras</a></li>
             <li><a href="">Datos de facturación</a></li>
             <li><a href="">Mi carrito</a></li>
         </ul>
         <ul>
-            <h3>Ayuda y Soporte</h3>
+            <a href=""><h3>Ayuda y Soporte</h3></a>
             <li><a href="">Contactanos</a></li>
             <li><a href="">Preguntas Frecuentes</a></li>
             <li><a href="">Términos del Servicio</a></li>
             <li><a href="">Politica de Privacidad</a></li>
         </ul>
         <ul>
-            <h3>Comunidad</h3>
+            <a href=""><h3>Comunidad</h3></a>
             <li><a href="">Únete a Discord</a></li>
             <li><a href="">Síguenos en X/Twitter</a></li>
             <li><a href="">Suscríbete a nuestro Boletín</a></li>

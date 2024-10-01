@@ -1,16 +1,61 @@
-//Funcionalidad del Breadcrums, cambia a partir del String(palabra) dado ==>
+// Funcionalidad del header y su nav ==>
+    let isMenuVisible = false;
+
+document.getElementById('hamburger-menu').addEventListener('click', toggleBurgerMenu);
+document.addEventListener('click', closeMenus);
+
+function closeMenus(event) {
+    const container = document.getElementById('header_nav');
+    const hamburgerButton = document.getElementById('hamburger-menu');
+
+    // Verifica si el clic fue fuera del menú y del botón
+    if (!container.contains(event.target) && !hamburgerButton.contains(event.target)) {
+        container.classList.add('hidden');
+        isMenuVisible = false;
+    }
+}
+function toggleBurgerMenu() {
+    const menu = document.getElementById('header_nav');
+    if (isMenuVisible) {
+        menu.classList.add('hidden');
+        isMenuVisible = false;
+    } else {
+        menu.classList.remove('hidden');
+        isMenuVisible = true;
+    }
+} // Funcionalidad del header y su nav <==
+
+// Funcionalidad del Breadcrumbs, cambia a partir del String(palabra) dado
+document.getElementById("nav_category_icon_home").addEventListener("click", () => {
+    setBreadcrumbs("Home");
+    closeHeaderNav(); // Cierra el menú después de establecer "Home"
+});
+
+document.querySelectorAll('#nav_categories_list a').forEach(item => {
+    item.addEventListener('click', (event) => {
+        event.preventDefault(); // Evita que el enlace realice su acción por defecto
+        const categoryName = item.textContent; // Obtén el texto del enlace
+        setBreadcrumbs(categoryName);
+        
+        // Cierra el menú después de seleccionar la categoría
+        const menu = document.getElementById('header_nav');
+        menu.classList.add('hidden'); // Oculta el menú
+        isMenuVisible = false; // Cierra el menú después de seleccionar la categoría
+    });
+});
+
 function setBreadcrumbs(palabra) {
     const bcsContent = document.getElementById("bcs_content");
-    if (palabra.toLowerCase() === "home" || palabra.toLowerCase() === "log in") {
+    if (palabra.toLowerCase() === "home" || palabra.toLowerCase() === "logIn") {
         bcsContent.innerHTML = `<h3>${palabra}</h3>`;
     } else {
         bcsContent.innerHTML = `
-            <h3>Category</h3>
-            <img src="breadcrums-greater-than.svg" alt=">" class="breadcrumbs_greaterthan_icon">
+            <h3>Categoria</h3>
+            <img src="assets/icons/breadcrums-greater-than.svg" alt=">" class="breadcrumbs_greaterthan_icon">
             <h3>${palabra}</h3>
         `;
     }
-}//Funcionalidad del Breadcrums <==
+}// Funcionalidad del Breadcrumbs <==
 
 // Funcionalidad del formulario Log In - frame("form_LogIn") ==>
 document.getElementById('login-form').addEventListener('submit', function(event) {
