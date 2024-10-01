@@ -1,11 +1,11 @@
 // Funcionalidad del header y su nav ==>
-let isMenuVisible = false;
-let isHamburgerOpen = false;
+    let isMenuVisible = false;
 
 document.getElementById('hamburger-menu').addEventListener('click', toggleMenu);
 document.addEventListener('click', closeMenus);
 
-function toggleMenu() {
+function toggleMenu(event) {
+    event.stopPropagation(); // Evita que el clic en el botón cierre el menú inmediatamente
     isMenuVisible = !isMenuVisible;
     const headerNav = document.getElementById('header_nav');
     const icon = document.querySelector('#hamburger-menu img');
@@ -13,36 +13,29 @@ function toggleMenu() {
     // Alterna la visibilidad del menú
     if (isMenuVisible) {
         headerNav.classList.add('show');
-        setTimeout(() => {
-            // Cambia la imagen después de un pequeño retraso
-            icon.src = "assets/png/hamburger-menu-2.png"; // Nueva imagen al abrir
-        }); // Espera hasta que termine la animación
+        icon.src = "assets/png/hamburger-menu-2.png"; // Nueva imagen al abrir
     } else {
-        // Al cerrar, primero rotamos el ícono
-        setTimeout(() => {
-            headerNav.classList.remove('show');
-            icon.src = "assets/png/hamburger-menu-1.png"; // Volver a la imagen original
-        }); // Espera hasta que termine la animación
+        headerNav.classList.remove('show');
+        icon.src = "assets/png/hamburger-menu-1.png"; // Volver a la imagen original
     }
 }
 
 function closeMenus(event) {
-    const container = document.getElementById('header_nav');
+    const headerNav = document.getElementById('header_nav');
     const hamburgerButton = document.getElementById('hamburger-menu');
 
-    // Verifica si se hace clic fuera del menú o del botón hamburguesa
-    if (!container.contains(event.target) && !hamburgerButton.contains(event.target)) {
-        // Solo cierra el menú si está visible
-        if (isMenuVisible) {
-            toggleMenu(); // Llama a la función para alternar el menú
-        }
+    // Verifica si el clic es fuera del header_nav y del botón de hamburguesa
+    if (isMenuVisible && !headerNav.contains(event.target) && !hamburgerButton.contains(event.target)) {
+        isMenuVisible = false;
+        headerNav.classList.remove('show');
+        const icon = document.querySelector('#hamburger-menu img');
+        icon.src = "assets/png/hamburger-menu-1.png";
     }
 }// Funcionalidad del header y su nav <==
 
-// Funcionalidad del Breadcrumbs, cambia a partir del String(palabra) dado
+// Funcionalidad del Breadcrumbs, cambia a partir del String(palabra) dado ==>
 document.getElementById("nav_category_icon_home").addEventListener("click", () => {
     setBreadcrumbs("Home");
-    closeHeaderNav(); // Cierra el menú después de establecer "Home"
 });
 
 document.querySelectorAll('#nav_categories_list a').forEach(item => {
@@ -50,17 +43,12 @@ document.querySelectorAll('#nav_categories_list a').forEach(item => {
         event.preventDefault(); // Evita que el enlace realice su acción por defecto
         const categoryName = item.textContent; // Obtén el texto del enlace
         setBreadcrumbs(categoryName);
-        
-        // Cierra el menú después de seleccionar la categoría
-        const menu = document.getElementById('header_nav');
-        menu.classList.add('hidden'); // Oculta el menú
-        isMenuVisible = false; // Cierra el menú después de seleccionar la categoría
     });
 });
 
 function setBreadcrumbs(palabra) {
     const bcsContent = document.getElementById("bcs_content");
-    if (palabra.toLowerCase() === "home" || palabra.toLowerCase() === "logIn") {
+    if (palabra.toLowerCase() === "home" || palabra.toLowerCase() === "login") {
         bcsContent.innerHTML = `<h3>${palabra}</h3>`;
     } else {
         bcsContent.innerHTML = `
@@ -69,7 +57,15 @@ function setBreadcrumbs(palabra) {
             <h3>${palabra}</h3>
         `;
     }
-}// Funcionalidad del Breadcrumbs <==
+
+    // Cierra el menú después de establecer las migas de pan
+    isMenuVisible = false; // Actualiza el estado
+    const headerNav = document.getElementById('header_nav');
+    headerNav.classList.remove('show');
+    const icon = document.querySelector('#hamburger-menu img');
+    icon.src = "assets/png/hamburger-menu-1.png"; // Vuelve a la imagen original
+}
+// Funcionalidad del Breadcrumbs <==
 
 // Funcionalidad del formulario Log In - frame("form_LogIn") ==>
 document.getElementById('login-form').addEventListener('submit', function(event) {
