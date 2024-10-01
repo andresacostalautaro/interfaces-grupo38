@@ -1,3 +1,23 @@
+/*estilo del breadcrums*/
+.breadcrumbs h3 {
+    color: #FFF;
+}
+.breadcrumbs img {
+    display: inline;
+    width: 20px; /* Puedes ajustar el tamaño aquí */
+    height: auto;
+    margin-right: 5px; /* Espaciado entre las imágenes */
+}
+.breadcrumbs_greaterthan_icon {
+    max-width: 18px;
+}
+.breadcrumbs h3 {
+    padding-bottom: 3px;
+    font-size: 20px;
+    display: inline;
+    margin-right: 5px;
+}
+
 /*estilo del form_logIn*/
 body {
     font-family: 'Nunito', sans-serif;

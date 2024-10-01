@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Breadcrumbs Dinámico</title>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
+    <style>
+        body {
+            background-color: #003E7D;
+            font-family: nunito;
+        }
+        .breadcrumbs h3 {
+            color: #FFF;
+        }
+        .breadcrumbs img {
+            display: inline;
+            width: 20px; /* Puedes ajustar el tamaño aquí */
+            height: auto;
+            margin-right: 5px; /* Espaciado entre las imágenes */
+        }
+        .breadcrumbs_greaterthan_icon {
+            max-width: 18px;
+        }
+        .breadcrumbs h3 {
+            padding-bottom: 3px;
+            font-size: 20px;
+            display: inline;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="breadcrumbs" class="breadcrumbs">
+        <!-- Imagen de "house" -->
+        <img src="breadcrums-home.svg" alt="house" class="breadcrumbs_home_icon">
+        <!-- Imagen de ">" -->
+        <img src="breadcrums-greater-than.svg" alt=">" class="breadcrumbs_greaterthan_icon">
+        <h3 id="bcs_content"></h3>
+    </div>
+    <ul id="navigation_links">
+        <li><button id="home-btn">set home</button></li>
+        <li><button id="LogIn-btn">set LogIn</button></li>
+        <li><button id="accion-btn">set Accion</button></li>
+    </ul>
+    <script>
+        document.getElementById("home-btn").addEventListener("click", () => setBreadcrumbs("Home"));
+        document.getElementById("LogIn-btn").addEventListener("click", () => setBreadcrumbs("Log In"));
+        document.getElementById("accion-btn").addEventListener("click", () => setBreadcrumbs("Accion"));
+
+        function setBreadcrumbs(palabra) {
+            const bcsContent = document.getElementById("bcs_content");
+            if (palabra.toLowerCase() === "home" || palabra.toLowerCase() === "log in") {
+                bcsContent.innerHTML = `<h3>${palabra}</h3>`;
+            } else {
+                bcsContent.innerHTML = `
+                    <h3>Category</h3>
+                    <img src="assets/icons/breadcrums-greater-than.svg" alt=">" class="breadcrumbs_greaterthan_icon">
+                    <h3>${palabra}</h3>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
