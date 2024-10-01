@@ -1,29 +1,43 @@
 // Funcionalidad del header y su nav ==>
-    let isMenuVisible = false;
+let isMenuVisible = false;
+let isHamburgerOpen = false;
 
-document.getElementById('hamburger-menu').addEventListener('click', toggleBurgerMenu);
+document.getElementById('hamburger-menu').addEventListener('click', toggleMenu);
 document.addEventListener('click', closeMenus);
+
+function toggleMenu() {
+    isMenuVisible = !isMenuVisible;
+    const headerNav = document.getElementById('header_nav');
+    const icon = document.querySelector('#hamburger-menu img');
+
+    // Alterna la visibilidad del menú
+    if (isMenuVisible) {
+        headerNav.classList.add('show');
+        setTimeout(() => {
+            // Cambia la imagen después de un pequeño retraso
+            icon.src = "assets/png/hamburger-menu-2.png"; // Nueva imagen al abrir
+        }); // Espera hasta que termine la animación
+    } else {
+        // Al cerrar, primero rotamos el ícono
+        setTimeout(() => {
+            headerNav.classList.remove('show');
+            icon.src = "assets/png/hamburger-menu-1.png"; // Volver a la imagen original
+        }); // Espera hasta que termine la animación
+    }
+}
 
 function closeMenus(event) {
     const container = document.getElementById('header_nav');
     const hamburgerButton = document.getElementById('hamburger-menu');
 
-    // Verifica si el clic fue fuera del menú y del botón
+    // Verifica si se hace clic fuera del menú o del botón hamburguesa
     if (!container.contains(event.target) && !hamburgerButton.contains(event.target)) {
-        container.classList.add('hidden');
-        isMenuVisible = false;
+        // Solo cierra el menú si está visible
+        if (isMenuVisible) {
+            toggleMenu(); // Llama a la función para alternar el menú
+        }
     }
-}
-function toggleBurgerMenu() {
-    const menu = document.getElementById('header_nav');
-    if (isMenuVisible) {
-        menu.classList.add('hidden');
-        isMenuVisible = false;
-    } else {
-        menu.classList.remove('hidden');
-        isMenuVisible = true;
-    }
-} // Funcionalidad del header y su nav <==
+}// Funcionalidad del header y su nav <==
 
 // Funcionalidad del Breadcrumbs, cambia a partir del String(palabra) dado
 document.getElementById("nav_category_icon_home").addEventListener("click", () => {

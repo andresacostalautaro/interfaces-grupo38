@@ -1,11 +1,13 @@
+/* Global Styles */
 body {
+    margin: 0;
     padding: 0;
     font-family: 'Nunito', sans-serif;
     color: white;
 }
 
 .page_content {
-    height: 700px;
+    height: 550px;
     background-color: #023467; /* Fondo azul oscuro */
 }
 
@@ -17,21 +19,21 @@ header {
     width: 100%;
     height: 60px;
     display: flex;
-}
-
-.hamburger-menu,
-.logo {
-    padding-left: 380px;
-}
-
-.logo {
-    padding-left: 1000px;
-    margin-bottom: 10px;
+    align-items: center; /* Alinea el contenido verticalmente */
+    justify-content: space-between; /* Espacio entre los elementos */
 }
 
 header a img {
-    max-width: 5%;
-    margin: 20px;
+    max-width: 40px; /* Controla el tamaño de la imagen sin padding */
+}
+
+header a {
+    padding-left: 400px;
+}
+
+.logo {
+    max-width: 15%;
+    margin-right: 50px; /* Alinea el logo a la derecha */
 }
 
 /* Estilo del navegador */
@@ -40,8 +42,15 @@ header a img {
     margin-left: 400px;
     background-color: #00274E;
     width: 220px;
-    height: 550px;
+    height: auto; /* Cambiado a auto para permitir la animación */
+    max-height: 0; /* Inicialmente oculto */
+    overflow: hidden; /* Oculta el contenido desbordante */
+    transition: max-height 200ms ease-out; /* Añadir la transición de altura */
     color: #FFF;
+}
+
+.header_nav.show {
+    max-height: 550px; /* Ajusta la altura máxima según el contenido */
 }
 
 .header_nav h2 {
@@ -68,22 +77,30 @@ header a img {
     display: flex;
     justify-content: center;
 }
+
 .user_nav_content .user_info div, .nav_shop_card {
     display: flex;
     gap: 5px;
 }
+
 .user_info h2 {
     font-size: 25px;
 }
+
 .user_photo_nav {
     padding-top: 5px;
     margin: 2px;
     width: 20%;
     height: 20%;
 }
+
 .user_info {
     width: 200px;
     height: 55px;
+}
+
+.user_info div a h3 {
+    color: #0061C3;
 }
 
 .nav_shop_card {
@@ -122,6 +139,10 @@ header a img {
 .header_nav a h3:hover,
 .user_info h2:hover {
     opacity: 50%;
+}
+
+.hidden {
+    display: none;
 }
 
 /* Estilo de los breadcrumbs */
@@ -198,7 +219,6 @@ button:hover {
 
 /* Estilo del footer */
 footer {
-    width: 100%;
     height: 210px;
     background-color: rgba(0, 39, 78, 1);
     padding: 20px;
