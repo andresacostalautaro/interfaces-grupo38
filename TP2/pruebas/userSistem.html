@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User System trials</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
+</head>
+<body>
+    <!-- cabeza de pagina -->
+    <header>
+        <!-- boton de "hamburger_menu" despliega el "header_nav"-->
+        <a href="#" id="hamburger-menu"><img src="assets/png/hamburger-menu-1.png" alt="menu hamburger" class="hamburger-menu icon"></a>
+        <img src="assets/png/mini-games-logo.png" alt="mini games logo" class="logo icon">
+    </header>
+    <!--"header_nav"-->
+    <nav id="header_nav" class="header_nav">
+        <!-- perfil de usuario -->
+        <div id="user_nav_content" class="user_nav_content">
+            <img id="user_photo_nav" class="user_photo_nav" src="assets/png/nn_profile_pic_disconect.png" alt="Foto del usuario">
+            <div class="btn_panel">
+                <h4 id="btn-signin">Iniciar Sesion</h4>
+                <h4 id="btn-signup">Registrarse</h4>
+            </div>
+        </div>
+        <!-- carrito de compras -->
+        <div id="nav_shop_card" class="nav_shop_card">
+            <img id="nav_card_icon" class="nav_card_icon" src="assets/icons/shop-cart.svg" alt="icono de carrito">
+            <a href=""><h2>Mi Carrito</h2></a>
+        </div>
+        <!-- categorias -->
+        <ul id="nav_categories_list" class="nav_categories_list">
+            <li>
+                <img id="nav_category_icon_home" class="nav_category_icon" src="assets/icons/home.svg" alt="Home">
+                <a href="#"><h3>Home</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_aventura" class="nav_category_icon aventura" src="assets/icons/aventura.svg" alt="Categoría Aventura">
+                <a href="#"><h3>Aventura</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_cartas" class="nav_category_icon cartas" src="assets/icons/cartas.svg" alt="Categoría Cartas">
+                <a href="#"><h3>Cartas</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_autos" class="nav_category_icon autos" src="assets/icons/coches.svg" alt="Categoría Autos">
+                <a href="#"><h3>Autos</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_motos" class="nav_category_icon motos" src="assets/icons/motos.svg" alt="Categoría Motos">
+                <a href="#"><h3>Motos</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_deportes" class="nav_category_icon deportes" src="assets/icons/deportes.svg" alt="Categoría Deportes">
+                <a href="#"><h3>Deportes</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_disparos" class="nav_category_icon disparos" src="assets/icons/disparos.svg" alt="Categoría Disparos">
+                <a href="#"><h3>Disparos</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_puzzle" class="nav_category_icon puzzle" src="assets/icons/puzzle.svg" alt="Categoría Puzzle">
+                <a href="#"><h3>Puzzle</h3></a>
+            </li>
+            <li>
+                <img id="nav_category_icon_terror" class="nav_category_icon terror" src="assets/icons/terror.svg" alt="Categoría Terror">
+                <a href="#"><h3>Terror</h3></a>
+            </li>
+        </ul>
+    </nav>
+    <!-- breadcrums -->
+    <div id="breadcrumbs" class="breadcrumbs">
+        <!-- default  H >  -->
+        <img src="assets/icons/breadcrums-home.svg" alt="house" class="breadcrumbs_home_icon">
+        <img src="assets/icons/breadcrums-greater-than.svg" alt=">" class="breadcrumbs_greaterthan_icon">
+        <!-- direccion dinamica -->
+        <h3 id="bcs_content"></h3>
+    </div>
+    <article id="page_content" class="page_content"></article>
+    <!-- pie de pagina -->
+    <footer>
+        <ul>
+            <a href=""><h3>Explorar Categorías</h3></a>
+            <li><a href="">Acción</a></li>
+            <li><a href="">Aventura</a></li>
+            <li><a href="">Cooperativos</a></li>
+            <li><a href="">De puzzles</a></li>
+        </ul>
+        <ul>
+            <a href=""><h3>Mi cuenta</h3></a>
+            <li><a href="">Mis datos</a></li>
+            <li><a href="">Historial de compras</a></li>
+            <li><a href="">Datos de facturación</a></li>
+            <li><a href="">Mi carrito</a></li>
+        </ul>
+        <ul>
+            <a href=""><h3>Ayuda y Soporte</h3></a>
+            <li><a href="">Contactanos</a></li>
+            <li><a href="">Preguntas Frecuentes</a></li>
+            <li><a href="">Términos del Servicio</a></li>
+            <li><a href="">Politica de Privacidad</a></li>
+        </ul>
+        <ul>
+            <a href=""><h3>Comunidad</h3></a>
+            <li><a href="">Únete a Discord</a></li>
+            <li><a href="">Síguenos en X/Twitter</a></li>
+            <li><a href="">Suscríbete a nuestro Boletín</a></li>
+            <li><a href="">Foro</a></li>
+        </ul>
+    </footer>
+    <script>
+        //funcionalidad de usuario
+        let isUsuarioLoged = false;
+
+        document.getElementById("btn-signin").addEventListener("click", getSignInForm);
+        document.getElementById("btn-signup").addEventListener("click", getSignUpForm);
+
+        function getSignInForm() {
+            const page = document.getElementById("page_content");
+            page.innerHTML = ""; // Asegúrate de limpiar el contenido anterior
+
+            fetch('frames.json')
+            .then(response => response.json())
+            .then(data => {  
+                page.innerHTML = data.form_LogIn;
+                document.getElementById('login-form').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const email = document.getElementById('form-email').value;
+                    const password = document.getElementById('form-password').value;
+
+                    if (email && password) {
+                        setUser(email, password);
+                    } else {
+                        console.log('Por favor, completa todos los campos');
+                        deniedUser(email, password);
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        }
+
+        function setUser(email, password) {
+            fetch('users.json')
+            .then(response => response.json())
+            .then(users => {
+                const user = users.find(u => u.email === email && u.password === password); // Verifica las credenciales
+                if (user) {
+                    isUsuarioLoged = true;
+                    changeProfileUserNav(user);
+                    console.log('Inicio de sesión exitoso con', email);
+                } else {
+                    console.log('Credenciales incorrectas');
+                    deniedUser(email, password);
+                }
+            })
+            .catch(error => console.error('Error fetching data', error));
+        }
+
+        function changeProfileUserNav(user) {
+            if (isUsuarioLoged) {
+                const panel = document.getElementById("user_nav_content");
+                panel.innerHTML = `
+                    <img id="user_photo_nav" class="user_photo_nav" src="assets/png/${user.profile_pic}" alt="Foto del usuario">
+                    <div class="user_info">
+                        <h2 id="username">${user.username}</h2>
+                        <div>
+                            <a href="#" id="my_profile"><h3>Mi Perfil</h3></a>
+                            <h3>|</h3>
+                            <a href="#" id="sing_out"><h3>Cerrar Sesión</h3></a>
+                        </div>
+                    </div>`;
+            }
+        }
+
+        function deniedUser(email, password) {
+            // Funcionalidad para marcar los datos incorrectos.
+            console.log('Datos incorrectos. Inténtalo de nuevo.');
+        }
+
+
+        // Funcionalidad del header y su nav ==>
+        let isMenuVisible = false; //la barra de navegacion se inicia cerrada
+        
+        document.getElementById('hamburger-menu').addEventListener('click', toggleMenu);//click boton hamburgesa
+        document.addEventListener('click', closeMenus); //click cerrar la barra de navegacion
+        
+        
+        function toggleMenu(event) {//abrir la barra de navegacion
+            //El boton hamburgesa cierra o abre la barra de navegacion:
+        
+            event.stopPropagation(); // Evitar que marcas no funcionales en el DOM produzcan eventos (no targest de eventos)
+            isMenuVisible = !isMenuVisible;// cambiar el estado del menu de navegacion (cerrar o abrir)
+            const headerNav = document.getElementById('header_nav'); //referencia de barra de navegacion en el DOM
+            const icon = document.querySelector('#hamburger-menu img');//referencia deL boton hamburgesa en el DOM
+        
+            // Alterna la visibilidad del menú
+            if (isMenuVisible) {//si se ordeno que se abra es true
+                headerNav.classList.add('show');//animagion de despliegue o colapso
+                icon.src = "assets/png/hamburger-menu-2.png"; // nav abierto
+            } else {
+                headerNav.classList.remove('show');
+                icon.src = "assets/png/hamburger-menu-1.png"; // nav cerrado
+            }
+        }
+        
+        function closeMenus() {
+            if (isMenuVisible) {
+                isMenuVisible = false;
+                const headerNav = document.getElementById('header_nav');
+                const icon = document.querySelector('#hamburger-menu img');
+                headerNav.classList.remove('show');
+                icon.src = "assets/png/hamburger-menu-1.png"; // Cambia el ícono al de menú cerrado
+            }
+        }
+        // <== Funcionalidad del header y su nav
+        
+        // Funcionalidad del Breadcrumbs, cambia a partir del String(palabra) dado ==>
+        document.getElementById("nav_category_icon_home").addEventListener("click", () => {
+            setBreadcrumbs("Home");
+        });
+        
+        document.querySelectorAll('#nav_categories_list a').forEach(item => {
+            item.addEventListener('click', (event) => {
+                event.preventDefault(); // Evita que el enlace realice su acción por defecto
+                const categoryName = item.textContent; // Obtén el texto del enlace
+                setBreadcrumbs(categoryName);
+            });
+        });
+        
+        function setBreadcrumbs(palabra) {
+            const bcsContent = document.getElementById("bcs_content");
+            if (palabra.toLowerCase() === "home" || palabra.toLowerCase() === "login") {
+                bcsContent.innerHTML = `<h3>${palabra}</h3>`;
+            } else {
+                bcsContent.innerHTML = `
+                    <h3>Categoria</h3>
+                    <img src="assets/icons/breadcrums-greater-than.svg" alt=">" class="breadcrumbs_greaterthan_icon">
+                    <h3>${palabra}</h3>
+                `;
+            }
+            closeMenus();
+        }
+        // <== Funcionalidad del Breadcrumbs
+        
+        
+        // Funcionalidad del formulario Log In - frame("form_LogIn") ==>
+        
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('form-email').value;
+            const password = document.getElementById('form-password').value;
+        
+            if (email && password) {
+                setUser(email);
+                console.log('Login successful with', email);
+            } else {
+                console.log('Please fill in all fields');
+                deniedUser(email, password);
+            }
+        });
+        document.querySelector('.google-button').addEventListener('click', function() {
+            // Aquí puedes añadir la funcionalidad de Google Sign-In
+            console.log('Google Sign-In');
+        });
+        document.querySelector('.facebook-button').addEventListener('click', function() {
+            // Aquí puedes añadir la funcionalidad de Facebook Sign-In
+            console.log('Facebook Sign-In');
+        });
+        function handleCredentialResponse(response) {
+            decodeJwtResponse(response.credential);
+        }
+        function decodeJwtResponse(data) {
+            console.log(parseJwt(data));
+        }
+        function parseJwt(token) {
+            var base64Url = token.split(".")[1];
+            var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+            var jsonPayload = decodeURIComponent(
+                window
+                .atob(base64)
+                .split("")
+                .map(function (c) {
+                    return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+                })
+                .join("")
+            );
+        
+            return JSON.parse(jsonPayload);
+        }
+        
+        // <== Funcionalidad del formulario Log In - frame("form_LogIn")
+        </script>
+</body>
+</html>
