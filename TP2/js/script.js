@@ -1,39 +1,50 @@
 // Funcionalidad del header y su nav ==>
+    var isMenuVisible = false;
 
-let isMenuVisible = false; //la barra de navegacion se inicia cerrada
+document.getElementById('hamburger-menu').addEventListener('click', toggleMenu);
 
-document.getElementById('hamburger-menu').addEventListener('click', toggleMenu);//click boton hamburgesa
-document.addEventListener('click', closeMenus); //click cerrar la barra de navegacion
+function toggleMenu(event) {
+    event.stopPropagation(); // Evita que el clic se propague al documento
+    isMenuVisible = !isMenuVisible;
+    var headerNav = document.getElementById('header_nav');
+    var icon = document.querySelector('#hamburger-menu img');
 
-
-function toggleMenu(event) {//abrir la barra de navegacion
-    //El boton hamburgesa cierra o abre la barra de navegacion:
-
-    event.stopPropagation(); // Evitar que marcas no funcionales en el DOM produzcan eventos (no targest de eventos)
-    isMenuVisible = !isMenuVisible;// cambiar el estado del menu de navegacion (cerrar o abrir)
-    const headerNav = document.getElementById('header_nav'); //referencia de barra de navegacion en el DOM
-    const icon = document.querySelector('#hamburger-menu img');//referencia deL boton hamburgesa en el DOM
-
-    // Alterna la visibilidad del menú
-    if (isMenuVisible) {//si se ordeno que se abra es true
-        headerNav.classList.add('show');//animagion de despliegue o colapso
-        icon.src = "assets/png/hamburger-menu-2.png"; // nav abierto
-    } else {
-        headerNav.classList.remove('show');
-        icon.src = "assets/png/hamburger-menu-1.png"; // nav cerrado
-    }
-}
-
-function closeMenus() {
     if (isMenuVisible) {
-        isMenuVisible = false;
-        const headerNav = document.getElementById('header_nav');
-        const icon = document.querySelector('#hamburger-menu img');
-        headerNav.classList.remove('show');
-        icon.src = "assets/png/hamburger-menu-1.png"; // Cambia el ícono al de menú cerrado
+        headerNav.classList.add('show-one');
+        icon.src = "assets/png/hamburger-menu-2.png"; 
+
+        setTimeout(function() {
+            headerNav.classList.add('show-two'); // Muestra el nav después de la transición
+        }, 700); 
+    } else {
+        // Primero se elimina 'show-two'
+        setTimeout(function() {
+            headerNav.classList.remove('show-two');
+        }, 300);
+
+        // Después de un timeout, se elimina 'show-one'
+        setTimeout(function() {
+            headerNav.classList.remove('show-one');
+            icon.src = "assets/png/hamburger-menu-1.png"; 
+        }, 300); // Cambié el timeout a 700ms para coincidir con la duración de las transiciones
     }
 }
-// <== Funcionalidad del header y su nav
+function closeMenu(){
+    var headerNav = document.getElementById('header_nav');
+
+        // Primero se elimina 'show-two'
+        setTimeout(function() {
+            headerNav.classList.remove('show-two');
+        }, 300);
+
+        // Después de un timeout, se elimina 'show-one'
+        setTimeout(function() {
+            headerNav.classList.remove('show-one');
+            icon.src = "assets/png/hamburger-menu-1.png"; 
+        }, 300); // Cambié el timeout a 700ms para coincidir con la duración de las transiciones
+};// <== Funcionalidad del header y su nav
+
+
 
 // Funcionalidad del Breadcrumbs, cambia a partir del String(palabra) dado ==>
 document.getElementById("nav_category_icon_home").addEventListener("click", () => {
@@ -59,9 +70,7 @@ function setBreadcrumbs(palabra) {
             <h3>${palabra}</h3>
         `;
     }
-    closeMenus();
-}
-// <== Funcionalidad del Breadcrumbs
+}// <== Funcionalidad del Breadcrumbs
 
 
 // Funcionalidad del formulario Log In - frame("form_LogIn") ==>
