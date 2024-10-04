@@ -7,6 +7,8 @@ body {
 }
 
 .page_content {
+    height: fit-content;
+    padding-bottom: 5%;
     height: 700px;
     background-color: #023467; /* Fondo azul oscuro */
 }
@@ -323,8 +325,14 @@ footer li {
     display: none; /* Se eliminó la duplicación de .hidden */
 }
 
+
 .form-container {
-    position: fixed;
+    width: 450px;
+    height: fit-content;
+    background-color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -332,7 +340,6 @@ footer li {
     justify-content: center;
     align-items: center;
 }
-
 .form-container form img {
     position: absolute; 
     width: 25px; 
@@ -344,17 +351,6 @@ footer li {
 .form-container form img:hover {
     opacity: 100%;
     cursor: pointer;
-}
-
-.form-container {
-    width: 450px;
-    height: fit-content;
-    background-color: #fff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .form-container form {
