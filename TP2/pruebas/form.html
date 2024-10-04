@@ -8,8 +8,9 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
 </head>
 <body style="display: flex;" >
-    <section class="form-container">
+    <section class="form-container" id="form">
         <form action="" id="login-form">
+            <img src="assets/icons/close-cross.svg" alt="close form" id="close-form">
             <label for="email">Email</label>
             <input type="text" id="email" placeholder="Ingrese su correo electrónico">
             <label for="password">Contraseña</label>
@@ -18,8 +19,9 @@
             <button type="submit">Iniciar Sesión</button>
         </form>
     </section>
-    <section class="form-container">
+    <!--<section class="form-container" id="form">
         <form action="" class="form-container" id="login-form">
+            <img src="assets/icons/close-cross.svg" alt="close form" id="close-form">
             <label for="">Nombre <span>*</span></label>
             <input type="text" name="firstname" id="firstname" placeholder="Ingrese su nombre">
             <label for="">Apellido<span>*</span></label>
@@ -35,9 +37,14 @@
             <input type="password" name="password-2" id="password-2" placeholder="Repita su contraseña">
             <button type="submit">Registrarse</button>
         </form>
-    </section>
+    </section>-->
     <script>
-
+        // Cerrar el formulario
+        document.getElementById('close-form').addEventListener('click', function(event) {
+            event.preventDefault();
+            const page = document.getElementById('form');
+            page.style.display = 'none'; // Ocultar el formulario
+        });
         //funcion para iniciar sesion
         document.getElementById('login-form').addEventListener('submit', function(event) {
             event.preventDefault();

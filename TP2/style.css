@@ -7,6 +7,8 @@ body {
 }
 
 .page_content {
+    height: fit-content;
+    padding-bottom: 5%;
     height: 700px;
     background-color: #023467; /* Fondo azul oscuro */
 }
@@ -88,13 +90,13 @@ header a img {
     z-index: 1;
 }
 
-.header_nav thead h4 {
+.header_nav thead .button {
     margin-bottom: 5px;
     padding: 5px 0;
     color: #0061C3;
 }
-.header_nav thead h4 a {
-    color: #0061C3;
+.header_nav thead .button:hover {
+    cursor: pointer;
 }
 
 .user_nav_content {
@@ -103,6 +105,43 @@ header a img {
 
 .header_nav .user_photo_nav {
     width: 50px;
+}
+
+
+.header_nav .user-panel {
+  overflow: hidden;
+  width: 135px;
+  height: 75px;
+}
+
+.header_nav .user-panel h1, .header_nav .user-panel h5 {
+    margin: 0 !important;
+    padding: 0 !important;
+  	overflow: hidden;
+}
+.header_nav .user-panel h1 {
+	text-align: left;
+  	margin: 5px 0 5px 0 !important;
+}
+
+.header_nav .user-panel div h5 {
+  	font-size: 10px;
+    margin: 0 2px 0 2px !important;
+    padding: 0 !important;
+}
+
+#btn-MySession, #btn-Sign-out {
+	color: green;
+}
+#btn-MySession:hover , #btn-Sign-out:hover {
+	text-decoration: underline;
+  	cursor: pointer;
+}
+
+.header_nav .user-panel div {
+  	margin: 10px 0 10px 0 !important;
+	display: flex;
+  	justify-content: center;
 }
 
 .header_nav img {
@@ -172,31 +211,6 @@ header a img {
     max-width: 20px;
 }
 
-.user_info {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
-.user_info div {
-    display: flex;
-}
-
-.user_info div a {
-    color: #57B300;
-}
-
-.user_info h2 {
-    justify-content: left;
-    display: grid;
-    padding: 10px 0 5px 0;
-    margin: 0;
-}
-
-.user_info h3 {
-    font-size: 12px;
-    padding: 0 3px 0 3px;
-}
 .header_nav tbody tr:hover, .header_nav thead tr h4:hover{
     opacity: 0.5;
 }
@@ -217,6 +231,7 @@ header a img {
 .breadcrumbs_greaterthan_icon {
     max-width: 18px;
 }
+
 .breadcrumbs h3 {
     color: #FFF;
     padding-bottom: 3px;
@@ -310,8 +325,97 @@ footer li {
     display: none; /* Se eliminó la duplicación de .hidden */
 }
 
+
+.form-container {
+    width: 450px;
+    height: fit-content;
+    background-color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-container form img {
+    position: absolute; 
+    width: 25px; 
+    padding: 0 !important; 
+    margin: 0 !important; 
+    top: 3%; right: 3%; 
+    opacity: 50%;
+}
+.form-container form img:hover {
+    opacity: 100%;
+    cursor: pointer;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente los inputs y labels */
+    gap: 15px;
+    width: 100%; /* Asegura que el formulario ocupe todo el ancho disponible */
+    padding: 5% 0 5% 0 !important;
+}
+
+.form-container label {
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+    width: 85%;
+}
+
+.form-container label span {
+    color: red;
+}
+.form-container label span:hover {
+    cursor: pointer;
+}
+
+.form-container form input {
+    padding: 10px !important;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    width: 85%;
+    margin: 0 auto; /* Centra el input horizontalmente */
+}
+
+input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.form-container h4 {
+    font-weight: lighter;
+}
+
+.form-container button {
+    font-display: grid;
+    background-color: #2C2C2C;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 60%;
+    height: 40px;
+}
+
+.form-container button:hover {
+    background-color: #0056b3;
+}
+
+.input-warning {
+    border-color: rgb(162, 55, 55) !important;
+}
+/* Media Queries para pantallas pequeñas */
 /* Media Queries */
-@media (max-width: 800px) {
+@media (max-width: 600px) {
     header, article, footer, body {
         width: 100%;
         margin: 0;
@@ -388,5 +492,18 @@ footer li {
     
     footer li {
         display: none; /* Considerar eliminar si no es necesario */
+    }
+    .form-container {
+        width: 90%;
+        max-width: 90%; /* Añade un margen para evitar que toque los bordes */
+    }
+
+    .form-container form input,
+    .form-container label {
+        width: 80%; /* Inputs y etiquetas ocupan el 100% del ancho disponible */
+    }
+
+    .form-container button {
+        width: 80%; /* Botón más ancho en pantallas pequeñas */
     }
 }

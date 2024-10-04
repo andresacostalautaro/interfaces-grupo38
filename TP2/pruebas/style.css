@@ -323,7 +323,7 @@ footer li {
     display: none; /* Se eliminó la duplicación de .hidden */
 }
 
-section {
+.form-container {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -331,6 +331,19 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.form-container form img {
+    position: absolute; 
+    width: 25px; 
+    padding: 0 !important; 
+    margin: 0 !important; 
+    top: 3%; right: 3%; 
+    opacity: 50%;
+}
+.form-container form img:hover {
+    opacity: 100%;
+    cursor: pointer;
 }
 
 .form-container {
