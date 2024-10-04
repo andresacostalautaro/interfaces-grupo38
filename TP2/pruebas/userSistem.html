@@ -6,6 +6,410 @@
     <title>User System trials</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+            color: white;
+        }
+
+        .page_content {
+            height: 700px;
+            background-color: #023467; /* Fondo azul oscuro */
+        }
+
+        /* Estilo del header */
+        header {
+            background-color: #0061C3;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 60px;
+            display: flex;
+            align-items: center; /* Alinea el contenido verticalmente */
+            justify-content: space-between; /* Espacio entre los elementos */
+        }
+
+        header a img {
+            max-width: 40px; /* Controla el tamaño de la imagen sin padding */
+            padding: 10px;
+        }
+
+        .logo {
+            max-width: 15%;
+            margin-right: 50px; /* Alinea el logo a la derecha */
+        }
+
+        /* Estilo del header_nav */
+        .header_nav {
+            position: absolute;
+            overflow: hidden;
+            transition: max-height 0.7s ease-out, max-width 0.7s ease-out;
+            max-height: 0;
+            margin: 0;
+            padding: 0;
+            background-color: #00274E;
+            width: 220px;
+        }
+
+        .header_nav.show-one {
+            max-height: 800px; /* Ajusta según el contenido */
+            max-width: 65px;
+        }
+
+        .header_nav.show-two {
+            max-width: 220px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .header_nav table {
+            border: none;
+            width: 100%;
+        }
+
+        .header_nav table th,
+        .header_nav table td,
+        .header_nav table tr {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .header_nav table td {
+            padding-left: 15px;
+        }
+
+        .header_nav table a {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            color: #FFF;
+        }
+
+        .header_nav thead {
+            background-color: #0C2640;
+            top: 0;
+            z-index: 1;
+        }
+
+        .header_nav thead .button {
+            margin-bottom: 5px;
+            padding: 5px 0;
+            color: #0061C3;
+        }
+
+        .user_nav_content {
+            height: 80px;
+        }
+
+        .header_nav .user_photo_nav {
+            width: 50px;
+        }
+
+
+        .header_nav .user-panel {
+        overflow: hidden;
+        width: 135px;
+        height: 75px;
+        }
+
+        .header_nav .user-panel h1, .header_nav .user-panel h5 {
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden;
+        }
+        .header_nav .user-panel h1 {
+            text-align: left;
+            margin: 5px 0 5px 0 !important;
+        }
+
+        .header_nav .user-panel div h5 {
+            font-size: 10px;
+            margin: 0 2px 0 2px !important;
+            padding: 0 !important;
+        }
+
+        #btn-MySession, #btn-Sign-out {
+            color: green;
+        }
+        #btn-MySession:hover , #btn-Sign-out:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .header_nav .user-panel div {
+            margin: 10px 0 10px 0 !important;
+            display: flex;
+            justify-content: center;
+        }
+
+        .header_nav img {
+            width: 40px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header_nav h3,
+        .header_nav h4 {
+            margin: 0;
+            padding: 5px 0;
+            font-weight: bold;
+        }
+
+        .header_nav h4 {
+            margin: 5px 0;
+            background-color: #FFF;
+            color: #0C2640;
+            border-radius: 5px;
+            width: 120px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .header_nav table thead th {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0 0 5px;
+        }
+
+        .header_nav th {
+            margin: 0;
+            width: 50px;
+        }
+
+        .header_nav tr {
+            display: flex;
+        }
+
+        .header_nav .nav_shop_card {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .header_nav .nav_shop_card img {
+            width: 35px;
+            padding: 10px 0;
+        }
+
+        .header_nav .nav_shop_card h3 {
+            padding: 15px 0 10px 0;
+        }
+
+        .header_nav .nav_category_icon {
+            margin: 0;
+        }
+
+        .header_nav tfoot {
+            opacity: 0.5;
+            width: 100%;
+            display: flex;
+            padding: 0 0 0 45px;
+        }
+        .header_nav tfoot img {
+            margin: 0 5px 0 5px;
+            max-width: 20px;
+        }
+
+        .header_nav tbody tr:hover, .header_nav thead tr h4:hover{
+            opacity: 0.5;
+        }
+
+        /* Estilo de los breadcrumbs */
+        .breadcrumbs {
+            background-color: #023467; /* Fondo azul oscuro */
+            padding: 10px 0 0 230px; /* Ajustado para mejor alineación */
+        }
+
+        .breadcrumbs img {
+            display: inline;
+            width: 20px; /* Puedes ajustar el tamaño aquí */
+            height: auto;
+            margin-right: 5px; /* Espaciado entre las imágenes */
+        }
+
+        .breadcrumbs_greaterthan_icon {
+            max-width: 18px;
+        }
+
+        .breadcrumbs h3 {
+            color: #FFF;
+            padding-bottom: 3px;
+            font-size: 20px;
+            display: inline;
+            margin-right: 5px;
+        }
+
+        /* Estilo del form_logIn */
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            display: inline-block;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            color: black;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #000;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .social-login button {
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 48%; /* Se mantuvo el 48% para permitir el espaciado */
+        }
+
+        #reCaptcha {
+            margin-top: 20px;
+            text-align: left; /* Alineación a la izquierda */
+        }
+
+        /* Estilo del footer */
+        footer {
+            height: 210px;
+            background-color: rgba(0, 39, 78, 1);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 155px; /* Considere usar 'justify-content: space-between;' para mayor flexibilidad */
+        }
+
+        footer ul {
+            list-style: none; /* Quita los puntos de lista */
+            padding: 0;
+            margin: 0;
+        }
+
+        footer h3 {
+            font-weight: bolder;
+            font-size: 16px;
+            color: #57B300;
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+
+        footer li {
+            margin-bottom: 10px;
+        }
+
+        .hidden {
+            display: none; /* Se eliminó la duplicación de .hidden */
+        }
+
+        /* Media Queries */
+        @media (max-width: 800px) {
+            header, article, footer, body {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Estilo del header */
+            .hamburger-menu,
+            .logo {
+                padding-left: 0;
+            }
+
+            .logo {
+                padding-left: 0;
+                margin-bottom: 0;
+            }
+
+            header a img {
+                max-width: 50px;
+                margin: 12px;
+            }
+
+            /* Estilo del navegador */
+            .header_nav {
+                margin-left: 0; /* Cambiado para alineación */
+                height: auto; /* Ajustado para flexibilidad */
+            }
+
+            .user_info div h3 {
+                font-size: 15px;
+            }
+
+            .header_nav h3,
+            .user_info h2 {
+                font-size: 20px;
+            }
+
+            .nav_category_icon {
+                width: 30px;
+                height: 30px;
+            }
+
+            /* Estilo de los breadcrumbs */
+            .breadcrumbs {
+                padding: 10px 0 0 10px; /* Ajustado para mejor alineación */
+            }
+
+            footer {
+                padding-top: 30px;
+                display: grid;
+                justify-content: center;
+                gap: 0; /* Cambiado para mejor espaciado */
+            }
+
+            footer a:hover {
+                opacity: 0.5; /* Consistencia en el efecto hover */
+            }
+
+            footer ul {
+                text-align: center; /* Centrar los textos */
+            }
+
+            footer h3 {
+                font-size: 25px;
+                margin: 0;
+                padding: 0;
+            }
+            
+            footer a {
+                font-family: 'Nunito', sans-serif; /* Ajustado para mantener consistencia */
+                text-decoration: none;
+                color: #FFFFFF;
+            }
+            
+            footer li {
+                display: none; /* Considerar eliminar si no es necesario */
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- cabeza de pagina -->

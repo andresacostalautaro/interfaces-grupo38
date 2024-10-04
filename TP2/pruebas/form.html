@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
+</head>
+<body style="display: flex;" >
+    <section class="form-container">
+        <form action="" id="login-form">
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="Ingrese su correo electrónico">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" placeholder="Ingrese su contraseña">
+            <h4>¿Aún no tienes una cuenta? <a href="">Registrarme</a></h4>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+    </section>
+    <section class="form-container">
+        <form action="" class="form-container" id="login-form">
+            <label for="">Nombre <span>*</span></label>
+            <input type="text" name="firstname" id="firstname" placeholder="Ingrese su nombre">
+            <label for="">Apellido<span>*</span></label>
+            <input type="text" name="lastname" id="lastname" placeholder="Ingrese su apellido">
+            <label for="">Nombre de Usuario<span>*</span></label>
+            <input type="text" name="username" id="username" placeholder="ingrese un nombre de usuario">
+            <label for="">Nacimiento<span>*</span></label>
+            <input type="date" name="birth" id="birth-date">
+            <label for="">Email<span>*</span></label>
+            <input type="email" name="email" id="email" placeholder="Ingrese su correo electrónico">
+            <label for="">Contraseña<span>*</span></label>
+            <input type="password" name="password-1" id="password-1" placeholder="Ingrese una contraseña">
+            <input type="password" name="password-2" id="password-2" placeholder="Repita su contraseña">
+            <button type="submit">Registrarse</button>
+        </form>
+    </section>
+    <script>
+
+        //funcion para iniciar sesion
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Obtener valores del formulario
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            // Verificar que los campos no estén vacíos
+            if (email && password) {
+                // Realizar una petición al archivo db.json
+                fetch('db.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Buscar el usuario en la base de datos
+                        const user = data.users.find(user => user.email === email || user.username === email);
+
+                        if (user) {
+                            // Verificar la contraseña del usuario
+                            if (user.password === password) {
+                                // Llamar a la función que inicia la sesión
+                                SesionInicieted(user);  // Usar la variable user encontrada
+                                console.log('Login successful');
+                            } else {
+                                // Si la contraseña es incorrecta, mostrar advertencia en el campo de contraseña
+                                document.getElementById('password').classList.add('input-warning');
+                                console.log('Incorrect password');
+                            }
+                        } else {
+                            // Si no se encuentra el usuario, mostrar advertencia en el campo de email
+                            document.getElementById('email').classList.add('input-warning');
+                            console.log('User not found');
+                        }
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+
+            } else {
+                // Mostrar un mensaje si los campos están vacíos
+                console.log('Please fill in all fields');
+            }
+        });
+
+
+        //funcion para registrarse:
+        function validateUsername(username) {
+            const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            return regex.test(username);
+        }
+
+        // Función para validar si el usuario tiene más de 13 años
+        function validateAge(birthDate) {
+            const currentDate = new Date();
+            const birth = new Date(birthDate);
+            const age = currentDate.getFullYear() - birth.getFullYear();
+            const month = currentDate.getMonth() - birth.getMonth();
+
+            if (month < 0 || (month === 0 && currentDate.getDate() < birth.getDate())) {
+                return age - 1;
+            }
+            return age;
+        }
+
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Obtener valores del formulario
+            const name = document.getElementById('firstname').value.trim();
+            const lastname = document.getElementById('lastname').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const birthDate = document.getElementById('birth-date').value;
+            const email = document.getElementById('email').value.trim();
+            const password1 = document.getElementById('password-1').value.trim();
+            const password2 = document.getElementById('password-2').value.trim();
+
+            let isValid = true;
+
+            // Validar si las contraseñas coinciden
+            if (password1 !== password2) {
+                document.getElementById('password-2').classList.add('input-warning');
+                console.log('Las contraseñas no coinciden');
+                isValid = false;
+            }
+
+            // Validar si el nombre de usuario es válido
+            if (!validateUsername(username)) {
+                document.getElementById('username').classList.add('input-warning');
+                console.log('El nombre de usuario debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo');
+                isValid = false;
+            }
+
+            // Validar si el usuario tiene más de 13 años
+            if (validateAge(birthDate) < 13) {
+                document.getElementById('birth-date').classList.add('input-warning');
+                console.log('Debes ser mayor de 13 años para registrarte');
+                isValid = false;
+            }
+
+            // Verificar si el email o el nombre de usuario ya existen en la base de datos
+            if (isValid) {
+                fetch('users.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const existingUser = data.users.find(user => user.username === username);
+                        const existingEmail = data.users.find(user => user.email === email);
+
+                        if (existingUser) {
+                            document.getElementById('username').classList.add('input-warning');
+                            console.log('El nombre de usuario ya está en uso');
+                            isValid = false;
+                        }
+
+                        if (existingEmail) {
+                            document.getElementById('email').classList.add('input-warning');
+                            console.log('El correo electrónico ya está en uso');
+                            isValid = false;
+                        }
+
+                        if (isValid) {
+                            // Crear objeto de nuevo usuario
+                            const newUser = {
+                                name: name,
+                                lastname: lastname,
+                                username: username,
+                                birthDate: birthDate,
+                                email: email,
+                                password: password1
+                            };
+
+                            // Agregar nuevo usuario a users.json
+                            data.users.push(newUser);
+
+                            fetch('users.json', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(data)
+                            })
+                            .then(() => console.log('Usuario registrado correctamente'))
+                            .catch(error => console.error('Error al registrar el usuario:', error));
+                        }
+                    })
+                    .catch(error => console.error('Error al cargar los datos:', error));
+            }
+        });
+    </script>
+</body>
+</html>
