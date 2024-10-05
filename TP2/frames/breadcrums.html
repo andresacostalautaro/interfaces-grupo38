@@ -1,0 +1,23 @@
+<div id="breadcrumbs" class="breadcrumbs">
+    <!-- default  H >  -->
+    <img src="assets/icons/breadcrums-home.svg" alt="house" class="breadcrumbs_home_icon">
+    <img src="assets/icons/breadcrums-greater-than.svg" alt=">" class="breadcrumbs_greaterthan_icon">
+    <!-- direccion dinamica -->
+    <h3 id="bcs_content">default</h3>
+    <script>
+        // Funcionalidad del Breadcrumbs, cambia a partir del String(palabra) dado ==>
+        function setBreadcrumbs(palabra) {
+            const bcsContent = document.getElementById("bcs_content");
+            if (palabra.toLowerCase() === "home" || palabra.toLowerCase() === "login" || palabra.toLowerCase() === "sign up" || palabra.toLowerCase() === "log in") {
+                bcsContent.innerHTML = `<h3>${palabra}</h3>`;
+            } else {
+                bcsContent.innerHTML = `
+                    <h3>Categoria</h3>
+                    <img src="assets/icons/breadcrums-greater-than.svg" alt=">" class="breadcrumbs_greaterthan_icon">
+                    <h3>${palabra}</h3>
+                `;
+            }
+        }
+        window.setBreadcrumbs = setBreadcrumbs;// <== Funcionalidad del Breadcrumbs
+    </script>
+</div>
