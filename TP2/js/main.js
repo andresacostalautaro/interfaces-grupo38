@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Cargar el header
-    fetch('frames/header.html')
+    let headerLoaded = fetch('frames/header.html')
     .then(response => response.text())
     .then(data => {
+        console.log("cargando header...");
         const header = document.getElementById('header');
         header.innerHTML = data;
 
@@ -11,38 +12,50 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(error => console.error('Error fetching header:', error));
 
-    //Cargar Home Page
-    cargarHomePage();
-
-    // Cargar el footer
-    fetch('frames/footer.html')
+    // Cargar los breadcrumbs
+    let breadcrumbsLoaded = fetch('frames/breadcrums.html')
     .then(response => response.text())
     .then(data => {
+        const brms = document.getElementById('breadcrumbs');
+        brms.innerHTML = data;
+        console.log("breadcrums > DEFAULT....");
+    })
+    .catch(error => console.error('Error fetching breadcrums:', error));
+
+    // Cargar el footer
+    let footerLoaded = fetch('frames/footer.html')
+    .then(response => response.text())
+    .then(data => {
+        console.log("cargando footer...");
         const footer = document.getElementById('footer');
         footer.innerHTML = data;
     })
     .catch(error => console.error('Error fetching footer:', error));
+
+    // Usamos Promise.all para esperar a que todas las promesas de fetch se resuelvan
+    Promise.all([headerLoaded, breadcrumbsLoaded, footerLoaded])
+    .then(() => {
+        console.log("Todos los fetches han terminado. Cargando la página principal...");
+        // Cargar Home Page solo después de que todos los fetch hayan terminado
+        cargarHomePage();
+    })
+    .catch(error => console.error('Error en la carga de recursos:', error));
 });
 
 function cargarHomePage() {
-    const page = document.getElementById('page_content');
+    console.log("cargando home page....");
 
-    fetch('frames/breadcrums.html')
+    setBreadcrumbs("Home");
+    console.log("breadcrums > HOME....");
+
+    /*fetch('frames/game-corousel-main.html')
     .then(response => response.text())
     .then(data => {
-        page.appendChild(data);
-        setBreadcrumbs("Home");
+        page.innerHTML =  data;
     })
-    .catch(error => console.error('Error fetching footer:', error));
+    .catch(error => console.error('Error fetching footer:', error));*/
 
-    fetch('frames/game-corousel-main.html')
-    .then(response => response.text())
-    .then(data => {
-        page.appendChild(data);
-    })
-    .catch(error => console.error('Error fetching footer:', error));
-
-    fetch('data/games.json')
+    /*fetch('data/games.json')
     .then(response => response.json())
     .then(data => {
         const games = data;
@@ -58,7 +71,7 @@ function cargarHomePage() {
     // Imprimir el número total de juegos
     console.log('Total games:', count);
     })
-    .catch(error => console.error('Error fetching footer:', error));
+    .catch(error => console.error('Error fetching footer:', error));*/
 }
 
 var isMenuVisible = false;
@@ -110,12 +123,10 @@ function getSignInForm() {
     fetch('frames/form-signIn.html')
         .then(response => response.text())
         .then(data => {
-            console.log("form-signIn.html fetch");
-
             page.innerHTML = '';  // Limpiar antes de cargar el nuevo contenido
             page.innerHTML = data;  // Cargar el formulario
-            setBreadcrumbs("log in");
-            console.log("Formulario cargado");
+            setBreadcrumbs("sign in");
+            console.log("breadcrums > sign in.");
 
             // Asegúrate de que el DOM haya sido actualizado antes de agregar el evento
             const closeButton = document.getElementById('close-form');
@@ -137,21 +148,17 @@ function getSignInForm() {
 function getSignUpForm() {
     const page = document.getElementById('page_content');    
 
-    console.log("ejecutandose funcion sign up form");
     fetch('frames/form-signUp.html')
     .then(response => response.text())
     .then(data => {
-        console.log("form-signUp.html fetch");
-
         page.innerHTML = '';  // Limpiar antes de cargar el nuevo contenido
         page.innerHTML = data;  // Cargar el formulario
-        setBreadcrumbs("log in");
-        console.log("Formulario cargado");
+        setBreadcrumbs("sign up");
+        console.log("breadcrums > sign up.");
 
         // Asegúrate de que el DOM haya sido actualizado antes de agregar el evento
         const closeButton = document.getElementById('close-form');
         if (closeButton) {
-            console.log("Botón close-form encontrado");
             closeButton.addEventListener('click', function(event) {
                 console.log("Botón clickeado, cerrando formulario...");
                 document.getElementById('form').classList.add('hidden');
