@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let breadcrumbsLoaded = fetch('frames/breadcrums.html')
     .then(response => response.text())
     .then(data => {
+        console.log("cargando breadcrums...");
         const brms = document.getElementById('breadcrumbs');
         brms.innerHTML = data;
-        console.log("breadcrums > DEFAULT....");
     })
     .catch(error => console.error('Error fetching breadcrums:', error));
 
@@ -26,16 +26,16 @@ document.addEventListener('DOMContentLoaded', function() {
     let footerLoaded = fetch('frames/footer.html')
     .then(response => response.text())
     .then(data => {
-        console.log("cargando footer...");
         const footer = document.getElementById('footer');
         footer.innerHTML = data;
+        console.log("cargando footer...");
     })
     .catch(error => console.error('Error fetching footer:', error));
 
     // Usamos Promise.all para esperar a que todas las promesas de fetch se resuelvan
     Promise.all([headerLoaded, breadcrumbsLoaded, footerLoaded])
     .then(() => {
-        console.log("Todos los fetches han terminado. Cargando la página principal...");
+        console.log("Cargando la página principal...");
         // Cargar Home Page solo después de que todos los fetch hayan terminado
         cargarHomePage();
     })
@@ -137,6 +137,7 @@ function getSignInForm() {
                     document.getElementById('form').classList.add('hidden');
                     event.preventDefault();
                     document.getElementById('page_content').innerHTML = ''; // Vacía el contenido para cerrar el formulario
+                    cargarHomePage();
                 });
             } else {
                 console.error("No se encontró el botón close-form");
@@ -164,6 +165,7 @@ function getSignUpForm() {
                 document.getElementById('form').classList.add('hidden');
                 event.preventDefault();
                 document.getElementById('page_content').innerHTML = ''; // Vacía el contenido para cerrar el formulario
+                cargarHomePage();
             });
         } else {
             console.error("No se encontró el botón close-form");

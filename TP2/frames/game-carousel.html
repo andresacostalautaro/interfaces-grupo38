@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel pruebas</title>
+    <style>
+        /* style.css */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: aqua;
+        }
+        .carousel-main-container {
+            display: flex;
+            width: 1020px;
+            height: 251px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-container li, .carousel-main-container li {
+            list-style: none;
+        }
+
+        /* Estilo para la imagen principal grande */
+        .carousel-main {
+            width: 50%;
+            height: 100%;
+        }
+
+        .carousel-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Contenedor de imágenes pequeñas (2 arriba y 2 abajo) */
+        .carousel-small-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 50%; /* 50% para el contenedor de las 4 pequeñas */
+            height: 100%;
+            gap: 5px; /* Espacio entre las imágenes */
+            justify-content: center;
+            align-items: center;
+        }
+        .carousel-main-container li {
+            width: 400px;
+        }
+
+        .carousel-small-container img {
+            width: 49%;
+            height: 49%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .carousel-container {
+            background: none;
+            width: 1017px;
+            height: 139px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel {
+            transition: transform 0.5s ease-in-out;
+            display: flex;
+        }
+
+        .carousel-item {
+            margin-left: 0.5%;
+            margin-right: 0.5%;
+            text-decoration: none;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        img:hover {
+            opacity: 50%;
+            background-color: black;
+        }
+
+        .carousel-item img {
+            width: 202px;
+            height: 113px;
+            border-radius: 10px;
+        }
+
+        .carousel-button {
+            height: 100%;
+            width: 35px;
+            position: absolute; /* Posiciona las flechas sobre el carrusel */
+            top: 50%;
+            transform: translateY(-50%); /* Centra verticalmente */
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 70%;
+            border: none;
+            transition: 0.2s;
+            border-radius: 5px;
+        }
+        .carousel-button:hover {
+            cursor: pointer;
+            opacity: 100% !important;
+        }
+
+        .prev {
+            left: 10px; /* Posición de la flecha izquierda */
+        }
+
+        .next {
+            right: 10px; /* Posición de la flecha derecha */
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel-main-container">
+        <ul class="carousel" id="carousel-main">
+            <!-- aqui se insertan <li> con la funcion loadMainCarousel()-->
+        </ul>
+        <img src="arrow-left.svg" class="carousel-button prev" onclick="moveMainSlide(-1)">
+        <img src="arrow-right.svg" class="carousel-button next" onclick="moveMainSlide(1)">
+    </div>
+
+    <div class="carousel-container">
+        <ul class="carousel" id="carousel">
+            <!-- aqui se insertan <li> con la funcion loadCarousel()-->
+        </ul>
+        <img src="arrow-left.svg" class="carousel-button prev" onclick="moveSlide(-1, '.carousel-container .carousel')">
+        <img src="arrow-right.svg" class="carousel-button next" onclick="moveSlide(1, '.carousel-container .carousel')">
+    </div>
+
+    <script src="category.js">
+        async function getGames() {
+            try {
+                const response = await fetch('games.json');
+                const data = await response.json();
+                console.log('se llego a getGames()');
+                return data;
+            } catch (error) {
+                console.error('Error fetching games:', error);
+            }
+        }
+        window.getGames = getGames;
+    </script>
+
+    <script>
+        // Variable para controlar el carrusel principal
+        let currentMainSlide = 0;
+        function moveMainSlide(direction) {
+            const slides = document.querySelectorAll('.carousel-main-container .carousel-main');
+            const totalSlides = slides.length;
+
+            // Actualizar índice de la diapositiva actual
+            currentMainSlide += direction;
+
+            // Lógica de bucle infinito
+            if (currentMainSlide < 0) {
+                currentMainSlide = totalSlides - 1;
+            } else if (currentMainSlide >= totalSlides) {
+                currentMainSlide = 0;
+            }
+
+            // Mover el carrusel por porcentaje
+            const carousel = document.querySelector('.carousel-main-container .carousel');
+            carousel.style.transform = `translateX(-${(currentMainSlide * 100) / 4}%)`; // 4 items mostrados a la vez
+        }
+
+        // Variable para controlar el carrusel de elementos
+        let currentSlide = 0;
+        function moveSlide(direction, carouselSelector) {
+            const slides = document.querySelectorAll(carouselSelector + ' .carousel-item');
+            const totalSlides = slides.length;
+
+            // Actualizar índice de la diapositiva actual
+            currentSlide += direction;
+
+            // Lógica de bucle infinito
+            if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+            } else if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            }
+
+            // Mover el carrusel por porcentaje
+            const carousel = document.querySelector(carouselSelector);
+            carousel.style.transform = `translateX(-${(currentSlide * 100) / 4}%)`; // 4 items mostrados a la vez
+        }
+
+        // Mover automáticamente el carrusel principal cada 5 segundos
+        setInterval(() => moveMainSlide(1), 5000);
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMainCarousel();
+            loadCarousel();
+        });
+
+        async function loadMainCarousel() {
+            const games = await getGames(); // Cargar juegos
+            if (!games) return;
+
+            const carousel = document.getElementById('carousel-main');
+            let i = 0; // Contador para juegos
+            let tempG = []; // Array temporal para imágenes pequeñas
+
+            // Iterar sobre los juegos
+            games.forEach((game, index) => {
+                // Agregar las imágenes pequeñas al array temporal
+                tempG.push(game);
+                
+                // Cada 3 juegos, crear el carrusel principal
+                if (tempG.length === 5) {
+                    // Crear el elemento principal
+                    const big = document.createElement('li');
+                    big.className = 'carousel-main';
+                    big.innerHTML = `<img src="${tempG[0].caps[1]}" alt="${tempG[0].title}">`; // Imagen principal
+                    carousel.appendChild(big);
+
+                    // Crear el contenedor de imágenes pequeñas
+                    const small = document.createElement('li');
+                    small.className = 'carousel-small-container';
+                    small.innerHTML = `
+                        <img src="${tempG[1].caps[0]}" alt="${tempG[1].title}">
+                        <img src="${tempG[2].caps[0]}" alt="${tempG[2].title}">
+                        <img src="${tempG[3].caps[0]}" alt="${tempG[3].title}">
+                        <img src="${tempG[4].caps[0]}" alt="${tempG[4].title}">
+                    `;
+                    carousel.appendChild(small);
+
+                    // Reiniciar el contador y el array temporal
+                    tempG = [];
+                }
+            });
+        }
+
+        async function loadCarousel() {
+            const games = await getGames(); // Cargar juegos
+            if (!games) return;
+            
+            const carousel = document.getElementById('carousel');
+
+            // Iterar sobre los juegos
+            games.forEach(game => {
+                const li = document.createElement('li');
+                li.className = 'carousel-item'; // Clase para los ítems
+                li.innerHTML = `<img src="${game.caps[0]}" alt="${game.title}">`; // Cargar la imagen
+                carousel.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
