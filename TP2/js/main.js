@@ -42,36 +42,22 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => console.error('Error en la carga de recursos:', error));
 });
 
-function cargarHomePage() {
+async function cargarHomePage() {
     console.log("cargando home page....");
 
     setBreadcrumbs("Home");
     console.log("breadcrums > HOME....");
 
-    /*fetch('frames/game-corousel-main.html')
+    const games = await getGames(); // Cargar juegos
+    if (!games) return;
+    fetch('frames/carousel.html')
     .then(response => response.text())
     .then(data => {
-        page.innerHTML =  data;
-    })
-    .catch(error => console.error('Error fetching footer:', error));*/
-
-    /*fetch('data/games.json')
-    .then(response => response.json())
-    .then(data => {
-        const games = data;
-        
-        // Contar objetos en el JSON
-        let count = 0;
-        for (let i = 0; i < games.length; i++) {
-            count++;
-        }
-
-        
-
-    // Imprimir el número total de juegos
-    console.log('Total games:', count);
-    })
-    .catch(error => console.error('Error fetching footer:', error));*/
+        const page = document.getElementById('page_content');
+        page.innerHTML = data;
+        console.log("cargando carousel 50%...");
+        loadCarousel(games);
+    });
 }
 
 var isMenuVisible = false;
@@ -173,6 +159,45 @@ function getSignUpForm() {
     })
     .catch(error => console.error('Error fetching data:', error));
 }
+// Funciones del carrusel
+async function loadCarousel(games) {
+    
+    const carousel = document.getElementById('carousel');
+    games.forEach(game => {
+        const li = document.createElement('li');
+        li.className = 'carousel-item';
+        li.innerHTML = `
+            <img src="assets/images/loading.jpg" alt="${game.title}">
+            <div class="overlay">
+                <h3>${game.title}</h3>
+                <div>
+                    <h4>$${game.price}</h4>
+                    <img src="assets/images/card-1.png">
+                </div>
+            </div>
+        `;
+        carousel.appendChild(li);
+    });
+}
 
+let currentSlide = 0;
+function moveSlide(direction, carouselSelector) {
+    const slides = document.querySelectorAll(`${carouselSelector} .carousel-item`);
+    const totalSlides = slides.length;
+    const carousel = document.querySelector(carouselSelector);
+
+    currentSlide += direction;
+
+    if (currentSlide < 0) {
+        currentSlide = totalSlides - 1;
+    } else if (currentSlide >= totalSlides) {
+        currentSlide = 0;
+    }
+
+    const slideWidth = slides[currentSlide].clientWidth;
+    const position = -currentSlide * slideWidth;
+
+    carousel.style.transform = `translateX(${position}px)`;
+}
 
 

@@ -28,3 +28,75 @@
         <li><a href="">Foro</a></li>
     </ul>
 </footer>
+<style>
+    /* Estilo del footer */
+    footer {
+        height: 100%;
+        background-color: rgba(0, 39, 78, 1);
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 155px; /* Considere usar 'justify-content: space-between;' para mayor flexibilidad */
+    }
+
+    footer ul {
+        list-style: none; /* Quita los puntos de lista */
+        padding: 0;
+        margin: 0;
+    }
+
+    footer h3 {
+        font-weight: bolder;
+        font-size: 16px;
+        color: #57B300;
+    }
+
+    footer a {
+        text-decoration: none;
+        color: #FFFFFF;
+    }
+
+    footer li {
+        margin-bottom: 10px;
+    }
+
+    /* Media Queries */
+    @media (max-width: 600px) {
+        footer {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        footer {
+            padding-top: 30px;
+            display: grid;
+            justify-content: center;
+            gap: 0; /* Cambiado para mejor espaciado */
+        }
+
+        footer a:hover {
+            opacity: 0.5; /* Consistencia en el efecto hover */
+        }
+
+        footer ul {
+            text-align: center; /* Centrar los textos */
+        }
+
+        footer h3 {
+            font-size: 25px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        footer a {
+            font-family: 'Nunito', sans-serif; /* Ajustado para mantener consistencia */
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+        
+        footer li {
+            display: none; /* Considerar eliminar si no es necesario */
+        }
+    }
+</style>

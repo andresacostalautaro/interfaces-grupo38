@@ -17,4 +17,111 @@
         <h4>¿Ya tienes cuenta? <a href="javascript:void(0);" id="sign-in">Iniciar Sesión</a></h4>
         <button type="submit">Registrarse</button>
     </form>
+    <style>
+        .form-container {
+            width: 450px;
+            height: fit-content;
+            color: black;
+            background-color: #fff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container form img {
+            position: absolute; 
+            width: 25px; 
+            padding: 0 !important; 
+            margin: 0 !important; 
+            top: 3%; right: 3%; 
+            opacity: 50%;
+        }
+        .form-container form img:hover {
+            opacity: 100%;
+            cursor: pointer;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centra horizontalmente los inputs y labels */
+            gap: 15px;
+            width: 100%; /* Asegura que el formulario ocupe todo el ancho disponible */
+            padding: 5% 0 5% 0 !important;
+        }
+
+        .form-container label {
+            font-size: 14px;
+            color: #333;
+            text-align: left;
+            width: 85%;
+        }
+
+        .form-container label span {
+            color: red;
+        }
+        .form-container label span:hover {
+            cursor: pointer;
+        }
+
+        .form-container form input {
+            padding: 10px !important;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            width: 85%;
+            margin: 0 auto; /* Centra el input horizontalmente */
+        }
+
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .form-container h4 {
+            font-weight: lighter;
+        }
+
+        .form-container button {
+            font-display: grid;
+            background-color: #2C2C2C;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 60%;
+            height: 40px;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .input-warning {
+            border-color: rgb(162, 55, 55) !important;
+        }
+
+        /* Media Queries */
+        @media (max-width: 600px) {
+            .form-container {
+                width: 90%;
+                max-width: 90%; /* Añade un margen para evitar que toque los bordes */
+            }
+
+            .form-container form input,
+            .form-container label {
+                width: 80%; /* Inputs y etiquetas ocupan el 100% del ancho disponible */
+            }
+
+            .form-container button {
+                width: 80%; /* Botón más ancho en pantallas pequeñas */
+            }
+        }
+    </style>
 </section>"
