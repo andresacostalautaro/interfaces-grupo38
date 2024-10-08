@@ -1,0 +1,862 @@
+[
+    {
+        "categoryTitle": "Sugerencias",
+        "games": [
+            {
+                "title": "4 en linea: Mortal Kombat Edition",
+                "image": "./assets/MK.png",
+                "price": 0
+            },
+            {
+                "title": "World Z Defense - Zombie Defense",
+                "image": "https://images.crazygames.com/world-z-defense---zombie-defense_16x9/20241004060947/world-z-defense---zombie-defense_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Xtreme City Drifting",
+                "image": "https://images.crazygames.com/xtreme-city-drifting_16x9/20240927040656/xtreme-city-drifting_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 11.49
+            },
+            {
+                "title": "Herochero: Enemy Slayer",
+                "image": "https://images.crazygames.com/herochero-enemy-slayer_16x9/20240919070458/herochero-enemy-slayer_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 10.99
+            },
+            {
+                "title": "Idle Monster Slayer",
+                "image": "https://images.crazygames.com/idle-monster-slayer_16x9/20240925055916/idle-monster-slayer_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "10x10! Arabian Nights",
+                "image": "https://images.crazygames.com/10x10-arabian-nights_16x9/20240917040704/10x10-arabian-nights_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 10.98
+            },
+            {
+                "title": "Lines",
+                "image": "https://images.crazygames.com/lines-tpx_16x9/20241001051605/lines-tpx_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 42.56
+            },
+            {
+                "title": "EvoWars.io",
+                "image": "https://images.crazygames.com/games/evowarsio/cover_16x9-1727684263984.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 34.63
+            },
+            {
+                "title": "Mahjong Connect (Legacy)",
+                "image": "https://images.crazygames.com/games/mahjong-connect-1/cover-1653404969294.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 16.49
+            },
+            {
+                "title": "Sandbox City",
+                "image": "https://images.crazygames.com/sandbox-city---cars-zombies-ragdolls_16x9/20231204110852/sandbox-city---cars-zombies-ragdolls_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 34.79
+            },
+            {
+                "title": "AOD - Art Of Defense",
+                "image": "https://images.crazygames.com/aod---art-of-defense_16x9/20240909022922/aod---art-of-defense_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "CubeRealm.io",
+                "image": "https://images.crazygames.com/cuberealm-io_16x9/20240823093148/cuberealm-io_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 13.74
+            },
+            {
+                "title": "BodyCamera Shooter",
+                "image": "https://images.crazygames.com/bodycamera-shooter_16x9/20240805083830/bodycamera-shooter_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Krampus",
+                "image": "https://images.crazygames.com/krampus/20230424073300/krampus-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": "32.77"
+            },
+            {
+                "title": "Bear Haven",
+                "image": "https://images.crazygames.com/bear-haven/20220714074451/bear-haven-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": "39.66"
+            }
+        ]
+    },
+    {
+        "categoryTitle": "acción",
+        "games": [
+            {
+                "title": "Stickman Destruction 3 Heroes",
+                "image": "https://images.crazygames.com/stickman-destruction-3-heroes/20210311140018/stickman-destruction-3-heroes-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Age of Tanks Warriors: TD War",
+                "image": "https://images.crazygames.com/age-of-tanks-warriors-td-war_16x9/20240424032706/age-of-tanks-warriors-td-war_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 22.66
+            },
+            {
+                "title": "World Z Defense - Zombie Defense",
+                "image": "https://images.crazygames.com/world-z-defense---zombie-defense_16x9/20241004060947/world-z-defense---zombie-defense_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Stickman Battle Fight Warriors",
+                "image": "https://images.crazygames.com/stickman-supreme-duelist-2/20230314082715/stickman-supreme-duelist-2-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Sandbox City",
+                "image": "https://images.crazygames.com/sandbox-city---cars-zombies-ragdolls_16x9/20231204110852/sandbox-city---cars-zombies-ragdolls_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 30.49
+            },
+            {
+                "title": "House of Hazards",
+                "image": "https://images.crazygames.com/house-of-hazards/20200910082214/house-of-hazards-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "BLOCOPS",
+                "image": "https://images.crazygames.com/blocops_16x9/20240923074540/blocops_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 10.45
+            },
+            {
+                "title": "Getaway Shootout",
+                "image": "https://images.crazygames.com/getaway-shootout_16x9/20240704032731/getaway-shootout_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Ninja Parkour Multiplayer",
+                "image": "https://images.crazygames.com/ninja-parkour-multiplayer_16x9/20240603075957/ninja-parkour-multiplayer_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Stickman WW2",
+                "image": "https://images.crazygames.com/stickman-ww2/20220614142131/stickman-ww2-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Funny Battle Simulator",
+                "image": "https://images.crazygames.com/funny-battle-simulator/20221031152054/funny-battle-simulator-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 40.00
+            },
+            {
+                "title": "Gladiator Fights",
+                "image": "https://images.crazygames.com/gladiator-fights_16x9/20240919080622/gladiator-fights_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 24.80
+            }
+        ]
+    },
+    {
+        "categoryTitle": "autos",
+        "games": [
+            {
+                "title": "Racing Limits",
+                "image": "https://images.crazygames.com/racing-limits_16x9/20231106035424/racing-limits_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "PolyTrack",
+                "image": "https://images.crazygames.com/polytrack_16x9/20240814074159/polytrack_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 27.23
+            },
+            {
+                "title": "Doodle Road",
+                "image": "https://images.crazygames.com/doodle-road_16x9/20240912101139/doodle-road_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 20.69
+            },
+            {
+                "title": "Rally Racer Dirt",
+                "image": "https://images.crazygames.com/rally-racer-dirt_16x9/20240514035838/rally-racer-dirt_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Mr. Racer",
+                "image": "https://images.crazygames.com/mr-racer---car-racing_16x9/20231227161349/mr-racer---car-racing_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 16.79
+            },
+            {
+                "title": "Xtreme City Drifting",
+                "image": "https://images.crazygames.com/xtreme-city-drifting_16x9/20240927040656/xtreme-city-drifting_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 10.99
+            },
+            {
+                "title": "Bus Driving Simulator",
+                "image": "https://images.crazygames.com/bus-driving-simulator_16x9/20240830032832/bus-driving-simulator_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Drift Hunters",
+                "image": "https://images.crazygames.com/games/drift-hunters/cover-1656950639575.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Drift Boss",
+                "image": "https://images.crazygames.com/games/drift-boss/cover-1626884625264.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 42.89
+            },
+            {
+                "title": "Sandbox City",
+                "image": "https://images.crazygames.com/sandbox-city---cars-zombies-ragdolls_16x9/20231204110852/sandbox-city---cars-zombies-ragdolls_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Crazy Motorcycle",
+                "image": "https://images.crazygames.com/crazy-motorcycle_16x9/20241001112804/crazy-motorcycle_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 31.74
+            },
+            {
+                "title": "Merge & Construct",
+                "image": "https://images.crazygames.com/merge-construct_16x9/20240219124508/merge-construct_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 0
+            }
+        ]
+    },
+    {
+        "categoryTitle": "aventuras",
+        "games": [
+            {
+                "title": "Battle Arena",
+                "image": "https://images.crazygames.com/battle-arena_16x9/20240523085305/battle-arena_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 24.45
+            },
+            {
+                "title": "Obby: Legendary Dragon",
+                "image": "https://images.crazygames.com/obby-tame-the-legendary-dragon_16x9/20240919062302/obby-tame-the-legendary-dragon_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Cube Stories: Escape",
+                "image": "https://images.crazygames.com/cube-stories-escape_16x9/20240912152122/cube-stories-escape_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "From the Bunker",
+                "image": "https://images.crazygames.com/escape-from-the-bunker-survival_16x9/20240919111703/escape-from-the-bunker-survival_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Daily Room Escape",
+                "image": "https://images.crazygames.com/daily-room-escape_16x9/20240214031258/daily-room-escape_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Money Printer",
+                "image": "https://images.crazygames.com/money-printer_16x9/20240917021940/money-printer_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 42.23
+            },
+            {
+                "title": "Obby: +1 to Spaceflight Altitude",
+                "image": "https://images.crazygames.com/obby-1-to-spaceflight-altitude_16x9/20240903082318/obby-1-to-spaceflight-altitude_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Aground",
+                "image": "https://images.crazygames.com/aground.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Three Goblets",
+                "image": "https://images.crazygames.com/three-goblets/20220225175310/three-goblets-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 27.41
+            },
+            {
+                "title": "Dead Land: Survival",
+                "image": "https://images.crazygames.com/dead-land-survival_16x9/20230926102002/dead-land-survival_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 43.71
+            },
+            {
+                "title": "Noob vs Pro: Challenge",
+                "image": "https://images.crazygames.com/noob-vs-pro-challenge-xxy_16x9/20240918073748/noob-vs-pro-challenge-xxy_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 45.00
+            },
+            {
+                "title": "Game Cafe Escape",
+                "image": "https://images.crazygames.com/game-cafe-escape/20210609123045/game-cafe-escape-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 38.39
+            }
+        ]
+    },
+    {
+        "categoryTitle": "baloncesto",
+        "games": [
+            {
+                "title": "Basket Random",
+                "image": "https://images.crazygames.com/basket-random_16x9/20240617090207/basket-random_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Basketball Stars",
+                "image": "https://images.crazygames.com/games/basketball-stars-2019/cover-1583231506155.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 30.46
+            },
+            {
+                "title": "Tap-Tap Shots",
+                "image": "https://images.crazygames.com/games/tap-tap-shots/cover-1655202548222.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "BasketBros",
+                "image": "https://images.crazygames.com/games/basketbros/cover-1586360611838.jpg?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Ragdoll Throw Challenge",
+                "image": "https://images.crazygames.com/ragdoll-throw-challenge_16x9/20240520080923/ragdoll-throw-challenge_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Basketball Skills",
+                "image": "https://images.crazygames.com/games/basketball-skills/cover-1680036451833.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 41.58
+            },
+            {
+                "title": "Basketball Legends 2020",
+                "image": "https://images.crazygames.com/basketball-legends-2020_16x9/20231122050621/basketball-legends-2020_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Jump Up 3D",
+                "image": "https://images.crazygames.com/jump-up-3d-basketball-game_16x9/20240930101128/jump-up-3d-basketball-game_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Basket Blitz",
+                "image": "https://images.crazygames.com/basket-blitz_16x9/20240930065016/basket-blitz_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 27.72
+            },
+            {
+                "title": "GoBattles 2",
+                "image": "https://images.crazygames.com/gobattles-2--light-version-/20230414053754/gobattles-2--light-version--cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 15.92
+            },
+            {
+                "title": "Hoop World 3D",
+                "image": "https://images.crazygames.com/hoop-world-3d_16x9/20240418065301/hoop-world-3d_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 29.99
+            },
+            {
+                "title": "Basket Slam Dunk 2",
+                "image": "https://images.crazygames.com/games/basket-slam-dunk-2/thumb-1581588989893.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 12.57
+            }
+        ]
+    },
+    {
+        "categoryTitle": "cartas",
+        "games": [
+            {
+                "title": "Magic Towers Solitaire",
+                "image": "https://images.crazygames.com/magic-towers-solitaire/20200624134302/magic-towers-solitaire-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Solitaire Social",
+                "image": "https://images.crazygames.com/games/solitaire-social/thumb-1585078055716.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Card Shuffle Sort",
+                "image": "https://images.crazygames.com/card-shuffle-sort_16x9/20240827032645/card-shuffle-sort_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 33.12
+            },
+            {
+                "title": "Foono Online Multiplayer",
+                "image": "https://images.crazygames.com/foono-online-multiplayer-card-game_16x9/20231002101605/foono-online-multiplayer-card-game_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Kings and Queens Solitaire TriPeaks",
+                "image": "https://images.crazygames.com/kings-and-queens-solitaire-tripeaks_16x9/20240709032726/kings-and-queens-solitaire-tripeaks_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Pyramid Solitaire Ancient Egypt",
+                "image": "https://images.crazygames.com/pyramid-solitaire-ancient-egypt-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Solitr",
+                "image": "https://images.crazygames.com/solitrcom.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 23.91
+            },
+            {
+                "title": "Tavern Rumble: Roguelike Card",
+                "image": "https://images.crazygames.com/tavern-rumble-roguelike-card_16x9/20240430092424/tavern-rumble-roguelike-card_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 25.49
+            },
+            {
+                "title": "Flames &amp; Fortune",
+                "image": "https://images.crazygames.com/flames-fortune_16x9/20240930110439/flames-fortune_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Hearts: Classic",
+                "image": "https://images.crazygames.com/games/hearts-classic/cover-1626935362814.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 39.09
+            },
+            {
+                "title": "Whooo?",
+                "image": "https://images.crazygames.com/whooo/20220428163434/whooo-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 20.45
+            },
+            {
+                "title": "Dungeon Deck",
+                "image": "https://images.crazygames.com/dungeon-deck_16x9/20240925082141/dungeon-deck_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            }
+        ]
+    },
+    {
+        "categoryTitle": "conducir",
+        "games": [
+            {
+                "title": "PolyTrack",
+                "image": "https://images.crazygames.com/polytrack_16x9/20240814074159/polytrack_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 25.61
+            },
+            {
+                "title": "Racing Limits",
+                "image": "https://images.crazygames.com/racing-limits_16x9/20231106035424/racing-limits_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 43.36
+            },
+            {
+                "title": "Rally Racer Dirt",
+                "image": "https://images.crazygames.com/rally-racer-dirt_16x9/20240514035838/rally-racer-dirt_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Demolition Derby 3",
+                "image": "https://images.crazygames.com/demolition-derby-3_16x9/20240702032215/demolition-derby-3_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Mr. Racer",
+                "image": "https://images.crazygames.com/mr-racer---car-racing_16x9/20231227161349/mr-racer---car-racing_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Night City Racing",
+                "image": "https://images.crazygames.com/night-city-racing/20230127195620/night-city-racing-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Vehicle Masters",
+                "image": "https://images.crazygames.com/vehicle-masters_16x9/20240423041331/vehicle-masters_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 27.51
+            },
+            {
+                "title": "Moto X3M",
+                "image": "https://images.crazygames.com/games/moto-x3m/cover_16x9-1700625476572.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Xtreme Moto Mayhem",
+                "image": "https://images.crazygames.com/xtreme-moto-mayhem_16x9/20240814042133/xtreme-moto-mayhem_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Gun Racing",
+                "image": "https://images.crazygames.com/gun-racing_16x9/20240925062747/gun-racing_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 42.08
+            },
+            {
+                "title": "Bus Driving Simulator",
+                "image": "https://images.crazygames.com/bus-driving-simulator_16x9/20240830032832/bus-driving-simulator_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 5.00
+            },
+            {
+                "title": "MX Offroad Master",
+                "image": "https://images.crazygames.com/mx-offroad-master/20230206090722/mx-offroad-master-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 12.00
+            }
+        ]
+    },
+    {
+        "categoryTitle": "deportes",
+        "games": [
+            {
+                "title": "Golf Orbit",
+                "image": "https://images.crazygames.com/golf-orbit_16x9/20240620070701/golf-orbit_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "8 Ball Billiards Classic",
+                "image": "https://images.crazygames.com/8-ball-billiards-classic_16x9/20231108025958/8-ball-billiards-classic_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Crazy Flips 3D",
+                "image": "https://images.crazygames.com/games/crazy-flips-3d/cover_16x9-1717520212223.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 17.59
+            },
+            {
+                "title": "Darts Club",
+                "image": "https://images.crazygames.com/darts-club_16x9/20240910041628/darts-club_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 11.03
+            },
+            {
+                "title": "Basketball Stars",
+                "image": "https://images.crazygames.com/games/basketball-stars-2019/cover-1583231506155.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 26.3
+            },
+            {
+                "title": "Basket Random",
+                "image": "https://images.crazygames.com/basket-random_16x9/20240617090207/basket-random_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "BasketBros",
+                "image": "https://images.crazygames.com/games/basketbros/cover-1586360611838.jpg?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "The Speedy Golf",
+                "image": "https://images.crazygames.com/games/speedy-golf/cover-1588611277453.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "8 Ball Pool Billiards Multiplayer",
+                "image": "https://images.crazygames.com/8-ball-pool-billiards-multiplayer_16x9/20240826034902/8-ball-pool-billiards-multiplayer_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Tap-Tap Shots",
+                "image": "https://images.crazygames.com/games/tap-tap-shots/cover-1655202548222.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 45.6
+            },
+            {
+                "title": "Table Tennis World Tour",
+                "image": "https://images.crazygames.com/table-tennis-world-tour_16x9/20230908041108/table-tennis-world-tour_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 12.00
+            },
+            {
+                "title": "Soccer Legends 2021",
+                "image": "https://images.crazygames.com/games/soccer-legends-2021/cover-1619606990485.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 37.29
+            }
+        ]
+    },
+    {
+        "categoryTitle": "disparos",
+        "games": [
+            {
+                "title": "BuildNow GG",
+                "image": "https://images.crazygames.com/buildnow-gg/20210823164305/buildnow-gg-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Bullet Force",
+                "image": "https://images.crazygames.com/bullet-force-multiplayer_16x9/20230901083229/bullet-force-multiplayer_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Hazmob FPS: Online Shooter",
+                "image": "https://images.crazygames.com/hazmob-fps-online-shooter_16x9/20240607181337/hazmob-fps-online-shooter_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "BodyCamera Shooter",
+                "image": "https://images.crazygames.com/bodycamera-shooter_16x9/20240805083830/bodycamera-shooter_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Time Shooter 2",
+                "image": "https://images.crazygames.com/games/time-shooter-2/cover-1655215853507.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Assault Bots",
+                "image": "https://images.crazygames.com/bot-machines_16x9/20230901084058/bot-machines_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 34.58
+            },
+            {
+                "title": "Western Shooter: Battle Gun Duel",
+                "image": "https://images.crazygames.com/western-shooter-battle-gun-duel_16x9/20240828100332/western-shooter-battle-gun-duel_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 28.0
+            },
+            {
+                "title": "Funny Shooter 2",
+                "image": "https://images.crazygames.com/funny-shooter-2/20220823175815/funny-shooter-2-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 16.28
+            },
+            {
+                "title": "Forward Assault Remix",
+                "image": "https://images.crazygames.com/games/forward-assault/cover-1584185910210.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Time Shooter 3: SWAT",
+                "image": "https://images.crazygames.com/time-shooter-3-swat/20220321122622/time-shooter-3-swat-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Downtown 1930s Mafia",
+                "image": "https://images.crazygames.com/downtown-1930s-mafia_16x9/20240927023840/downtown-1930s-mafia_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 28.25
+            },
+            {
+                "title": "Mazean",
+                "image": "https://images.crazygames.com/mazean-com_16x9/20240805094407/mazean-com_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 11.24
+            }
+        ]
+    },
+    {
+        "categoryTitle": "futbol",
+        "games": [
+            {
+                "title": "CG FC 24",
+                "image": "https://images.crazygames.com/cg-fc-24_16x9/20240829044503/cg-fc-24_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Soccer Legends 2021",
+                "image": "https://images.crazygames.com/games/soccer-legends-2021/cover-1619606990485.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 24.88
+            },
+            {
+                "title": "Soccer Random",
+                "image": "https://images.crazygames.com/soccer-random/20230126093840/soccer-random-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 21.62
+            },
+            {
+                "title": "Free Kick Classic (3D Free Kick)",
+                "image": "https://images.crazygames.com/free-kick-classic/20230525025304/free-kick-classic-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 23.4
+            },
+            {
+                "title": "Penalty Shooters 2",
+                "image": "https://images.crazygames.com/penalty-shooters-2_16x9/20240726040713/penalty-shooters-2_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 21.1
+            },
+            {
+                "title": "Penalty Shooters 3",
+                "image": "https://images.crazygames.com/penalty-shooters-3_16x9/20231018022628/penalty-shooters-3_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 20.96
+            },
+            {
+                "title": "CarBall.io",
+                "image": "https://images.crazygames.com/carball-io_16x9/20240418110827/carball-io_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 42.37
+            },
+            {
+                "title": "Soccer Bros",
+                "image": "https://images.crazygames.com/soccer-bros_16x9/20240109055124/soccer-bros_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 26.26
+            },
+            {
+                "title": "A Small World Cup",
+                "image": "https://images.crazygames.com/a-small-world-cup-snk_16x9/20240607095737/a-small-world-cup-snk_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Penalty Shootout: Multi League",
+                "image": "https://images.crazygames.com/penalty-shootout-multi-league/20220824173226/penalty-shootout-multi-league-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Idle Soccer Manager",
+                "image": "https://images.crazygames.com/games/idle-football-manager/cover-1619542182788.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 30.51
+            },
+            {
+                "title": "Soccer Dash",
+                "image": "https://images.crazygames.com/soccer-dash_16x9/20240701102155/soccer-dash_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            }
+        ]
+    },
+    {
+        "categoryTitle": "motos",
+        "games": [
+            {
+                "title": "Moto X3M",
+                "image": "https://images.crazygames.com/games/moto-x3m/cover_16x9-1700625476572.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Xtreme Moto Mayhem",
+                "image": "https://images.crazygames.com/xtreme-moto-mayhem_16x9/20240814042133/xtreme-moto-mayhem_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 43.18
+            },
+            {
+                "title": "Crazy Motorcycle",
+                "image": "https://images.crazygames.com/crazy-motorcycle_16x9/20241001112804/crazy-motorcycle_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Super Bike The Champion",
+                "image": "https://images.crazygames.com/super-bike-the-champion_16x9/20240820033454/super-bike-the-champion_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Paper Delivery Boy",
+                "image": "https://images.crazygames.com/paper-delivery-boy_16x9/20240827094917/paper-delivery-boy_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "MX Offroad Master",
+                "image": "https://images.crazygames.com/mx-offroad-master/20230206090722/mx-offroad-master-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Moto Racing Club",
+                "image": "https://images.crazygames.com/moto-racing-club_16x9/20240917030239/moto-racing-club_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Moto X3M 5: Pool Party",
+                "image": "https://images.crazygames.com/games/moto-x3m-pool-party/cover_16x9-1717762338837.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Moto X3M 6: Spooky Land",
+                "image": "https://images.crazygames.com/games/moto-x3m-spooky-land/cover-1586176231927.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 47.51
+            },
+            {
+                "title": "Moto X3M 4 Winter",
+                "image": "https://images.crazygames.com/games/moto-x3m-4/cover_16x9-1700625639207.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 44.3
+            },
+            {
+                "title": "Wheelie Up",
+                "image": "https://images.crazygames.com/wheelie-up_16x9/20240930170240/wheelie-up_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 36.25
+            },
+            {
+                "title": "Super MX - Last Season",
+                "image": "https://images.crazygames.com/super-mx-last-season_16x9/20240822040520/super-mx-last-season_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 33.89
+            }
+        ]
+    },
+    {
+        "categoryTitle": "puzzles",
+        "games": [
+            {
+                "title": "Thief Puzzle",
+                "image": "https://images.crazygames.com/thief-puzzle_16x9/20240919050737/thief-puzzle_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 11.41
+            },
+            {
+                "title": "Fill The Fridge",
+                "image": "https://images.crazygames.com/fill-the-fridge_16x9/20240808040058/fill-the-fridge_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Solitario Chino",
+                "image": "https://images.crazygames.com/games/mahjongg-solitaire/cover_16x9-1707829450935.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 11.8
+            },
+            {
+                "title": "Words of Wonders",
+                "image": "https://images.crazygames.com/words-of-wonders_16x9/20231019163757/words-of-wonders_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 34.05
+            },
+            {
+                "title": "Farm Merge Valley",
+                "image": "https://images.crazygames.com/farm-merge-valley_16x9/20240216022458/farm-merge-valley_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 16.72
+            },
+            {
+                "title": "Tower Swap",
+                "image": "https://images.crazygames.com/tower-swap_16x9/20231010024249/tower-swap_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 29.83
+            },
+            {
+                "title": "Mergest Kingdom",
+                "image": "https://images.crazygames.com/mergest-kingdom_16x9/20240925093037/mergest-kingdom_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Hexa Sort",
+                "image": "https://images.crazygames.com/hexa-sort_16x9/20240722031335/hexa-sort_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 44.56
+            },
+            {
+                "title": "Cut the Rope",
+                "image": "https://images.crazygames.com/cut-the-rope-ebx_16x9/20240530085010/cut-the-rope-ebx_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 20.96
+            },
+            {
+                "title": "Lines",
+                "image": "https://images.crazygames.com/lines-tpx_16x9/20241001051605/lines-tpx_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Fairyland Merge & Magic",
+                "image": "https://images.crazygames.com/fairyland-merge-and-magic_16x9/20240411091249/fairyland-merge-and-magic_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 18.33
+            },
+            {
+                "title": "Tropical Merge",
+                "image": "https://images.crazygames.com/tropical-merge_16x9/20240411091607/tropical-merge_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 0
+            }
+        ]
+    },
+    {
+        "categoryTitle": "terror",
+        "games": [
+            {
+                "title": "Haunted School",
+                "image": "https://images.crazygames.com/games/haunted-school---horror-game/cover-1657021606968.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Exhibit of Sorrows",
+                "image": "https://images.crazygames.com/exhibit-of-sorrows/20220426111642/exhibit-of-sorrows-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Room Escape: Strange Case",
+                "image": "https://images.crazygames.com/room-escape-strange-case_16x9/20231109043847/room-escape-strange-case_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 13.98
+            },
+            {
+                "title": "Skinwalker",
+                "image": "https://images.crazygames.com/skinwalker_16x9/20240605075244/skinwalker_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 22.34
+            },
+            {
+                "title": "Horror Tale",
+                "image": "https://images.crazygames.com/horror-tale-kidnapper/20230307092027/horror-tale-kidnapper-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Diner in the Storm",
+                "image": "https://images.crazygames.com/diner-in-the-storm_16x9/20240129051818/diner-in-the-storm_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 12.5
+            },
+            {
+                "title": "House of Celestina",
+                "image": "https://images.crazygames.com/house-of-celestina/20210305093621/house-of-celestina-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Siren Head: Playing in the Forest",
+                "image": "https://images.crazygames.com/siren-head-playing-in-the-forest/20230726140846/siren-head-playing-in-the-forest-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Creepy Granny Scream: Scary Freddy",
+                "image": "https://images.crazygames.com/creepy-granny-scream-scary-freddy-horror-game.png?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Evil Neighbor",
+                "image": "https://images.crazygames.com/evil-father/20230503164646/evil-father-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop",
+                "price": 0
+            },
+            {
+                "title": "Seeing Things",
+                "image": "https://images.crazygames.com/seeing-things_16x9/20240806053009/seeing-things_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 15.47
+            },
+            {
+                "title": "Krampus",
+                "image": "https://images.crazygames.com/krampus/20230424073300/krampus-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&w=252&fit=crop",
+                "price": 31.69
+            }
+        ]
+    }
+]

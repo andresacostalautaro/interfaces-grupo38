@@ -4,6 +4,7 @@ body {
     padding: 0;
     font-family: 'Nunito', sans-serif;
     color: white;
+    box-sizing: border-box;
 }
 
 .page_content {
@@ -219,6 +220,153 @@ header a img {
     display: none; /* Se eliminó la duplicación de .hidden */
 }
 
+/*---------------estilos carrusel -----------------*/
+
+/*--------------------- spinner -------------------------------*/
+.loader-capa {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    border-top: 4px solid #007bff;
+    animation: rotacion 1s linear infinite;
+}
+
+.loader-percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+@keyframes rotacion {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/*--------------------- fin spinner -------------------------------*/
+
+:root{
+    --primary-color: #003E7D;
+    --border-radius: 20px;
+    --gap : 15px;
+}
+
+main{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 26px;
+}
+
+body {
+    font-family: inter, sans-serif;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 30px;
+    
+}
+
+h1 {
+    text-align: center;
+}
+
+.game-title {
+    width: 100%;
+    text-align: left;
+    /* font-size: 0.875rem; */
+    font-size: 1.125rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.carousel-container {
+    width: 100%;
+    overflow: hidden; 
+    position: relative;
+}
+
+.carousel {
+    display: flex;
+    width: 100%;
+    gap: 15px;
+    list-style: none;
+}
+
+.game-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    flex: 0 0 calc(100% / 2.3 - 10px);
+}
+
+.game-card img, .game-card article {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.game-info {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 2% 6%;
+    box-sizing: border-box;
+    background: linear-gradient(to top, 
+    rgba(0, 0, 0, 0.9) 10%, 
+    rgba(0, 0, 0, 0.8) 50%, 
+    rgba(0, 0, 0, 0.6) 83%, 
+    rgba(0, 0, 0, 0.3) 91%, 
+    transparent 100%);
+}
+
+.cart-btn {
+    background-color: #0C2640;
+    border: none;
+    color: white;
+    font-size: medium;
+    margin-left: 10px;
+    padding: 8px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.price-cart {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: right;
+}
+
+.nav-btn, .prev{
+    display: none;
+}
+
+.carousel-dots{
+    display: none;
+}
+/* -------------fin estilos carrusel mobile-------------*/
+
 /* Media Queries */
 @media (max-width: 600px) {
     header, article, footer, body {
@@ -263,3 +411,159 @@ header a img {
         height: 30px;
     }
 }
+
+/* -------------estilos carrusel desktop-------------*/
+
+@media (min-width: 768px) {
+
+    body{
+        padding: 30px 130px;
+    }
+
+    .category-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .carousel-container{
+        background-color: #167BE0;
+        border-radius: var(--border-radius);
+        padding: 10px 10px 3px 10px;
+    }
+
+    .carousel {
+        padding: 0;
+        transition: transform 0.3s ease-in-out;
+    } 
+
+    .game-card {
+        flex: 0 0 calc((100% / 4.5) - 15px);
+        border-radius: 20px;
+    }
+
+    .game-info{
+        background: none;
+    }
+
+    .game-card:hover .game-info{
+        background: rgba(0, 0, 0, 0.8);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+
+    .game-title, .game-price {
+        display: none;
+    }
+
+    .game-card:hover .game-title,
+    .game-card:hover .game-price {
+        display: block;
+        text-align: center;
+    }
+
+    .game-card:hover .game-title{
+        height: 100%;
+        width: 100%;
+        align-content: center;
+    }
+
+    .carousel-container:hover .nav-btn {
+        display: block;
+        background: url(./assets/arrow_nav.svg) no-repeat center;
+        background-color: rgba(0, 0, 0, 0.8);
+        width: 4%;
+    }
+
+    .prev {     
+        display: none;
+        left: 0; 
+    }
+
+    .next { 
+        display: none;
+        transform: rotate(180deg);
+        right: 0;
+    }
+
+    .nav-btn{
+        position: absolute;
+        top: 0%;
+        height: 100%;
+        background-color:rgba(0, 0, 0, 0.677);
+        color:  rgb(0, 167, 19);
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        justify-content: center; 
+        align-items: center; 
+    }
+
+
+    .carousel-dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+    
+    .carousel-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #ccc;
+        margin: 0 5px;
+        padding: 0;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .carousel-dot.active {
+        background-color: #333;
+    }
+
+    #suggestedGames{
+        padding: 10px;
+    }
+
+    #suggestedGames .carousel{
+        display: flex;
+        width: 100%;
+        height: 200px;
+        flex-wrap: wrap;
+        flex-direction: column;
+        height: 40vh;
+    }
+    
+    #suggestedGames .big-card {
+        height: 100%;
+        width:  calc(40% - var(--gap));
+        background-color: green;
+        border-radius: 8px;
+    }
+    
+    #suggestedGames .game-card{
+        flex: 0 0 auto; /* Evita que el ancho se ajuste automáticamente */
+    }
+
+    #suggestedGames .small-card {
+        height: calc(50% - (var(--gap) / 2));
+        width:  calc(20% - var(--gap));
+        background-color: aqua;
+        border-radius: 8px;
+    }
+    
+    .hidden {
+        display: none;
+    }
+
+    .carousel-wrapper {
+        display: flex;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+}
+/* -------------fin estilos carrusel desktop-------------*/
