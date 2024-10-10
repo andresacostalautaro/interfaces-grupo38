@@ -224,7 +224,6 @@ function validateAge(birthDate) {
     return age;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('signup-form').addEventListener('submit', function(event) {
         event.preventDefault();
 
@@ -308,4 +307,3 @@ document.addEventListener('DOMContentLoaded', function() {
                 .catch(error => console.error('Error al cargar los datos:', error));
         }
     });
-});

@@ -377,7 +377,7 @@ h1 {
 @media (max-width: 600px) {
     .logo {
         max-width: 200px;
-        margin: 0 0 0 20%;
+        margin: 0;
     }
 
     header, article, body {
