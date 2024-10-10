@@ -27,7 +27,7 @@ header {
     margin: 0;
     height: 60px;
     display: flex;
-    align-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -39,7 +39,6 @@ header {
 
 .logo {
     max-width: 200px;
-    margin: 0 0 0 85%;
 }
 
 /* Estilo del header_nav */
