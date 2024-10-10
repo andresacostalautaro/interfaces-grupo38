@@ -1,5 +1,7 @@
 import { getCarousels } from './app.js';
 import { setBreadcrumbs } from './breacrums.js';
+import { submitSignInForm} from './userSystem.js';
+import { getUser} from './userSystem.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Cargar el header
@@ -111,6 +113,26 @@ function getSignInForm() {
             page.innerHTML = '';  // Limpiar antes de cargar el nuevo contenido
             page.innerHTML = data;  // Cargar el formulario
 
+            //si el usuario ejecuta un formulario
+            document.getElementById('login-form').addEventListener('submit', function(event) {
+                //impedir que se recargue la pagina
+                event.preventDefault();
+    
+                // Obtener valores del formulario
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value.trim();
+    
+                // Verificar que los campos no estén vacíos
+                if (email && password) {
+                    submitSignInForm(email, password);
+                } else {
+                    document.getElementById('email').classList.add('input-warning');
+                    document.getElementById('password').classList.add('input-warning');
+                    // Mostrar un mensaje si los campos están vacíos
+                    console.log('Please fill in all fields');
+                }
+            });
+
             // Asegúrate de que el DOM haya sido actualizado antes de agregar el evento
             const closeButton = document.getElementById('close-form');
             if (closeButton) {
@@ -129,6 +151,30 @@ function getSignInForm() {
         .catch(error => console.error('Error fetching data:', error));
 }
 
+export function iniciatedSesion() {
+    if(getUser) {
+        let profile = document.getElementById('user_nav_content');
+        profile.innerHTML = `<tr>
+                            <th><a><img id="user_photo_nav" class="user_photo_nav" src="" alt="Foto del usuario"></a></th>
+                            <td class="user-panel" colspan="2">
+                            <h1>${getUser.username}</h1>
+                            <div>
+                                <h5 id="btn-MySession">Mi Sesion</h5>
+                                <h5>|</h5>
+                                <h5 id="btn-Sign-out">Cerrar Sesion</h5>
+                            </div>
+                            </td>
+                        </tr>`;
+    
+        let card = document.getElementById('card_game_numbers');
+        card.innerHTML = ' ';
+        card.innerHTML = `<h1 id="card_game_numbers">777</h1>`;
+    } else {
+        console.log("no hay getUSER");
+    }
+}
+window.iniciatedSesion = iniciatedSesion;
+
 function getSignUpForm() {
     const page = document.getElementById('page_content');    
 
@@ -139,6 +185,7 @@ function getSignUpForm() {
         page.innerHTML = data;  // Cargar el formulario
         setBreadcrumbs("sign up");
         console.log("breadcrums > sign up.");
+        document.getElementById('');
 
         // Asegúrate de que el DOM haya sido actualizado antes de agregar el evento
         const closeButton = document.getElementById('close-form');

@@ -1,0 +1,26 @@
+[
+    {
+        "id" : 0,
+        "username": "landres00",
+        "email": "l@mail.com",
+        "password": "1997",
+        "avatar" : [
+            "assets/images/0-avatar00.jpg"
+        ],
+        "history": {
+            "cardshop": [1, 3]
+        }
+    },
+    {
+        "id" : 1,
+        "username": "wagne",
+        "email": "w@mail.com",
+        "password": "2003",
+        "avatar" : [
+            "assets/images/1-avatar00.jpg"
+        ],
+        "history": {
+            "cardshop": [2]
+        }
+    }
+]
