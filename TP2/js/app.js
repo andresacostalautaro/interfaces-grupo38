@@ -4,29 +4,8 @@ import ElementFactory from './elementFactory.js';
 // IDEA al detectar un cambio de dimensiones en la ventana, 
 // se debe recalcular el ancho de los elementos del carrusel e ir a la coordenada 0
 
-document.addEventListener('DOMContentLoaded', () => {
-
-    const loader = createLoader();
-    document.body.appendChild(loader);
-
-    // Simular carga durante 5 segundos
-    simulateLoading(5000).then(() => {
-        
-        document.body.removeChild(loader);
-
-        
-        console.log('ping');
-    });
-
-
-    // Inicializa el carrusel
-    fetchAndLoadCarousels();
-
-    
-    
-});
-
-function fetchAndLoadCarousels() {
+export function getCarousels() {
+    console.log("llegamos a getCarousels en app.js");
     fetch('data/gamesByCategory.json')
         .then(response => response.json())
         .then(categories => {
@@ -53,8 +32,9 @@ function fetchAndLoadCarousels() {
                 new Carousel(categoryContainer);
             });
 
-            // en lugar de body habria que usar un main
-            document.querySelector('#page_content').appendChild(fragment);
+            // ahora añadimos el fragment al contenedor de la página
+            const pageContent = document.getElementById('page_content');
+            pageContent.appendChild(fragment);
         }).catch(error => console.error('Error fetching games:', error));
 }
 

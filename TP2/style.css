@@ -1,49 +1,55 @@
 /* Global Styles */
 body {
-    margin: 0;
-    padding: 0;
+    width: 100% !important; 
+    margin: 0 !important; 
+    padding: 0 !important;
     font-family: 'Nunito', sans-serif;
     color: white;
     box-sizing: border-box;
+    background-color: #023467; /* Fondo azul oscuro */
 }
 
+.page_content, .breadcrumbs {
+    padding: 1% 250px 1% 250px !important;
+}
 .page_content {
-    height: fit-content;
+    z-index: 1;
+    max-height: fit-content;
+    min-height: 600px;
     padding-bottom: 5%;
-    height: 700px;
-    background-color: #023467; /* Fondo azul oscuro */
 }
 
 /* Estilo del header */
 header {
+    z-index: 2;
     background-color: #0061C3;
-    margin: 0;
-    padding: 0;
     width: 100%;
+    margin: 0;
     height: 60px;
     display: flex;
-    align-items: center; /* Alinea el contenido verticalmente */
-    justify-content: space-between; /* Espacio entre los elementos */
+    align-content: center;
+    align-items: center;
 }
 
-header a img {
-    max-width: 40px; /* Controla el tamaño de la imagen sin padding */
-    padding: 10px;
+.hamburger-icon {
+    max-width: 40px;
+    padding: 5px;
+    transition: 0.5s ease-out;
 }
 
 .logo {
-    max-width: 15%;
-    margin-right: 50px; /* Alinea el logo a la derecha */
+    max-width: 200px;
+    margin: 0 0 0 85%;
 }
 
 /* Estilo del header_nav */
 .header_nav {
-    position: absolute;
+    z-index: 2;
+    position: absolute !important;
     overflow: hidden;
     transition: max-height 0.7s ease-out, max-width 0.7s ease-out;
     max-height: 0;
     margin: 0;
-    padding: 0;
     background-color: #00274E;
     width: 220px;
 }
@@ -369,10 +375,34 @@ h1 {
 
 /* Media Queries */
 @media (max-width: 600px) {
-    header, article, footer, body {
+    .logo {
+        max-width: 200px;
+        margin: 0 0 0 20%;
+    }
+
+    header, article, body {
         width: 100%;
         margin: 0;
         padding: 0;
+    }
+    .header_nav {
+        z-index: 3;
+    }
+    .page_content, .breadcrumbs {
+        padding: 0 !important;
+    }
+    .page_content .carousel-container {
+        position: relative;
+        z-index: 1;
+    }
+    .page_content .category-container h2 {
+        font-size: medium;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+    }
+    .page_content .carousel-container {
+        padding: 0 !important;
     }
 
     /* Estilo del header */
@@ -416,9 +446,6 @@ h1 {
 
 @media (min-width: 768px) {
 
-    body{
-        padding: 30px 130px;
-    }
 
     .category-container {
         display: flex;

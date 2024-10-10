@@ -1,4 +1,4 @@
-function setBreadcrumbs(palabra) {
+export function setBreadcrumbs(palabra) {
     const bcsContent = document.getElementById("bcs_content");
     if (palabra.toLowerCase() === "home" || palabra.toLowerCase() === "sign in" || palabra.toLowerCase() === "sign up" || palabra.toLowerCase() === "log in") {
         bcsContent.innerHTML = `<h3>${palabra}</h3>`;
