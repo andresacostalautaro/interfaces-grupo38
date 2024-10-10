@@ -100,21 +100,20 @@ function toggleMenu(event) {
     }
 }
 
-function getSignInForm() {
-    const page = document.getElementById('page_content');  
-    setBreadcrumbs("sign in");
+// Función genérica para cargar un formulario y configurar los eventos de cierre
+function loadForm(formPath, breadcrumbsText) {
+    const page = document.getElementById('page_content');
+    setBreadcrumbs(breadcrumbsText);
 
-    console.log("ejecutandose funcion sign in form");
-    fetch('frames/form-signIn.html')
+    fetch(formPath)
         .then(response => response.text())
         .then(data => {
-            page.innerHTML = '';  // Limpiar antes de cargar el nuevo contenido
-            page.innerHTML = data;  // Cargar el formulario
+            page.innerHTML = ''; // Limpiar antes de cargar el nuevo contenido
+            page.innerHTML = data; // Cargar el formulario
 
             // Asegúrate de que el DOM haya sido actualizado antes de agregar el evento
             const closeButton = document.getElementById('close-form');
             if (closeButton) {
-                console.log("Botón close-form encontrado");
                 closeButton.addEventListener('click', function(event) {
                     console.log("Botón clickeado, cerrando formulario...");
                     document.getElementById('form').classList.add('hidden');
@@ -129,32 +128,14 @@ function getSignInForm() {
         .catch(error => console.error('Error fetching data:', error));
 }
 
-function getSignUpForm() {
-    const page = document.getElementById('page_content');    
-
-    fetch('frames/form-signUp.html')
-    .then(response => response.text())
-    .then(data => {
-        page.innerHTML = '';  // Limpiar antes de cargar el nuevo contenido
-        page.innerHTML = data;  // Cargar el formulario
-        setBreadcrumbs("sign up");
-        console.log("breadcrums > sign up.");
-
-        // Asegúrate de que el DOM haya sido actualizado antes de agregar el evento
-        const closeButton = document.getElementById('close-form');
-        if (closeButton) {
-            closeButton.addEventListener('click', function(event) {
-                console.log("Botón clickeado, cerrando formulario...");
-                document.getElementById('form').classList.add('hidden');
-                event.preventDefault();
-                document.getElementById('page_content').innerHTML = ''; // Vacía el contenido para cerrar el formulario
-                homePage();
-            });
-        } else {
-            console.error("No se encontró el botón close-form");
-        }
-    })
-    .catch(error => console.error('Error fetching data:', error));
+// Llamar la función genérica para el formulario de inicio de sesión
+window.getSignInForm = function() {
+    loadForm('frames/form-signIn.html', 'sign in');
+    console.log("ejecutandose funcion sign in form");
 }
 
-
+// Llamar la función genérica para el formulario de registro
+window.getSignUpForm = function() {
+    loadForm('frames/form-signUp.html', 'sign up');
+    console.log("breadcrums > sign up.");
+}
