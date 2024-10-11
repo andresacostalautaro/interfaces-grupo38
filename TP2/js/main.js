@@ -102,16 +102,16 @@ function toggleMenu(event) {
     }
 }
 
-function getSignInForm() {
-    const page = document.getElementById('page_content');  
-    setBreadcrumbs("sign in");
+// Función genérica para cargar un formulario y configurar los eventos de cierre
+function loadForm(formPath, breadcrumbsText) {
+    const page = document.getElementById('page_content');
+    setBreadcrumbs(breadcrumbsText);
 
-    console.log("ejecutandose funcion sign in form");
-    fetch('frames/form-signIn.html')
+    fetch(formPath)
         .then(response => response.text())
         .then(data => {
-            page.innerHTML = '';  // Limpiar antes de cargar el nuevo contenido
-            page.innerHTML = data;  // Cargar el formulario
+            page.innerHTML = ''; // Limpiar antes de cargar el nuevo contenido
+            page.innerHTML = data; // Cargar el formulario
 
             //si el usuario ejecuta un formulario
             document.getElementById('login-form').addEventListener('submit', function(event) {
@@ -136,7 +136,6 @@ function getSignInForm() {
             // Asegúrate de que el DOM haya sido actualizado antes de agregar el evento
             const closeButton = document.getElementById('close-form');
             if (closeButton) {
-                console.log("Botón close-form encontrado");
                 closeButton.addEventListener('click', function(event) {
                     console.log("Botón clickeado, cerrando formulario...");
                     document.getElementById('form').classList.add('hidden');
@@ -151,6 +150,7 @@ function getSignInForm() {
         .catch(error => console.error('Error fetching data:', error));
 }
 
+HEAD
 export function iniciatedSesion() {
     if(getUser) {
         let profile = document.getElementById('user_nav_content');
@@ -203,5 +203,14 @@ function getSignUpForm() {
     })
     .catch(error => console.error('Error fetching data:', error));
 }
+// Llamar la función genérica para el formulario de inicio de sesión
+window.getSignInForm = function() {
+    loadForm('frames/form-signIn.html', 'sign in');
+    console.log("ejecutandose funcion sign in form");
+}
 
-
+// Llamar la función genérica para el formulario de registro
+window.getSignUpForm = function() {
+    loadForm('frames/form-signUp.html', 'sign up');
+    console.log("breadcrums > sign up.");
+}
