@@ -2,7 +2,10 @@ import { getCarousels } from './app.js';
 import { setBreadcrumbs } from './breacrums.js';
 import { submitSignInForm} from './userSystem.js';
 import { getUser} from './userSystem.js';
+import { updateProfile } from './userSystem.js';
+import { getProfile } from './userSystem.js';
 
+//primera funcion para traer el header y el footer,
 document.addEventListener('DOMContentLoaded', function() {
     // Cargar el header
     let headerLoaded = fetch('frames/header.html')
@@ -50,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => console.error('Error en la carga de recursos:', error));
 });
 
+//funcion para cargar la pagina en estado HOME
 async function homePage() {
     document.getElementById('page_content').innerHTML = ' ';
     console.log("cargando home page....");
@@ -60,8 +64,8 @@ async function homePage() {
     getCarousels();
 }
 
+//funcion para despleagar el nav al cliquear en el boton hamburgesa
 var isMenuVisible = false;
-
 function toggleMenu(event) {
     event.stopPropagation(); // Evita que el clic se propague al documento
     isMenuVisible = !isMenuVisible;
@@ -73,25 +77,40 @@ function toggleMenu(event) {
         fetch('frames/nav.html')
         .then(response => response.text())
         .then(data => {
-            headerNav.innerHTML = data;
+            headerNav.innerHTML = data; // Inyecta el contenido del nav
             headerNav.classList.add('show-one'); // Primera clase de animación
             setTimeout(function() {
                 headerNav.classList.add('show-two'); // Segunda fase de la animación
             }, 300); // Ajustar a la duración de la animación CSS
             icon.src = "assets/images/hamburger-menu-2.png";
 
-            document.getElementById('sign-in').addEventListener('click', function(event){
-                console.log("Botón clickeado, cargando formulario...");
-                event.preventDefault();
-                getSignInForm();
-            });
-            document.getElementById('sign-up').addEventListener('click', function(event){
-                console.log("Botón clickeado, cargando formulario...");
-                event.preventDefault();
-                getSignUpForm();
-            });
+            console.log("llego a getProfile())");
+            getProfile(); // Actualiza el thead con la información del usuario
+            console.log("PASO");
 
+            // Agregar eventos para los botones de inicio de sesión y registro aquí
+            const signInButton = document.getElementById('sign-in');
+            const signUpButton = document.getElementById('sign-up');
 
+            if (signInButton) {
+                signInButton.addEventListener('click', function(event) {
+                    console.log("Botón de inicio de sesión clickeado, cargando formulario...");
+                    event.preventDefault();
+                    getSignInForm();
+                });
+            } else {
+                console.error("No se encontró el botón de inicio de sesión");
+            }
+
+            if (signUpButton) {
+                signUpButton.addEventListener('click', function(event) {
+                    console.log("Botón de registro clickeado, cargando formulario...");
+                    event.preventDefault();
+                    getSignUpForm();
+                });
+            } else {
+                console.error("No se encontró el botón de registro");
+            }
         })
         .catch(error => console.error('Error fetching nav:', error));
     } else {
@@ -150,59 +169,30 @@ function loadForm(formPath, breadcrumbsText) {
         .catch(error => console.error('Error fetching data:', error));
 }
 
-HEAD
+//funcion para alternar la pagina al iniciar secion
 export function iniciatedSesion() {
-    if(getUser) {
-        let profile = document.getElementById('user_nav_content');
-        profile.innerHTML = `<tr>
-                            <th><a><img id="user_photo_nav" class="user_photo_nav" src="" alt="Foto del usuario"></a></th>
-                            <td class="user-panel" colspan="2">
-                            <h1>${getUser.username}</h1>
-                            <div>
-                                <h5 id="btn-MySession">Mi Sesion</h5>
-                                <h5>|</h5>
-                                <h5 id="btn-Sign-out">Cerrar Sesion</h5>
-                            </div>
-                            </td>
-                        </tr>`;
-    
+    homePage();
+    const user = getUser(); // Llama a getUser() para obtener el objeto USER
+
+    if (user.username) { // Verifica si hay un nombre de usuario
+        console.log(user); // Muestra el objeto USER en la consola
+        updateProfile();
+        // Actualiza el contenido del perfil del usuario
+
+
+        // Actualiza el contenido de la tarjeta de juego
+
         let card = document.getElementById('card_game_numbers');
-        card.innerHTML = ' ';
-        card.innerHTML = `<h1 id="card_game_numbers">777</h1>`;
+        card.innerHTML = `<h1 id="card_game_numbers">${user.cardshop.length}</h1>`;
     } else {
-        console.log("no hay getUSER");
+        console.log("No hay usuario autenticado.");
+        // Opcionalmente, puedes limpiar el contenido del perfil si no hay sesión activa
+        let profile = document.getElementById('user_nav_content');
+        profile.innerHTML = ''; // Limpia el contenido del perfil
     }
 }
 window.iniciatedSesion = iniciatedSesion;
 
-function getSignUpForm() {
-    const page = document.getElementById('page_content');    
-
-    fetch('frames/form-signUp.html')
-    .then(response => response.text())
-    .then(data => {
-        page.innerHTML = '';  // Limpiar antes de cargar el nuevo contenido
-        page.innerHTML = data;  // Cargar el formulario
-        setBreadcrumbs("sign up");
-        console.log("breadcrums > sign up.");
-        document.getElementById('');
-
-        // Asegúrate de que el DOM haya sido actualizado antes de agregar el evento
-        const closeButton = document.getElementById('close-form');
-        if (closeButton) {
-            closeButton.addEventListener('click', function(event) {
-                console.log("Botón clickeado, cerrando formulario...");
-                document.getElementById('form').classList.add('hidden');
-                event.preventDefault();
-                document.getElementById('page_content').innerHTML = ''; // Vacía el contenido para cerrar el formulario
-                homePage();
-            });
-        } else {
-            console.error("No se encontró el botón close-form");
-        }
-    })
-    .catch(error => console.error('Error fetching data:', error));
-}
 // Llamar la función genérica para el formulario de inicio de sesión
 window.getSignInForm = function() {
     loadForm('frames/form-signIn.html', 'sign in');

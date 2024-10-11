@@ -150,6 +150,12 @@ header {
   	justify-content: center;
 }
 
+.header_nav table tbody .nav_shop_card {
+    width: 100%;
+    height: 70px;
+    overflow: hidden;
+}
+
 .header_nav img {
     width: 40px;
     margin: 0;
