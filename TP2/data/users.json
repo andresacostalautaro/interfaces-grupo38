@@ -4,6 +4,9 @@
         "username": "landres00",
         "email": "l@mail.com",
         "password": "1997",
+        "name" : "Lautaro",
+        "lastame" : "Andres Acosta",
+        "birthDate" : "2000-04-17",
         "avatar" : [
             "assets/images/0-avatar00.jpg"
         ],
@@ -12,15 +15,18 @@
         }
     },
     {
-        "id" : 1,
-        "username": "wagne",
+        "id" : 0,
+        "username": "wagner03",
         "email": "w@mail.com",
         "password": "2003",
+        "name" : "Juan",
+        "lastame" : "Wagner",
+        "birthDate" : "2003-08-26",
         "avatar" : [
-            "assets/images/1-avatar00.jpg"
+            "assets/images/0-avatar00.jpg"
         ],
         "history": {
-            "cardshop": [2]
+            "cardshop": [3, 9, 8]
         }
     }
 ]

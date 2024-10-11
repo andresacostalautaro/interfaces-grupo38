@@ -1,4 +1,4 @@
-import { iniciatedSesion } from "./main.js";
+import { iniciatedSesion} from "./main.js";
 
 let USER = {
     username: null,
@@ -7,11 +7,14 @@ let USER = {
 };
 
 //funcion para submit el boton del formulario de inicio de sesion
-export function submitSignInForm(email, password) { 
-    fetch('data/users.json')
+export function submitSignInForm(email, password) {
+    console.log("boton submit form ejecutado pra iniciar sesion.");
+    // Verificar que los campos no estén vacíos
+    if (email && password) {
+        fetch('data/users.json')
         .then(response => response.json())
         .then(data => {
-            console.log("users.json fetched");
+            console.log("users.json fetch.");
             document.getElementById('email').classList.remove('input-warning');
             document.getElementById('password').classList.remove('input-warning');
 
@@ -21,17 +24,18 @@ export function submitSignInForm(email, password) {
             if (user) {
                 // Verificar la contraseña del usuario
                 if (user.password === password) {
-                    console.log('Login successful');
 
                     USER.username = user.username;
                     USER.email = user.email;
                     USER.cardshop = user.history ? user.history.cardshop : []; // Verificar si history existe
 
+                    console.log("contraseña correcta.");
+
                     iniciatedSesion();
                 } else {
                     // Si la contraseña es incorrecta, mostrar advertencia en el campo de contraseña
                     document.getElementById('password').classList.add('input-warning');
-                    console.log('Incorrect password');
+                    console.log('contraseña incorrecta.');
                 }
             } else {
                 // Si no se encuentra el usuario, mostrar advertencia en el campo de email
@@ -40,6 +44,112 @@ export function submitSignInForm(email, password) {
             }
         })
         .catch(error => console.log('Error fetching users.json:', error));
+    } else {
+        document.getElementById('email').classList.add('input-warning');
+        document.getElementById('password').classList.add('input-warning');
+        // Mostrar un mensaje si los campos están vacíos
+        console.log('llenar todos los campos del formulario.');
+    }
+}
+
+export function submitSignUpForm(name, lastname, username, birth, email, password1, password2) {
+    let threeValid = 0;
+
+    // Validar si las contraseñas coinciden
+    if (password1 !== password2) {
+        document.getElementById('password-2').classList.add('input-warning');
+        console.log('Las contraseñas no coinciden');
+    } else {
+        threeValid++;
+    }
+
+    // Validar si el nombre de usuario es válido
+    if (!validateUsername(username)) {
+        document.getElementById('username').classList.add('input-warning');
+        console.log('El nombre de usuario debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo');
+    } else {
+        threeValid++;
+    }
+
+    // Validar si el usuario tiene más de 13 años
+    if (validateAge(birthDate) < 13) {
+        document.getElementById('birth-date').classList.add('input-warning');
+        console.log('Debes ser mayor de 13 años para registrarte');
+    } else {
+        threeValid++;
+    }
+
+    // Verificar si el email o el nombre de usuario ya existen en la base de datos
+    if (threeValid === 3) {
+        fetch('users.json')
+            .then(response => response.json())
+            .then(data => {
+                const existingUser = data.users.find(user => user.username === username);
+                const existingEmail = data.users.find(user => user.email === email);
+
+                if (existingUser) {
+                    document.getElementById('username').classList.add('input-warning');
+                    console.log('El nombre de usuario ya está en uso');
+                } else {
+                    threeValid++;
+                }
+
+                if (existingEmail) {
+                    document.getElementById('email').classList.add('input-warning');
+                    console.log('El correo electrónico ya está en uso');
+                } else {
+                    threeValid++;
+                }
+
+                if (threeValid === 5) {
+                    console.log("registro aprobado");
+                    newId = data.length;
+                    // Crear objeto de nuevo usuario
+                    const newUser = {
+                        id: newId,
+                        username: username,
+                        email: email,
+                        password: password1,
+                        name: name,
+                        lastname: lastname,
+                        birthDate: birth,
+                        avatar: ["assets/images/0-avatar00.jpg"],
+                        history: {
+                            cardshop: []
+                        }
+                    };
+
+                    // Agregar nuevo usuario a users.json
+                    data.users.push(newUser);
+
+                    fetch('users.json', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(() => console.log('Usuario registrado correctamente'))
+                    .catch(error => console.error('Error al registrar el usuario:', error));
+                }
+            })
+            .catch(error => console.error('Error al cargar los datos:', error));
+    }
+}
+function validateUsername(username) {
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(username);
+}
+function validateAge(birthDate) {
+    const currentDate = new Date();
+    const birth = new Date(birthDate);
+    const age = currentDate.getFullYear() - birth.getFullYear();
+    const month = currentDate.getMonth() - birth.getMonth();
+
+    if (month < 0 || (month === 0 && currentDate.getDate() < birth.getDate())) {
+        return age - 1;
+    }
+    return age;
 }
 
 //funcion para traer el usuario
@@ -49,35 +159,36 @@ export function getUser() {
 
 //funcion para cambiar el perfil del usuario en el header_nav
 let which = false;
-export function updateProfile() {
+export function updateNav() {
+    console.log("actualizando nav.");
     which = !which;
-
-    getProfile();
+    fixedNav();
 }
 
 //funcion para traer el perfil del usuario en el nav, ya sea en estado conectado o desconectado
-export function getProfile() {
-
+export function fixedNav() {
+    // Actualiza el contenido del perfil del usuario
     let profile = document.getElementById('user_nav_content');
+
     if(which && USER.username) {
         console.log("profile del nav habierto");
         profile.innerHTML = `
-        <tr>
-            <th>
-                <a>
-                    <img id="user_photo_nav" class="user_photo_nav" src="assets/images/profile_connect.png" alt="Foto del usuario">
-                </a>
-            </th>
-            <td class="user-panel" colspan="2">
-                <h1>${USER.username}</h1>
-                <div>
-                    <h5 id="btn-MySession">Mi Sesion</h5>
-                    <h5>|</h5>
-                    <h5 id="btn-Sign-out">Cerrar Sesion</h5>
-                </div>
-            </td>
-        </tr>
-    `;
+            <tr>
+                <th>
+                    <a>
+                        <img id="user_photo_nav" class="user_photo_nav" src="assets/images/profile_connect.png" alt="Foto del usuario">
+                    </a>
+                </th>
+                <td class="user-panel" colspan="2">
+                    <h1>${USER.username}</h1>
+                    <div>
+                        <h5 id="btn-MySession">Mi Sesion</h5>
+                        <h5>|</h5>
+                        <h5 id="btn-Sign-out">Cerrar Sesion</h5>
+                    </div>
+                </td>
+            </tr>
+        `;
     } else {
         console.log("profile del nav cerrado");
         profile.innerHTML = `
@@ -90,4 +201,9 @@ export function getProfile() {
                 </tr>
         `;
     }
+}
+
+export function getUserCard() {
+    console.log("aca se editara el card con los datos del usuario.");
+
 }

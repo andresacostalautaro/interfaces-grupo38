@@ -1,9 +1,11 @@
 import { getCarousels } from './app.js';
 import { setBreadcrumbs } from './breacrums.js';
 import { submitSignInForm} from './userSystem.js';
+import { submitSignUpForm} from './userSystem.js';
+import { getUserCard} from './userSystem.js';
 import { getUser} from './userSystem.js';
-import { updateProfile } from './userSystem.js';
-import { getProfile } from './userSystem.js';
+import { updateNav } from './userSystem.js';
+import { fixedNav } from './userSystem.js';
 
 //primera funcion para traer el header y el footer,
 document.addEventListener('DOMContentLoaded', function() {
@@ -85,13 +87,10 @@ function toggleMenu(event) {
             icon.src = "assets/images/hamburger-menu-2.png";
 
             console.log("llego a getProfile())");
-            getProfile(); // Actualiza el thead con la información del usuario
-            console.log("PASO");
+            fixedNav(); // Actualiza el nav con la información del usuario
 
-            // Agregar eventos para los botones de inicio de sesión y registro aquí
+            // Agregar eventos para los botones de inicio de sesión
             const signInButton = document.getElementById('sign-in');
-            const signUpButton = document.getElementById('sign-up');
-
             if (signInButton) {
                 signInButton.addEventListener('click', function(event) {
                     console.log("Botón de inicio de sesión clickeado, cargando formulario...");
@@ -99,9 +98,11 @@ function toggleMenu(event) {
                     getSignInForm();
                 });
             } else {
-                console.error("No se encontró el botón de inicio de sesión");
+                console.log("No se encontró el botón de inicio de sesión");
             }
 
+            // Agregar eventos para los botones de registro
+            const signUpButton = document.getElementById('sign-up');
             if (signUpButton) {
                 signUpButton.addEventListener('click', function(event) {
                     console.log("Botón de registro clickeado, cargando formulario...");
@@ -109,8 +110,21 @@ function toggleMenu(event) {
                     getSignUpForm();
                 });
             } else {
-                console.error("No se encontró el botón de registro");
+                console.log("No se encontró el botón de registro");
             }
+
+            // Agregar eventos para los botones para visualizarcarrito
+            const cardButton = document.getElementById('cart-btn');
+            if(cardButton) {
+                cardButton.addEventListener('click', function(event) {
+                    console.log("Botón de carrito clickeado, cargando seccion...");
+                    event.preventDefault();
+                    getCard();
+                });
+            } else {
+                console.log("no se encontro el boton del carrito en el nav");
+            }
+
         })
         .catch(error => console.error('Error fetching nav:', error));
     } else {
@@ -133,24 +147,45 @@ function loadForm(formPath, breadcrumbsText) {
             page.innerHTML = data; // Cargar el formulario
 
             //si el usuario ejecuta un formulario
-            document.getElementById('login-form').addEventListener('submit', function(event) {
-                //impedir que se recargue la pagina
-                event.preventDefault();
+            let log_in = document.getElementById('login-form');
+            if(log_in) {
+                document.getElementById('login-form').addEventListener('submit', function(event) {
+                    //0. impedir que se recargue la pagina
+                    event.preventDefault();
     
-                // Obtener valores del formulario
-                const email = document.getElementById('email').value.trim();
-                const password = document.getElementById('password').value.trim();
+                    //1. Obtener valores del formulario
+                    console.log("sign in paso 1");
+                    const email = document.getElementById('email').value.trim();
+                    const password = document.getElementById('password').value.trim();
     
-                // Verificar que los campos no estén vacíos
-                if (email && password) {
+                    //2. enviar la informacion a userSystem
+                    console.log("sign in paso 3");
                     submitSignInForm(email, password);
-                } else {
-                    document.getElementById('email').classList.add('input-warning');
-                    document.getElementById('password').classList.add('input-warning');
-                    // Mostrar un mensaje si los campos están vacíos
-                    console.log('Please fill in all fields');
-                }
-            });
+    
+                });
+            }
+
+            //si el usuario ejecuta un formulario
+            let log_up = document.getElementById('logUp-form')
+            if(log_up) {
+                document.getElementById('logUp-form').addEventListener('submit', function(event) {
+                    //0. impedir que se recargue la pagina
+                    event.preventDefault();
+    
+                    //1. Obtener valores del formulario
+                    const name = document.getElementById('firstname').value.trim();
+                    const lastname = document.getElementById('lastname').value.trim();
+                    const username = document.getElementById('username').value.trim();
+                    const birth = document.getElementById('birthday').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const password1 = document.getElementById('password1').value.trim();
+                    const password2 = document.getElementById('password2').value.trim();
+                    
+                    //2. enviar la informacion a userSystem
+                    submitSignUpForm(name, lastname, username, birth, email, password1, password2);
+                });
+            }
+
 
             // Asegúrate de que el DOM haya sido actualizado antes de agregar el evento
             const closeButton = document.getElementById('close-form');
@@ -171,24 +206,17 @@ function loadForm(formPath, breadcrumbsText) {
 
 //funcion para alternar la pagina al iniciar secion
 export function iniciatedSesion() {
+    console.log("sign in paso 8");
+
     homePage();
     const user = getUser(); // Llama a getUser() para obtener el objeto USER
 
     if (user.username) { // Verifica si hay un nombre de usuario
-        console.log(user); // Muestra el objeto USER en la consola
-        updateProfile();
-        // Actualiza el contenido del perfil del usuario
+        console.log("sign in paso 9");
+        updateNav();
 
-
-        // Actualiza el contenido de la tarjeta de juego
-
-        let card = document.getElementById('card_game_numbers');
-        card.innerHTML = `<h1 id="card_game_numbers">${user.cardshop.length}</h1>`;
     } else {
         console.log("No hay usuario autenticado.");
-        // Opcionalmente, puedes limpiar el contenido del perfil si no hay sesión activa
-        let profile = document.getElementById('user_nav_content');
-        profile.innerHTML = ''; // Limpia el contenido del perfil
     }
 }
 window.iniciatedSesion = iniciatedSesion;
@@ -203,4 +231,23 @@ window.getSignInForm = function() {
 window.getSignUpForm = function() {
     loadForm('frames/form-signUp.html', 'sign up');
     console.log("breadcrums > sign up.");
+}
+
+window.getCard = function() {
+    console.log("cargando card section.")
+
+    const page = document.getElementById('page_content');
+
+    fetch('frames/card.html')
+    .then(response => response.text())
+    .then(data => {
+        page.innerHTML += data;
+
+        const user = getUser(); // Llama a getUser() para obtener el objeto USER
+        if (user.username) { // Verifica si hay un nombre de usuario
+            getUserCard();
+            console.log("cargando datos del usuario al card.")
+        }
+    })
+    .catch(error => console.error('Error fetching nav:', error));
 }
