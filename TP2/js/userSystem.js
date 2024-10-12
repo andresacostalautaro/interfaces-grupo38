@@ -3,17 +3,19 @@ import { iniciatedSesion} from "./main.js";
 let USER = {
     username: null,
     email: null,
-    cardshop: []
+    cart: []
 };
 
 //funcion para submit el boton del formulario de inicio de sesion
 export function submitSignInForm(email, password) {
     console.log("boton submit form ejecutado pra iniciar sesion.");
+
     // Verificar que los campos no estén vacíos
     if (email && password) {
         fetch('data/users.json')
         .then(response => response.json())
         .then(data => {
+
             console.log("users.json fetch.");
             document.getElementById('email').classList.remove('input-warning');
             document.getElementById('password').classList.remove('input-warning');
@@ -27,7 +29,8 @@ export function submitSignInForm(email, password) {
 
                     USER.username = user.username;
                     USER.email = user.email;
-                    USER.cardshop = user.history ? user.history.cardshop : []; // Verificar si history existe
+                    USER.cart = user.history ? user.history.cart : []; // Verificar si history existe
+                    console.log(USER.cart[0]);
 
                     console.log("contraseña correcta.");
 
@@ -115,7 +118,7 @@ export function submitSignUpForm(name, lastname, username, birth, email, passwor
                         birthDate: birth,
                         avatar: ["assets/images/0-avatar00.jpg"],
                         history: {
-                            cardshop: []
+                            cart: []
                         }
                     };
 
@@ -203,7 +206,48 @@ export function fixedNav() {
     }
 }
 
-export function getUserCard() {
-    console.log("aca se editara el card con los datos del usuario.");
+export function getUserCart() {
+    
+    if (USER.cart && USER.cart.length > 0) {
+        let id_array = new Array(USER.cart.length);
 
+        // Llenar el id_array con los IDs de los juegos en el carrito
+        for (let i = 0; i < USER.cart.length; i++) {
+            id_array[i] = USER.cart[i].id;
+        }
+
+        let cart = document.getElementById('cart-items');
+        
+        // Fetch al archivo JSON
+        fetch('data/gamesByCategory.json')
+            .then(response => response.json())
+            .then(data => {
+                console.log("buscando los juegos del carrito en gamesByCategory.json.");
+                
+                // Recorrer el array de IDs del carrito
+                id_array.forEach(id => {
+
+                    // Recorrer las categorías en el JSON
+                    data.forEach(category => {
+                        // Buscar el juego en la categoría
+                        const game = category.games.find(game => game.id === id);
+
+                        if (game) {
+                            const item = ' ';
+                            // Crear el elemento li
+                            item.innerHTML = `
+                                            <li>
+                                                <img src="${game.image}" alt="${game.title}">
+                                                <h4>${game.price}</h4>
+                                                <h2>${game.title}</h2>
+                                            </li>`;
+                            cart.appendChild(li);
+                        }
+                    });
+                });
+            })
+            .catch(error => console.error('Error fetching gamesByCategory.json:', error));
+    } else {
+        console.log('El carrito de compras está vacío');
+    }
 }

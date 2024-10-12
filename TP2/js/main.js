@@ -2,124 +2,149 @@ import { getCarousels } from './app.js';
 import { setBreadcrumbs } from './breacrums.js';
 import { submitSignInForm} from './userSystem.js';
 import { submitSignUpForm} from './userSystem.js';
-import { getUserCard} from './userSystem.js';
+import { getUserCart} from './userSystem.js';
 import { getUser} from './userSystem.js';
 import { updateNav } from './userSystem.js';
 import { fixedNav } from './userSystem.js';
 
-//primera funcion para traer el header y el footer,
+//primera funcion que ocurre al cargar la pagina
 document.addEventListener('DOMContentLoaded', function() {
-    // Cargar el header
+
+    // prometemos traer el header
+    console.log("cargando header...");
     let headerLoaded = fetch('frames/header.html')
     .then(response => response.text())
     .then(data => {
-        console.log("cargando header...");
+        console.log("header cargado.");
         const header = document.getElementById('header');
         header.innerHTML = data;
 
-        // Añadir el evento del botón aquí
+        // añadimos la posibilidad de desplegar el nav cliqueando en el boton hamburgesa
         document.getElementById('hamburger-menu').addEventListener('click', toggleMenu);
     })
     .catch(error => console.error('Error fetching header:', error));
 
-    // Cargar los breadcrumbs
+
+    // prometemos traer el breadcrums
+    console.log("cargando breadcrums...");
     let breadcrumbsLoaded = fetch('frames/breadcrums.html')
     .then(response => response.text())
     .then(data => {
-        console.log("cargando breadcrums...");
+        console.log("breadcrums cargado.");
         const brms = document.getElementById('breadcrumbs');
         brms.innerHTML = data;
+
+        //añadimos la posibilidad de ir siempre a la pagina principal si se cliquea el HOME del breadcrums
         document.getElementById('breadcrumbs_home_icon').addEventListener('click', function(event) {
             homePage();
         });
     })
     .catch(error => console.error('Error fetching breadcrums:', error));
 
-    // Cargar el footer
+
+    // prometemos traer el footer
+    console.log("cargando footer...");
     let footerLoaded = fetch('frames/footer.html')
     .then(response => response.text())
     .then(data => {
         const footer = document.getElementById('footer');
         footer.innerHTML = data;
-        console.log("cargando footer...");
+        console.log("footer cargado");
     })
     .catch(error => console.error('Error fetching footer:', error));
 
-    // Usamos Promise.all para esperar a que todas las promesas de fetch se resuelvan
+    //cuando las promesas de header, breadcrums y footer se cumplen ejecutamos la pagina principal
     Promise.all([headerLoaded, breadcrumbsLoaded, footerLoaded])
     .then(() => {
-        console.log("Cargando la página principal...");
+        console.log("cargando página principal...");
+
         // Cargar Home Page solo después de que todos los fetch hayan terminado
         homePage();
     })
     .catch(error => console.error('Error en la carga de recursos:', error));
 });
 
-//funcion para cargar la pagina en estado HOME
+//funcion para cargar la pagina principal
 async function homePage() {
-    document.getElementById('page_content').innerHTML = ' ';
     console.log("cargando home page....");
 
-    setBreadcrumbs("Home");
-    console.log("breadcrums > HOME....");
+    let breadcrumbs = setBreadcrumbs("Home");
+    document.getElementById('page_content').innerHTML = ' ';
 
-    getCarousels();
+    let carrouseles = getCarousels();
+
+    Promise.all([breadcrumbs, carrouseles])
+    .then(() => {
+        console.log("página principal cargada.");
+
+    })
+    .catch(error => console.error('Error en la carga de recursos:', error));
 }
 
-//funcion para despleagar el nav al cliquear en el boton hamburgesa
+//funcion para despleagar el nav al clickear el boton hamburgesa
 var isMenuVisible = false;
 function toggleMenu(event) {
     event.stopPropagation(); // Evita que el clic se propague al documento
+
+    //si es true abre, si es false cierra.
     isMenuVisible = !isMenuVisible;
+
     var icon = document.querySelector('#hamburger-menu img');
     var headerNav = document.getElementById('header_nav');
 
     if (isMenuVisible) {
-        // Abrir el menú con animación
+
         fetch('frames/nav.html')
         .then(response => response.text())
         .then(data => {
             headerNav.innerHTML = data; // Inyecta el contenido del nav
-            headerNav.classList.add('show-one'); // Primera clase de animación
-            setTimeout(function() {
-                headerNav.classList.add('show-two'); // Segunda fase de la animación
-            }, 300); // Ajustar a la duración de la animación CSS
-            icon.src = "assets/images/hamburger-menu-2.png";
 
-            console.log("llego a getProfile())");
+            headerNav.classList.add('show-one'); // Primera animación
+            setTimeout(function() {
+                headerNav.classList.add('show-two'); // Segunda animación
+            }, 300);
+
+            icon.src = "assets/images/hamburger-menu-2.png"; //cambiar el icono de hamburgesa
+
             fixedNav(); // Actualiza el nav con la información del usuario
 
-            // Agregar eventos para los botones de inicio de sesión
+            // boton de inicio de sesión
             const signInButton = document.getElementById('sign-in');
             if (signInButton) {
                 signInButton.addEventListener('click', function(event) {
-                    console.log("Botón de inicio de sesión clickeado, cargando formulario...");
                     event.preventDefault();
-                    getSignInForm();
+
+                    console.log("Botón de inicio de sesión clickeado, cargando formulario...");
+
+                    getSignInForm();//funcion para el form de iniciar sesion
                 });
             } else {
                 console.log("No se encontró el botón de inicio de sesión");
             }
 
-            // Agregar eventos para los botones de registro
+            // boton de registro
             const signUpButton = document.getElementById('sign-up');
             if (signUpButton) {
                 signUpButton.addEventListener('click', function(event) {
-                    console.log("Botón de registro clickeado, cargando formulario...");
                     event.preventDefault();
-                    getSignUpForm();
+
+                    console.log("Botón de registro clickeado, cargando formulario...");
+
+                    getSignUpForm();//funcion para el form de registro
                 });
             } else {
                 console.log("No se encontró el botón de registro");
             }
 
-            // Agregar eventos para los botones para visualizarcarrito
+            // boton para visualizar carrito
             const cardButton = document.getElementById('cart-btn');
             if(cardButton) {
                 cardButton.addEventListener('click', function(event) {
-                    console.log("Botón de carrito clickeado, cargando seccion...");
                     event.preventDefault();
-                    getCard();
+                    
+                    console.log("Botón de carrito clickeado, cargando seccion...");
+
+                    updateCart();
                 });
             } else {
                 console.log("no se encontro el boton del carrito en el nav");
@@ -128,14 +153,17 @@ function toggleMenu(event) {
         })
         .catch(error => console.error('Error fetching nav:', error));
     } else {
-        // Cerrar el menú sin animación
-        headerNav.innerHTML = ''; // Vacía el contenido inmediatamente
-        icon.src = "assets/images/hamburger-menu-1.png";
-        headerNav.classList.remove('show-one', 'show-two'); // Asegúrate de eliminar las clases de animación
+        headerNav.innerHTML = ''; // Vacía el contenido previo
+
+        icon.src = "assets/images/hamburger-menu-1.png"; //cambiar la imagen del nav
+
+        headerNav.classList.remove('show-one', 'show-two'); //eliminar las clases de animación
+
+        closeCart();//cerrar el carrito si estaba abierto
     }
 }
 
-// Función genérica para cargar un formulario y configurar los eventos de cierre
+// Función para cargar un formulario y configurar los eventos de cierre
 function loadForm(formPath, breadcrumbsText) {
     const page = document.getElementById('page_content');
     setBreadcrumbs(breadcrumbsText);
@@ -154,14 +182,11 @@ function loadForm(formPath, breadcrumbsText) {
                     event.preventDefault();
     
                     //1. Obtener valores del formulario
-                    console.log("sign in paso 1");
                     const email = document.getElementById('email').value.trim();
                     const password = document.getElementById('password').value.trim();
     
                     //2. enviar la informacion a userSystem
-                    console.log("sign in paso 3");
                     submitSignInForm(email, password);
-    
                 });
             }
 
@@ -221,33 +246,67 @@ export function iniciatedSesion() {
 }
 window.iniciatedSesion = iniciatedSesion;
 
-// Llamar la función genérica para el formulario de inicio de sesión
+//función para el formulario de inicio de sesión
 window.getSignInForm = function() {
     loadForm('frames/form-signIn.html', 'sign in');
     console.log("ejecutandose funcion sign in form");
 }
 
-// Llamar la función genérica para el formulario de registro
+//función para el formulario de registro
 window.getSignUpForm = function() {
     loadForm('frames/form-signUp.html', 'sign up');
     console.log("breadcrums > sign up.");
 }
 
-window.getCard = function() {
-    console.log("cargando card section.")
+//funcionalidad para el carrito de compra
+function getCart() {
+    console.log("cargando card section.");
 
     const page = document.getElementById('page_content');
 
-    fetch('frames/card.html')
+    fetch('frames/cart.html')
     .then(response => response.text())
     .then(data => {
-        page.innerHTML += data;
+        page.innerHTML += data; // Asegúrate de que `cart.html` tenga un div con id `cart_container`.
 
         const user = getUser(); // Llama a getUser() para obtener el objeto USER
         if (user.username) { // Verifica si hay un nombre de usuario
-            getUserCard();
-            console.log("cargando datos del usuario al card.")
+            getUserCart(); // Cargar datos del carrito de usuario
+            console.log("cargando datos del usuario al card.");
+        }
+
+        // Agrega el evento al botón de cerrar carrito
+        const btn_close = document.getElementById('close-cart');
+        if (btn_close) {
+            btn_close.addEventListener('click', function(event) {
+                event.preventDefault(); // Asegúrate de que esto se llame
+                closeCart(); // Llama a closeCart para cerrar el carrito
+            });
+        } else {
+            console.log("No se encontró el botón de cerrar carrito.");
         }
     })
-    .catch(error => console.error('Error fetching nav:', error));
+    .catch(error => console.error('Error fetching cart:', error));
+}
+let iscart = false;
+function updateCart() {
+    console.log("updateCart()");
+
+    iscart = !iscart;
+    if(!iscart) {
+        closeCart();
+    } else {
+        getCart();
+    }
+}
+function closeCart() {
+    // Obtener el elemento del carrito
+    const cart = document.getElementById('cart_container');
+
+    // Verificar si el carrito existe
+    if (cart) {
+        cart.remove(); // Elimina el carrito directamente
+    } else {
+        console.log("No se pudo encontrar el carrito.");
+    }
 }
