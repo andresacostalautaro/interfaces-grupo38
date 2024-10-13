@@ -1,0 +1,252 @@
+<article class="game-container game-layout">
+  
+    <div>
+        <!--aca puedo empezar a diseñar el canvas directo para la prox entrega-->
+       <picture class="game-preview"> 
+        <img src="./assets/gameDetail.png" alt="gameDetail" >
+    </picture>
+        <h2>4 en linea: Mortal Kombat Edition</h2>
+        <section class="game-galery">
+            <figure>
+                <img src="./assets/game-galery/cap1.svg" alt="game1">
+            </figure>
+            <figure>
+                <img src="./assets/game-galery/cap2.svg" alt="game2">
+            </figure>
+            <figure>
+                <img src="./assets/game-galery/cap2.svg" alt="game3">
+            </figure>
+        </section>
+    
+        <section class="socialMedia">
+            <h3>Comparte el juego con tus amigos</h3>
+            <ul>
+                <li>
+                    <img src="./assets/social-icons/twitterIcon.svg" alt="twitter"></a>
+                </li>
+                <li>
+                    <img src="./assets/social-icons/facebookIcon.svg" alt="instagram"></a>
+                </li>
+                <li>
+                    <img src="./assets/social-icons/redditIcon.svg" alt="tiktok">
+                </li>
+                <li>
+                    <img src="./assets/social-icons/gmailIcon.svg" alt="tiktok">
+                </li>
+                <li>
+                    <img src="./assets/social-icons/smsIcon.svg" alt="tiktok">
+                </li>
+                <li>
+                    <img src="./assets/social-icons/shareIcon.svg" alt="tiktok">
+                </li>
+            </ul>
+        </section>
+    
+        <!--info del juego-->
+        <section class="gameInfo">
+            <h3>Informacion del juego:</h3>
+            <p>Sumérgete en el universo de Mortal Kombat. Escoge a tu luchador favorito y enfréntate a tu oponente en este juego inspirado en Mortal Kombat 3.
+                Toma el control del tablero y desata el poder de los reinos en este enfrentamiento único. ¿Quién dominará el campo de batalla? ¡Solo hay un camino hacia la victoria!</p>
+        </section>
+    </div>
+       
+    
+    <aside class="game-instructions">
+        <h2>Objetivo</h2>
+        <p>Formar una linea vertical, horizontal o diagonal, posicionando 4 de tus fichas de manera consecutiva</p>
+        
+        <h2>Como se juega</h2>
+        <p>Selecciona la columna donde deseas colocar una de tus fichas y dale CLICK!</p>
+        <img src="./assets/mouseControl.svg" alt="gameControls">
+    </aside>
+  
+    
+
+</article>
+
+<!--comentarios-->
+<section class="comments">
+    <h2>Comentarios</h2>
+    
+    <div class="commentInput-section">
+        <div class="user-info">
+          <!--desde js voy a chequear la sesion y extraer los datos del json-->
+          <img src="./assets/userIcons/userIcon1.png" class="avatar"  alt="Avatar de John Doe" class="avatar">
+          <span>John Doe</span>
+        </div>
+        <form class="comment-form" aria-label="Formulario de comentarios">
+          <textarea id="comment-input" name="comment" placeholder="Escribe tu comentario aquí..." rows="4"></textarea>
+          <button type="submit" class="submit-button">Publicar comentario</button>
+        </form>
+    </div>
+  
+    <ul class="comment-list">
+      <li class="comment">
+        <article>
+          <header class="user-info">
+            <img src="./assets/userIcons/userIcon2.png" class="avatar" alt="Avatar de Jane Doe" class="avatar">
+            <span>Jane Doe</span>
+          </header>
+          <p>Lo disfruté mucho jugando con mi hermanita</p>
+        </article>
+      </li>
+      <li class="comment">
+        <article>
+          <header class="user-info">
+            <img src="./assets/userIcons/userIcon2.png" class="avatar" alt="Avatar de Jane Doe" class="avatar">
+            <span>Jan Doe</span>
+          </header>
+          <p>Lo disfruté mucho jugando con mi hermanita</p>
+        </article>
+      </li>
+      <li class="comment">
+        <article>
+          <header class="user-info">
+            <img src="./assets/userIcons/userIcon2.png" class="avatar" alt="Avatar de Jane Doe" class="avatar">
+            <span>Jay Doe</span>
+          </header>
+          <p>Lo disfruté mucho jugando con mi hermanita</p>
+        </article>
+      </li>
+      <!-- Aca deberia agregar mas comentarios como nos pedian -->
+    </ul>
+  
+    <button type="button" class="load-more">Cargar más</button>
+</section>
+  <style>
+
+        .game-container{
+            width: 100%;
+        }
+
+        .game-preview{
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .game-layout{
+            display: grid;
+            grid-template-columns: 5fr 1.3fr;
+            gap: 15px;
+        }
+
+        .game-preview img{
+            width: 100%;
+            height: auto;
+        }
+
+        .game-instructions{
+            padding: 10px;
+            background: #0C2640;
+            border-radius: 8px;
+            height: fit-content;
+        }
+
+        .socialMedia ul{
+            list-style: none;
+            display: flex;
+            gap: 9px;
+        }
+
+        .game-galery{
+            display: flex;
+        }
+
+        .game-galery figure{
+            width: 100%;
+        }
+
+        .game-galery img{
+            width: 100%;
+            height: auto;
+        }
+
+        .socialMedia li{
+            min-width: 40px;
+            padding: 5px;
+            border-radius: 20px;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .comments{
+            width: 100%;
+            padding: 30px;
+            background: white;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .comments button{
+            width: fit-content;
+        }
+
+        .commentInput-section{
+            background: white;
+            padding: 20px;
+            border: 1px solid #0061C3;
+            border-radius: 8px;
+        }
+
+        #comment-input{
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #c1bcbc;
+            resize: none;
+            
+        }
+
+        .comments form{
+            display: flex;
+            flex-direction: column;
+            justify-content: right;
+            align-items: end;
+            gap: 15px;
+        }
+
+        .commentInput-section button{
+            background: #023467;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            color: white;
+        }
+        
+        .user-info{
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .avatar{
+            border-radius: 30px;
+            max-height: 3rem;
+        }
+        
+        .comment-list{
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .load-more{
+            align-self: center;
+            background: #F1F2F3;
+            border: #E0E0E1 1px solid;
+            padding: 10px 30px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+  </style>

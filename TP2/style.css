@@ -1,26 +1,34 @@
 /* Global Styles */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     width: 100% !important; 
     margin: 0 !important; 
     padding: 0 !important;
     font-family: 'Nunito', sans-serif;
     color: white;
-    box-sizing: border-box;
     background-color: #023467; /* Fondo azul oscuro */
 }
 
 .page_content, .breadcrumbs {
-    padding: 1% 250px 1% 250px !important;
+    padding: 1% 15%;
 }
+
 .page_content {
     z-index: 1;
     max-height: fit-content;
     min-height: 600px;
     padding-bottom: 5%;
+    display: flex;
+    justify-content: center;
 }
 
 /* Estilo del header */
-header {
+#header header {
     z-index: 2;
     background-color: #0061C3;
     width: 100%;

@@ -1,42 +1,7 @@
-import { Carousel } from './carousel.js'; 
-import { SuggestedCarousel } from './suggestedCarousel.js';
-import ElementFactory from './elementFactory.js';
+
 // IDEA al detectar un cambio de dimensiones en la ventana, 
 // se debe recalcular el ancho de los elementos del carrusel e ir a la coordenada 0
 
-export function getCarousels() {
-    console.log("llegamos a getCarousels en app.js");
-    fetch('data/gamesByCategory.json')
-        .then(response => response.json())
-        .then(categories => {
-            // busco la categoria sugerencias
-            const sugerenciasIndex = categories.findIndex(category => category.categoryTitle === 'Sugerencias');
-            let sugerencias;
-            const fragment = document.createDocumentFragment();
-
-            // si esta la guardo y la elimino del array
-            if (sugerenciasIndex !== -1) {
-                // splice devuelve un array con los elementos eliminados, en este caso solo uno
-                sugerencias = categories.splice(sugerenciasIndex, 1)[0];
-
-                //creo el carrusel de sugerencias, lo agrego al fragment y lo instancio
-                const suggestionsContainer = ElementFactory.createSuggestionsContainer(sugerencias);
-                fragment.appendChild(suggestionsContainer);
-                new SuggestedCarousel(suggestionsContainer);
-            }
-
-            // creo los carruseles de las categorias restantes
-            categories.forEach(category => {
-                const categoryContainer = ElementFactory.createCategoryContainer(category);
-                fragment.appendChild(categoryContainer);
-                new Carousel(categoryContainer);
-            });
-
-            // ahora añadimos el fragment al contenedor de la página
-            const pageContent = document.getElementById('page_content');
-            pageContent.appendChild(fragment);
-        }).catch(error => console.error('Error fetching games:', error));
-}
 
 //esto puede ir en el factory
 function createLoader() {

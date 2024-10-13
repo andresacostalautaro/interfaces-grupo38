@@ -1,9 +1,11 @@
-import { getCarousels } from './app.js';
+import ElementFactory from './elementFactory.js';
+import { SuggestedCarousel } from './suggestedCarousel.js';
+import { Carousel } from './carousel.js'; 
+import { getProfile } from './userSystem.js';
 import { setBreadcrumbs } from './breacrums.js';
 import { submitSignInForm} from './userSystem.js';
 import { getUser} from './userSystem.js';
 import { updateProfile } from './userSystem.js';
-import { getProfile } from './userSystem.js';
 
 //primera funcion para traer el header y el footer,
 document.addEventListener('DOMContentLoaded', function() {
@@ -63,6 +65,48 @@ async function homePage() {
 
     getCarousels();
 }
+
+
+export function getCarousels() {
+    console.log("llegamos a getCarousels en app.js");
+    fetch('data/gamesByCategory.json')
+        .then(response => response.json())
+        .then(categories => {
+            // busco la categoria sugerencias
+            const sugerenciasIndex = categories.findIndex(category => category.categoryTitle === 'Sugerencias');
+            let sugerencias;
+            const fragment = document.createDocumentFragment();
+
+            // si esta la guardo y la elimino del array
+            if (sugerenciasIndex !== -1) {
+                // splice devuelve un array con los elementos eliminados, en este caso solo uno
+                sugerencias = categories.splice(sugerenciasIndex, 1)[0];
+
+                //creo el carrusel de sugerencias, lo agrego al fragment y lo instancio
+                const suggestionsContainer = ElementFactory.createSuggestionsContainer(sugerencias);
+                fragment.appendChild(suggestionsContainer);
+                new SuggestedCarousel(suggestionsContainer);
+
+                //agrego el evento click al primer juego del carrusel de sugerencias que SE que es el 4 en linea
+                suggestionsContainer.querySelectorAll('.game-card')[0].addEventListener('click', () => {
+                    console.log('click en el juego 4 en linea');
+                    loadGameDetail();
+                });
+            }
+
+            // creo los carruseles de las categorias restantes
+            categories.forEach(category => {
+                const categoryContainer = ElementFactory.createCategoryContainer(category);
+                fragment.appendChild(categoryContainer);
+                new Carousel(categoryContainer);
+            });
+
+            // ahora añadimos el fragment al contenedor de la página
+            const pageContent = document.getElementById('page_content');
+            pageContent.appendChild(fragment);
+        }).catch(error => console.error('Error fetching games:', error));
+}
+
 
 //funcion para despleagar el nav al cliquear en el boton hamburgesa
 var isMenuVisible = false;
@@ -203,4 +247,21 @@ window.getSignInForm = function() {
 window.getSignUpForm = function() {
     loadForm('frames/form-signUp.html', 'sign up');
     console.log("breadcrums > sign up.");
+}
+
+
+// Llamar a la funcion loadGamePage
+function loadGameDetail() {
+    const mainContent = document.getElementById('page_content');
+
+    fetch('frames/game-details.html')
+        .then(response => response.text())
+        .then(data => {
+            mainContent.innerHTML = data;
+            console.log('Detalle del juego cargada');
+        })
+        .catch(error => {
+            console.error('Error al cargar el detalle del juego:', error);
+            mainContent.innerHTML = '<p>Error al cargar el detalle del juego. Por favor, intenta de nuevo más tarde.</p>';
+        });
 }
