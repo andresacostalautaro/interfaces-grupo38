@@ -1,0 +1,98 @@
+<style>
+    .cart_container {
+        position: absolute !important;
+        top: 110px !important;
+        left: 245px !important;
+        background-color: #00274E !important;
+        color: aliceblue !important;
+        border-radius: 10px !important;
+        width: 300px !important;
+        height: fit-content !important;
+        padding: 30px !important;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important; /* sombra ligera */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    .close-cart {
+        position: absolute; 
+        width: 25px;
+        margin: 10px;
+        padding: 0 !important; 
+        margin: 0 !important; 
+        top: 2px; right: 2px; 
+    }
+
+    .cart-items {
+        background-color: #0061C3;
+        min-height: 100px !important;
+        max-height: 200px;
+        border-radius: 5px !important;
+        width: 100% !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Asegura que los elementos se alineen correctamente */
+        align-items: center;
+        padding: 0 !important;
+        margin: 0; /* Elimina márgenes innecesarios */
+        overflow-y: auto;
+    }
+
+    .cart-items li {
+        background-color: #8AE633;
+        margin: 10px 0; /* Agrega margen superior e inferior */
+        list-style: none;
+        display: flex;
+        width: 90%;
+        height: fit-content;
+        color: black;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 8px 4px 8px rgba(0, 0, 0, 0.1) !important; /* sombra ligera */
+        border-radius: 10px;
+        padding: 10px; /* Añadimos padding para más espacio dentro de cada li */
+    }
+
+    .cart-items li img {
+        border-radius: 10px;
+        max-width: 100px;
+        height: auto; /* Asegura que la imagen mantenga su proporción */
+    }
+
+    .cart-items li h2, .cart-items li h4 {
+        font-size: small;
+        text-align: center;
+        margin: 0; /* Elimina márgenes para evitar cortes de texto */
+    }
+
+    .cart_container button {
+        width: 100px;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #8AE633;
+        border: none;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: bold;
+        margin-top: 20px; /* Añade margen superior para separar del contenido */
+    }
+
+    .cart_container button:hover {
+        background-color: #ffc107;
+    }
+
+</style>
+
+<section class="cart_container" id="cart_container">
+    <img src="assets/images/close-cross-w.svg" alt="close form" id="close-cart" class="close-cart">
+    <ul class="cart-items">
+        <li>
+            <img src="https://images.crazygames.com/world-z-defense---zombie-defense_16x9/20241004060947/world-z-defense---zombie-defense_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop" alt="">
+            <h4>FREE</h4>
+            <h2>World Z Defense - Zombie Defense</h2>
+        </li>
+    </ul>
+    <button id="close-cart">Comprar</button>
+</section>
