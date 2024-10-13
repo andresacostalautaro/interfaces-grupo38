@@ -5,13 +5,20 @@
     box-sizing: border-box;
 }
 
+:root{
+    --primary-color: #003E7D;
+    --border-radius: 20px;
+    --gap : 15px;
+}
+
 body {
-    width: 100% !important; 
-    margin: 0 !important; 
-    padding: 0 !important;
+    width: 100%; 
+    margin: 0; 
+    padding: 0;
     font-family: 'Nunito', sans-serif;
     color: white;
-    background-color: #023467; /* Fondo azul oscuro */
+    background-color: var(--primary-color); /* Fondo azul oscuro */
+
 }
 
 .page_content, .breadcrumbs {
@@ -92,12 +99,6 @@ body {
 }
 /*--------------------- fin spinner -------------------------------*/
 
-:root{
-    --primary-color: #003E7D;
-    --border-radius: 20px;
-    --gap : 15px;
-}
-
 main{
     display: flex;
     width: 100%;
@@ -105,14 +106,6 @@ main{
     align-items: center;
     justify-content: center;
     gap: 26px;
-}
-
-body {
-    font-family: inter, sans-serif;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 30px;
-    
 }
 
 h1 {
@@ -207,6 +200,10 @@ h1 {
         margin: 0;
     }
 
+    .page_content{
+        padding: 10px;
+    }
+
     header, article, body {
         width: 100%;
         margin: 0;
@@ -215,7 +212,8 @@ h1 {
     .header_nav {
         z-index: 3;
     }
-    .page_content, .breadcrumbs {
+
+    .breadcrumbs {
         padding: 0 !important;
     }
     .page_content .carousel-container {
@@ -227,9 +225,6 @@ h1 {
         text-align: center;
         padding: 0;
         margin: 0;
-    }
-    .page_content .carousel-container {
-        padding: 0 !important;
     }
 
     /* Estilo del header */
