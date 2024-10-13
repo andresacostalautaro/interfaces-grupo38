@@ -187,6 +187,7 @@
         .socialMedia li{
             min-width: 40px;
             padding: 5px;
+            cursor: pointer;
             border-radius: 20px;
             background: white;
             display: flex;
@@ -301,7 +302,7 @@
             color: #707070;
         }
 
-        .gameInfo p{
+        .game-container p{
             font-family: 'Nunito', sans-serif;
         }
 
@@ -311,5 +312,26 @@
             gap: 10px;
         }
 
+        /*animacion  */       
+        .socialMedia li:hover {
+            background-color: #8AE633;
+            color: #ffffff;
+            animation: example 0.6s;
+        }
 
+        @keyframes example{
+            0% {
+                transform: rotate(0deg);
+
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+       
+
+
+     
+          
   </style>
