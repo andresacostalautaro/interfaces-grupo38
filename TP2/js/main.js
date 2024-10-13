@@ -1,7 +1,6 @@
 import ElementFactory from './elementFactory.js';
 import { SuggestedCarousel } from './suggestedCarousel.js';
 import { Carousel } from './carousel.js'; 
-import { getProfile } from './userSystem.js';
 import { setBreadcrumbs } from './breacrums.js';
 import { submitSignInForm} from './userSystem.js';
 import { submitSignUpForm} from './userSystem.js';
@@ -302,9 +301,11 @@ window.getSignUpForm = function() {
     console.log("breadcrums > sign up.");
 }
 
-
-
-// Llamar a la funcion loadGamePage
+ 
+/*
+Llamar a la funcion loadGamePage
+TODO: agregar "video", animacion a los botones de socialmedia y actualizar breadcrumbs
+*/
 function loadGameDetail() {
     const mainContent = document.getElementById('page_content');
 
@@ -320,7 +321,7 @@ function loadGameDetail() {
         });
 }
 
-    //funcionalidad para el carrito de compra
+//funcionalidad para el carrito de compra
 function getCart() {
     console.log("cargando card section.");
 
