@@ -15,7 +15,7 @@ body {
     width: 100%; 
     margin: 0; 
     padding: 0;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'inter', sans-serif;
     color: white;
     background-color: var(--primary-color); /* Fondo azul oscuro */
 
