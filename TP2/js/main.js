@@ -10,6 +10,7 @@ import { updateNav } from './userSystem.js';
 import { fixedNav } from './userSystem.js';
 import { createLoader } from './app.js';
 import {simulateLoading} from './app.js';
+import { loadCommentsFromFile, renderComments, setupLoadMoreButton, setupCommentSubmission } from './comments.js';
 
 //primera funcion que ocurre al cargar la pagina
 document.addEventListener('DOMContentLoaded', function() {
@@ -88,7 +89,7 @@ async function homePage() {
     Promise.all([breadcrumbs, carrouseles])
     .then(() => {
         console.log("página principal cargada.");
-
+        
     })
     .catch(error => console.error('Error en la carga de recursos:', error));
 }
@@ -98,29 +99,13 @@ export function getCarousels() {
     fetch('data/gamesByCategory.json')
         .then(response => response.json())
         .then(categories => {
-            // busco la categoria sugerencias
             const sugerenciasIndex = categories.findIndex(category => category.categoryTitle === 'Sugerencias');
             let sugerencias;
             const fragment = document.createDocumentFragment();
 
-            // si esta la guardo y la elimino del array
-            if (sugerenciasIndex !== -1) {
-                // splice devuelve un array con los elementos eliminados, en este caso solo uno
-                sugerencias = categories.splice(sugerenciasIndex, 1)[0];
+            // ... (tu código para manejar las sugerencias)
 
-                //creo el carrusel de sugerencias, lo agrego al fragment y lo instancio
-                const suggestionsContainer = ElementFactory.createSuggestionsContainer(sugerencias);
-                fragment.appendChild(suggestionsContainer);
-                new SuggestedCarousel(suggestionsContainer);
-
-                //agrego el evento click al primer juego del carrusel de sugerencias que SE que es el 4 en linea
-                suggestionsContainer.querySelectorAll('.game-card')[0].addEventListener('click', () => {
-                    console.log('click en el juego 4 en linea');
-                    loadGameDetail();
-                });
-            }
-
-            // creo los carruseles de las categorias restantes
+            // crea los carruseles de las categorias restantes
             categories.forEach(category => {
                 const categoryContainer = ElementFactory.createCategoryContainer(category);
                 fragment.appendChild(categoryContainer);
@@ -130,6 +115,33 @@ export function getCarousels() {
             // ahora añadimos el fragment al contenedor de la página
             const pageContent = document.getElementById('page_content');
             pageContent.appendChild(fragment);
+
+            // Agrega aquí el event listener para los botones de carrito después de que se haya añadido el fragmento al DOM
+            const cartBtns = document.querySelectorAll('.cart-btn');
+            console.log(cartBtns);
+            cartBtns.forEach(cartBtn => {
+                cartBtn.addEventListener("click", function() {
+                    // Cambiar la imagen del carrito
+                    const cartIcon = this.querySelector('.cart-icon');
+                    cartIcon.src = './assets/carrito-confirmado.svg'; // Cambia a la imagen de confirmación
+                    // Mostrar el símbolo de confirmación
+                    const confirmationIcon = this.querySelector('.confirmation-icon');
+                    confirmationIcon.style.display = 'inline';
+                    confirmationIcon.style.opacity = '1'; // Asegúrate de que esté visible
+
+                    // Agregar una clase para manejar el estado del botón
+                    this.classList.add('confirmed');
+
+                    // Revertir el cambio después de 2 segundos
+                    setTimeout(() => {
+                        // Restablecer la imagen del carrito
+                        cartIcon.src = './assets/carrito.svg'; // Cambia de nuevo a la imagen original
+                        confirmationIcon.style.opacity = '0'; // Ocultar el símbolo de confirmación
+                        confirmationIcon.style.display = "none";
+                        this.classList.remove('confirmed');
+                    }, 2000); // Cambiar a la imagen original después de 2 segundos
+                });
+            }); // Cierre correcto para forEach
         }).catch(error => console.error('Error fetching games:', error));
 }
 
@@ -323,14 +335,50 @@ function loadGameDetail() {
         .then(response => response.text())
         .then(data => {
             mainContent.innerHTML = data;
-            setBreadcrumbs('aventura Mortal Kombat');
             console.log('Detalle del juego cargada');
+            loadCommentsScript(); // Carga y ejecuta el script de comentarios
+            setupEventListeners(); // Configura los escuchadores de eventos
         })
         .catch(error => {
             console.error('Error al cargar el detalle del juego:', error);
             mainContent.innerHTML = '<p>Error al cargar el detalle del juego.</p>';
         });
 }
+
+function loadCommentsScript() {
+    const script = document.createElement('script');
+    script.src = 'js/comments.js'; // Ruta del script de comentarios
+    script.type = 'module'; // Asegúrate de que se ejecute como un módulo
+    script.onload = () => {
+        console.log('Script de comentarios cargado');
+        // Llama a la función para cargar los comentarios
+        const jsonFilePath = './data/initialComments.json'; // Ajusta la ruta según sea necesario
+        loadCommentsFromFile(jsonFilePath, (comments) => {
+            renderComments(comments, 2);  // Mostrar inicialmente 2 comentarios
+            setupLoadMoreButton(comments);
+            setupCommentSubmission(comments);
+        });
+    };   
+    document.body.appendChild(script);
+}
+
+function setupEventListeners() {
+    const loadMoreBtn = document.querySelector('.load-more');
+    const submitBtn = document.querySelector('.submit-button');
+    const commentInput = document.getElementById('#comment-input');
+
+    loadMoreBtn.addEventListener('click', () => {
+        console.log('Cargar más clicado');
+        // Lógica para cargar más comentarios
+    });
+
+    submitBtn.addEventListener('click', () => {
+        console.log('Enviar comentario clicado');
+        // Lógica para enviar comentario
+    });
+}
+
+
 
 //funcionalidad para el carrito de compra
 function getCart() {
@@ -386,4 +434,6 @@ function closeCart() {
         console.log("No se pudo encontrar el carrito.");
     }
 }
+
+
 

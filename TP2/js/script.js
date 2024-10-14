@@ -116,12 +116,12 @@ function changeNavProfile(user) {
                 <tr id="nav_profile">
                     <th><a><img id="user_photo_nav" class="user_photo_nav" src="${user.username}" alt="Foto del usuario"></a></th>
                     <td class="user-panel" colspan="2">
-                      <h1>${user.username}</h1>
-                      <div>
+                    <h1>${user.username}</h1>
+                    <div>
                         <h5 id="btn-MySession">Mi Sesion</h5>
                         <h5>|</h5>
                         <h5 id="btn-Sign-out">Cerrar Sesion</h5>
-                      </div>
+                    </div>
                     </td>
                 </tr>`;
 }

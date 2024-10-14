@@ -93,15 +93,6 @@
     </div>
 
     <ul class="comment-list">
-    <li class="comment">
-        <article>
-        <header class="user-info">
-            <img src="./assets/userIcons/userIcon2.png" class="avatar" alt="Avatar de Jane Doe" class="avatar">
-            <span>Jane Doe</span>
-        </header>
-        <p>Lo disfruté mucho jugando con mi hermanita</p>
-        </article>
-    </li>
     <!-- Aca deberia agregar mas comentarios como nos pedian -->
     </ul>
 
@@ -228,7 +219,9 @@
             color: white;
             font-weight: 600;
         }
-        
+        .submit-button:hover{
+            background: #0061C3;
+        }
         .user-info{
             display: flex;
             gap: 8px;
@@ -258,6 +251,10 @@
             border-radius: 8px;
             font-weight: 700;
             font-size: 0.9rem;
+        }
+
+        .load-more:hover{
+            background: #E0E3E4;
         }
 
         .game-instructions h3{
@@ -311,93 +308,4 @@
         }
         
 </style>
-<script>
-// Función para crear el elemento de comentario en el DOM
-function createCommentElement(comment) {
-    const commentItem = document.createElement('li');
-    commentItem.classList.add('comment');
-
-    commentItem.innerHTML = `
-    <article>
-        <header class="user-info">
-            <img src="${comment.avatar}" class="avatar" alt="Avatar de ${comment.name}">
-            <span>${comment.name}</span>
-        </header>
-        <p>${comment.text}</p>
-        <time>${comment.timestamp}</time>
-    </article>
-    `;
-
-    return commentItem;
-}
-
-// Función para renderizar comentarios visibles
-function renderComments(comments, visibleCount) {
-    const commentList = document.querySelector('.comment-list');
-    commentList.innerHTML = '';  // Limpiar lista de comentarios
-
-    comments.slice(0, visibleCount).forEach(comment => {
-        const commentItem = createCommentElement(comment);
-        commentList.appendChild(commentItem);
-    });
-
-    // Ocultar botón si no hay más comentarios
-    const loadMoreBtn = document.querySelector('.load-more'); // Cambiado para usar el selector de clase
-    if (visibleCount >= comments.length) {
-        loadMoreBtn.style.display = 'none';
-    } else {
-        loadMoreBtn.style.display = 'block';
-    }
-}
-
-// Función para cargar el archivo JSON de comentarios
-function loadCommentsFromFile(filePath, callback) {
-    fetch(filePath)
-        .then(response => response.json())
-        .then(comments => callback(comments))
-        .catch(error => console.error('Error al cargar los comentarios:', error));
-}
-
-// Manejador del botón "Cargar más"
-function setupLoadMoreButton(comments) {
-    let visibleComments = 2;  // Inicialmente muestra 2 comentarios
-    const loadMoreBtn = document.querySelector('.load-more'); // Cambiado para usar el selector de clase
-
-    loadMoreBtn.addEventListener('click', () => {
-        visibleComments += 2;
-        renderComments(comments, visibleComments);
-    });
-}
-
-// Función para añadir un nuevo comentario
-function setupCommentSubmission(comments) {
-    const submitBtn = document.querySelector('.submit-button'); // Cambiado para usar el selector de clase correcta
-    const commentInput = document.querySelector('#comment-input'); // Cambiado para usar el selector de ID correcto
-
-    submitBtn.addEventListener('click', (event) => {
-        event.preventDefault(); // Evitar la recarga de la página al enviar el formulario
-        const commentText = commentInput.value.trim();
-        if (commentText !== "") {
-            const newComment = {
-                name: 'John Doe',
-                avatar: 'https://via.placeholder.com/40',
-                text: commentText,
-                timestamp: new Date().toLocaleString()
-            };
-            comments.unshift(newComment);  // Añadir al inicio de la lista
-            commentInput.value = '';  // Limpiar el campo de texto
-            renderComments(comments, comments.length);  // Volver a renderizar todos los comentarios
-        }
-    });
-}
-
-// Inicialización de la aplicación
-document.addEventListener('DOMContentLoaded', () => {
-    const jsonFilePath = '../data/initialComments.json';
-    loadCommentsFromFile(jsonFilePath, (comments) => {
-        renderComments(comments, 2);  // Mostrar inicialmente 2 comentarios
-        setupLoadMoreButton(comments);
-        setupCommentSubmission(comments);
-    });
-});
-</script>
+<script src="../js/comments.js"></script>

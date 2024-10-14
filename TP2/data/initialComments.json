@@ -1,7 +1,12 @@
 [
-    {"name":"Jane Doe","avatar":"../userIcons/userIcon3.png","text":"Lo disfruté mucho jugando con mi hermanita","timestamp":"10/14/2024, 10:30:00 AM"},
-    {"name":"Arthur Morgan","avatar":"../userIcons/userIcon2.png","text":"Me encantó","timestamp":"10/14/2024, 10:30:00 AM"},
-    {"name":"Lorraine Warren","avatar":"../userIcons/userIcon3.png","text":"Gran experiencia!","timestamp":"10/14/2024, 10:30:00 AM"},
-    {"name":"Peter Parker","avatar":"https://via.placeholder.com/40","text":"Volvería a jugarlo!","timestamp":"10/14/2024, 10:30:00 AM"},
-    {"name":"Joseph Goebbels","avatar":"https://via.placeholder.com/40","text":"Impresionante, como siempre!","timestamp":"10/14/2024, 10:30:00 AM"}
+    {"name":"Jane Doe","avatar":"./assets/userIcons/userIcon2.png","text":"Lo disfruté mucho jugando con mi hermanita","timestamp":"10/14/2024, 10:30:00 AM"},
+    {"name":"Arthur Morgan","avatar":"./assets/userIcons/userIcon3.png","text":"Me encantó","timestamp":"10/14/2024, 10:30:00 AM"},
+    {"name":"Lorraine Warren","avatar":"./assets/userIcons/userIcon4.png","text":"Gran experiencia!","timestamp":"10/14/2024, 10:30:00 AM"},
+    {"name":"Peter Parker","avatar":"./assets/userIcons/userIcon5.png","text":"Volvería a jugarlo!","timestamp":"10/14/2024, 10:30:00 AM"},
+    {"name":"Joseph Goebbels","avatar":"./assets/userIcons/userIcon6.png","text":"Impresionante, como siempre!","timestamp":"10/14/2024, 10:30:00 AM"},
+    {"name":"Alice Johnson","avatar":"./assets/userIcons/userIcon7.png","text":"Un juego increíble, muy recomendable!","timestamp":"10/14/2024, 10:35:00 AM"},
+    {"name":"Max Payne","avatar":"./assets/userIcons/userIcon8.png","text":"Me encanta la narrativa del juego!","timestamp":"10/14/2024, 10:40:00 AM"},
+    {"name":"Eleanor Rigby","avatar":"./assets/userIcons/userIcon9.png","text":"Los gráficos son impresionantes!","timestamp":"10/14/2024, 10:45:00 AM"},
+    {"name":"Bruce Wayne","avatar":"./assets/userIcons/userIcon10.png","text":"Es uno de mis favoritos, definitivamente!","timestamp":"10/14/2024, 10:50:00 AM"},
+    {"name":"Hannah Montana","avatar":"./assets/userIcons/userIcon11.png","text":"¡Qué divertido! No puedo esperar a jugarlo de nuevo.","timestamp":"10/14/2024, 10:55:00 AM"}
 ]
