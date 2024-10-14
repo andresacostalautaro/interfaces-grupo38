@@ -11,4 +11,3 @@ export function setBreadcrumbs(palabra) {
         `;
     }
 }
-window.setBreadcrumbs = setBreadcrumbs;

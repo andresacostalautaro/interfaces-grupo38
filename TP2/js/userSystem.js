@@ -186,7 +186,7 @@ export function fixedNav() {
                     <h1>${USER.username}</h1>
                     <div>
                         <h5 id="btn-MySession">Mi Sesion</h5>
-                        <h5>|</h5>
+                        <h5 style=" width: fit-content !important;">|</h5>
                         <h5 id="btn-Sign-out">Cerrar Sesion</h5>
                     </div>
                 </td>
