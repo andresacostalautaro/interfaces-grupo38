@@ -6,7 +6,7 @@
         background-color: #00274E !important;
         color: aliceblue !important;
         border-radius: 10px !important;
-        width: 300px !important;
+        width: 350px !important;
         height: fit-content !important;
         padding: 30px !important;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important; /* sombra ligera */
@@ -58,6 +58,7 @@
     .cart-items li img {
         border-radius: 10px;
         max-width: 100px;
+        overflow: hidden;
         height: auto; /* Asegura que la imagen mantenga su proporción */
     }
 
@@ -82,17 +83,22 @@
     .cart_container button:hover {
         background-color: #ffc107;
     }
+    @media (max-width: 600px) {
+        .cart_container {
+            border: 2px solid #0061C3;
+            z-index: 5;
+            left: 10px !important;
+            position: absolute;
+        }
+        
+
+    }
 
 </style>
 
 <section class="cart_container" id="cart_container">
     <img src="assets/images/close-cross-w.svg" alt="close form" id="close-cart" class="close-cart">
-    <ul class="cart-items">
-        <li>
-            <img src="https://images.crazygames.com/world-z-defense---zombie-defense_16x9/20241004060947/world-z-defense---zombie-defense_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop" alt="">
-            <h4>FREE</h4>
-            <h2>World Z Defense - Zombie Defense</h2>
-        </li>
+    <ul class="cart-items" id="cart-items">
     </ul>
     <button id="close-cart">Comprar</button>
 </section>
