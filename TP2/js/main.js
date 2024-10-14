@@ -311,7 +311,7 @@ window.getSignUpForm = function() {
     console.log("breadcrums > sign up.");
 }
 
- 
+
 /*
 Llamar a la funcion loadGamePage
 TODO: agregar "video", animacion a los botones de socialmedia y actualizar breadcrumbs
