@@ -341,13 +341,7 @@ function getCart() {
     fetch('frames/cart.html')
     .then(response => response.text())
     .then(data => {
-        page.innerHTML += data; // Asegúrate de que `cart.html` tenga un div con id `cart_container`.
-
-        const user = getUser(); // Llama a getUser() para obtener el objeto USER
-        if (user.username) { // Verifica si hay un nombre de usuario
-            getUserCart(); // Cargar datos del carrito de usuario
-            console.log("cargando datos del usuario al card.");
-        }
+        page.innerHTML += data;
 
         // Agrega el evento al botón de cerrar carrito
         const btn_close = document.getElementById('close-cart');
@@ -358,6 +352,12 @@ function getCart() {
             });
         } else {
             console.log("No se encontró el botón de cerrar carrito.");
+        }
+
+        const user = getUser(); // getUser() para obtener el objeto USER
+        if (user.username) { // Verifica si hay un nombre de usuario
+            getUserCart(); // Cargar datos del carrito de usuario
+            console.log("cargando datos del usuario al card.");
         }
     })
     .catch(error => console.error('Error fetching cart:', error));

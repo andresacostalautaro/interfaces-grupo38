@@ -58,6 +58,7 @@
     .cart-items li img {
         border-radius: 10px;
         max-width: 100px;
+        overflow: hidden;
         height: auto; /* Asegura que la imagen mantenga su proporción */
     }
 
@@ -84,38 +85,20 @@
     }
     @media (max-width: 600px) {
         .cart_container {
-            border: 1px solid #8AE633;
+            border: 2px solid #0061C3;
             z-index: 5;
             left: 10px !important;
             position: absolute;
         }
+        
+
     }
 
 </style>
 
 <section class="cart_container" id="cart_container">
     <img src="assets/images/close-cross-w.svg" alt="close form" id="close-cart" class="close-cart">
-    <ul class="cart-items">
-        <li>
-            <img src="https://images.crazygames.com/world-z-defense---zombie-defense_16x9/20241004060947/world-z-defense---zombie-defense_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop" alt="">
-            <h4>FREE</h4>
-            <h2>World Z Defense - Zombie Defense</h2>
-        </li>
-        <li>
-            <img src="https://images.crazygames.com/world-z-defense---zombie-defense_16x9/20241004060947/world-z-defense---zombie-defense_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop" alt="">
-            <h4>FREE</h4>
-            <h2>World Z Defense - Zombie Defense</h2>
-        </li>
-        <li>
-            <img src="https://images.crazygames.com/world-z-defense---zombie-defense_16x9/20241004060947/world-z-defense---zombie-defense_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop" alt="">
-            <h4>FREE</h4>
-            <h2>World Z Defense - Zombie Defense</h2>
-        </li>
-        <li>
-            <img src="https://images.crazygames.com/world-z-defense---zombie-defense_16x9/20241004060947/world-z-defense---zombie-defense_16x9-cover?auto=format%2Ccompress&q=65&cs=strip&ch=DPR&fit=crop" alt="">
-            <h4>FREE</h4>
-            <h2>World Z Defense - Zombie Defense</h2>
-        </li>
+    <ul class="cart-items" id="cart-items">
     </ul>
     <button id="close-cart">Comprar</button>
 </section>
