@@ -4,7 +4,7 @@
 
 
 //esto puede ir en el factory
-function createLoader() {
+export function createLoader() {
     const loader = document.createElement('div');
     loader.className = 'loader-capa';
     loader.innerHTML = `
@@ -14,7 +14,7 @@ function createLoader() {
     return loader;
 }
 
-function simulateLoading(duration) {
+export function simulateLoading(duration) {
 
     return new Promise(resolve => {
         const loaderPercentage = document.querySelector('.loader-percentage');

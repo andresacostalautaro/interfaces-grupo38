@@ -8,62 +8,72 @@ import { getUserCart} from './userSystem.js';
 import { getUser} from './userSystem.js';
 import { updateNav } from './userSystem.js';
 import { fixedNav } from './userSystem.js';
+import { createLoader } from './app.js';
+import {simulateLoading} from './app.js';
 
 //primera funcion que ocurre al cargar la pagina
 document.addEventListener('DOMContentLoaded', function() {
+    const loader = createLoader();
+    document.body.appendChild(loader);
+    // Simular carga durante 1.5 segundos
+    simulateLoading(1500).then(() => {
+        
+        document.body.removeChild(loader);
 
-    // prometemos traer el header
-    console.log("cargando header...");
-    let headerLoaded = fetch('frames/header.html')
-    .then(response => response.text())
-    .then(data => {
-        console.log("header cargado.");
-        const header = document.getElementById('header');
-        header.innerHTML = data;
+        // prometemos traer el header
+        console.log("cargando header...");
+        let headerLoaded = fetch('frames/header.html')
+        .then(response => response.text())
+        .then(data => {
+            console.log("header cargado.");
+            const header = document.getElementById('header');
+            header.innerHTML = data;
 
-        // añadimos la posibilidad de desplegar el nav cliqueando en el boton hamburgesa
-        document.getElementById('hamburger-menu').addEventListener('click', toggleMenu);
-    })
-    .catch(error => console.error('Error fetching header:', error));
+            // añadimos la posibilidad de desplegar el nav cliqueando en el boton hamburgesa
+            document.getElementById('hamburger-menu').addEventListener('click', toggleMenu);
+        })
+        .catch(error => console.error('Error fetching header:', error));
 
 
-    // prometemos traer el breadcrums
-    console.log("cargando breadcrums...");
-    let breadcrumbsLoaded = fetch('frames/breadcrums.html')
-    .then(response => response.text())
-    .then(data => {
-        console.log("breadcrums cargado.");
-        const brms = document.getElementById('breadcrumbs');
-        brms.innerHTML = data;
+        // prometemos traer el breadcrums
+        console.log("cargando breadcrums...");
+        let breadcrumbsLoaded = fetch('frames/breadcrums.html')
+        .then(response => response.text())
+        .then(data => {
+            console.log("breadcrums cargado.");
+            const brms = document.getElementById('breadcrumbs');
+            brms.innerHTML = data;
 
-        //añadimos la posibilidad de ir siempre a la pagina principal si se cliquea el HOME del breadcrums
-        document.getElementById('breadcrumbs_home_icon').addEventListener('click', function(event) {
+            //añadimos la posibilidad de ir siempre a la pagina principal si se cliquea el HOME del breadcrums
+            document.getElementById('breadcrumbs_home_icon').addEventListener('click', function(event) {
+                homePage();
+            });
+        })
+        .catch(error => console.error('Error fetching breadcrums:', error));
+
+
+        // prometemos traer el footer
+        console.log("cargando footer...");
+        let footerLoaded = fetch('frames/footer.html')
+        .then(response => response.text())
+        .then(data => {
+            const footer = document.getElementById('footer');
+            footer.innerHTML = data;
+            console.log("footer cargado");
+        })
+        .catch(error => console.error('Error fetching footer:', error));
+            
+        
+        //cuando las promesas de header, breadcrums y footer se cumplen ejecutamos la pagina principal
+        Promise.all([headerLoaded, breadcrumbsLoaded, footerLoaded])
+        .then(() => {
+            console.log("cargando página principal...");
+
+            // Cargar Home Page solo después de que todos los fetch hayan terminado
             homePage();
-        });
-    })
-    .catch(error => console.error('Error fetching breadcrums:', error));
-
-
-    // prometemos traer el footer
-    console.log("cargando footer...");
-    let footerLoaded = fetch('frames/footer.html')
-    .then(response => response.text())
-    .then(data => {
-        const footer = document.getElementById('footer');
-        footer.innerHTML = data;
-        console.log("footer cargado");
-    })
-    .catch(error => console.error('Error fetching footer:', error));
-
-    //cuando las promesas de header, breadcrums y footer se cumplen ejecutamos la pagina principal
-    Promise.all([headerLoaded, breadcrumbsLoaded, footerLoaded])
-    .then(() => {
-        console.log("cargando página principal...");
-
-        // Cargar Home Page solo después de que todos los fetch hayan terminado
-        homePage();
-    })
-    .catch(error => console.error('Error en la carga de recursos:', error));
+        })
+        .catch(error => console.error('Error en la carga de recursos:', error));
+    });
 });
 
 //funcion para cargar la pagina principal
@@ -313,6 +323,7 @@ function loadGameDetail() {
         .then(response => response.text())
         .then(data => {
             mainContent.innerHTML = data;
+            setBreadcrumbs('aventura Mortal Kombat');
             console.log('Detalle del juego cargada');
         })
         .catch(error => {
