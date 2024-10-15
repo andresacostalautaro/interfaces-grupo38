@@ -4,7 +4,7 @@ export function setBreadcrumbs(palabra) {
         bcsContent.innerHTML = `<h3>${palabra}</h3>`;
     } else {
         bcsContent.innerHTML = `
-            <h3>Categoria</h3>
+            <h3>Estrategia</h3>
             <img src="assets/images/breadcrums-greater-than.svg" alt=">" class="breadcrumbs_greaterthan_icon">
             <h3>${palabra}</h3>
         `;
