@@ -21,11 +21,8 @@ body {
 
 }
 
-.page_content, .breadcrumbs {
-    padding: 1% 15%;
-}
-
 .page_content {
+    padding: 10px;
     z-index: 1;
     max-height: fit-content;
     min-height: 600px;
@@ -46,11 +43,7 @@ body {
     align-items: center;
 }
 
-.hamburger-icon {
-    max-width: 40px;
-    padding: 5px;
-    transition: 0.5s ease-out;
-}
+
 
 .logo {
     max-width: 200px;
@@ -191,84 +184,57 @@ h1 {
 .carousel-dots{
     display: none;
 }
-/* -------------fin estilos carrusel mobile-------------*/
 
-/* Media Queries */
-@media (max-width: 600px) {
-    .logo {
-        max-width: 200px;
-        margin: 0;
-    }
-
-    .page_content{
-        padding: 10px;
-    }
-
-    header, article, body {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    .header_nav {
-        z-index: 3;
-    }
-
-    .breadcrumbs {
-        padding: 0 !important;
-    }
-    .page_content .carousel-container {
-        position: relative;
-        z-index: 1;
-    }
-    .page_content .category-container h2 {
-        font-size: medium;
-        text-align: center;
-        padding: 0;
-        margin: 0;
-    }
-
-    /* Estilo del header */
-    .hamburger-menu,
-    .logo {
-        padding-left: 0;
-    }
-
-    .logo {
-        padding-left: 0;
-        margin-bottom: 0;
-    }
-
-    header a img {
-        max-width: 50px;
-        margin: 12px;
-    }
-
-    /* Estilo del navegador */
-    .header_nav {
-        margin-left: 0; /* Cambiado para alineación */
-        height: auto; /* Ajustado para flexibilidad */
-    }
-
-    .user_info div h3 {
-        font-size: 15px;
-    }
-
-    .header_nav h3,
-    .user_info h2 {
-        font-size: 20px;
-    }
-
-    .nav_category_icon {
-        width: 30px;
-        height: 30px;
-    }
+/* Estilo del header */
+.hamburger-menu,
+.logo {
+    padding-left: 0;
 }
+
+.logo {
+    max-width: 200px;
+    margin: 0;
+}
+
+.page_content{
+    padding: 10px;
+}
+
+.breadcrumbs {
+    padding: 0;
+}
+
+header a img {
+    max-width: 50px;
+    margin: 12px;
+}
+
+.page_content .category-container h2 {
+    font-size: large;
+    text-align: center;
+    margin: 10;
+}
+/* -------------fin estilos carrusel mobile-------------*/
 
 /* -------------estilos carrusel desktop-------------*/
 
 @media (min-width: 768px) {
+    .page_content .category-container h2 {
+        font-size: 1.25rem;
+        text-align: left;
+        margin: 10;
+    }
 
+    .hamburger-icon {
+        max-width: 40px;
+        padding: 5px;
+        transition: 0.5s ease-out;
+    }
 
+    .page_content, .breadcrumbs {
+        padding: 1% 15%;
+    }
+   
     .category-container {
         display: flex;
         flex-direction: column;

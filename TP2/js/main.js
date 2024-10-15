@@ -307,6 +307,7 @@ Llamar a la funcion loadGamePage
 TODO: agregar "video", animacion a los botones de socialmedia y actualizar breadcrumbs
 */
 function loadGameDetail() {
+    setBreadcrumbs("4 en linea: Mortal Kombat Edition");
     const mainContent = document.getElementById('page_content');
 
     fetch('frames/game-details.html')

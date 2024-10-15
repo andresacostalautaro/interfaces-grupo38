@@ -124,214 +124,271 @@
       <!-- Aca deberia agregar mas comentarios como nos pedian -->
     </ul>
   
-    <button type="button" class="load-more">Cargar más</button>
+    <div class="load-more-container">
+        <button type="button" class="load-more">
+            Cargar más
+        </button>
+        <div class="arrows-container">
+            <div class="arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </div>
+
+    
 </section>
-  <style>
+<style>
 
-        .game-container{
-            width: 100%;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+    .game-container{
+        width: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
 
-        .game-container h1{
-            font-size: 1.75rem;
-        }
+    .game-container h1{
+        font-size: 1.75rem;
+    }
 
-        .game-preview{
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
+    .game-preview{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
 
-        .game-layout{
-            display: grid;
-            grid-template-columns: 5fr 1.3fr;
-            gap: 15px;
-        }
+    .game-layout{
+        display: grid;
+        grid-template-columns: 5fr 1.3fr;
+        gap: 15px;
+    }
 
-        .game-preview img{
-            width: 100%;
-            height: auto;
-        }
+    .game-preview img{
+        width: 100%;
+        height: auto;
+    }
 
-        .game-instructions{
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            line-height: 25.1px;
-            text-align: justify;
-        }
+    .game-instructions{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        line-height: 25.1px;
+        text-align: justify;
+    }
 
-        .socialMedia ul{
-            list-style: none;
-            display: flex;
-            gap: 9px;
-        }
+    .socialMedia ul{
+        list-style: none;
+        display: flex;
+        gap: 9px;
+    }
 
-        .game-galery{
-            display: flex;
-        }
+    .game-galery{
+        display: flex;
+    }
 
-        .game-galery figure{
-            width: 100%;
-        }
+    .game-galery figure{
+        width: 100%;
+    }
 
-        .game-galery img{
-            width: 100%;
-            height: auto;
-        }
+    .game-galery img{
+        width: 100%;
+        height: auto;
+    }
 
-        .socialMedia li{
-            min-width: 40px;
-            padding: 5px;
-            cursor: pointer;
-            border-radius: 20px;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .socialMedia li{
+        min-width: 40px;
+        padding: 5px;
+        cursor: pointer;
+        border-radius: 20px;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-        .comments{
-            width: 100%;
-            padding: 30px;
-            background: white;
-            color: black;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 15px;
-            border-radius: 8px;
-        }
+    .comments{
+        width: 100%;
+        padding: 30px;
+        background: white;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+        border-radius: 8px;
+    }
 
-        .comments button{
-            width: fit-content;
-        }
+    .comments button{
+        width: fit-content;
+    }
 
-        .commentInput-section{
-            background: white;
-            padding: 20px;
-            border: 1px solid #0061C3;
-            border-radius: 8px;
-        }
+    .commentInput-section{
+        background: white;
+        padding: 20px;
+        border: 1px solid #0061C3;
+        border-radius: 8px;
+    }
 
-        #comment-input{
-            width: 100%;
-            border: none;
-            border-bottom: 1px solid #c1bcbc;
-            resize: none;
-            
-        }
-
-        .comments form{
-            display: flex;
-            flex-direction: column;
-            justify-content: right;
-            align-items: end;
-            gap: 15px;
-        }
-
-        .comments form button, .comments form textarea{
-            font-size: 1rem;
-            font-family: sans-serif;
-        }
-
-        .commentInput-section button{
-            background: #023467;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-        }
+    #comment-input{
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #c1bcbc;
+        resize: none;
         
-        .user-info{
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            margin-bottom: 15px;
-            font-weight: 700;
-            font-size: 1.125rem;
-        }
+    }
 
-        .avatar{
-            border-radius: 30px;
-            max-height: 3rem;
+    .comments form{
+        display: flex;
+        flex-direction: column;
+        justify-content: right;
+        align-items: end;
+        gap: 15px;
+    }
+
+    .comments form button, .comments form textarea{
+        font-size: 1rem;
+        font-family: sans-serif;
+    }
+
+    .commentInput-section button{
+        background: #023467;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+    }
+    
+    .user-info{
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 15px;
+        font-weight: 700;
+        font-size: 1.125rem;
+    }
+
+    .avatar{
+        border-radius: 30px;
+        max-height: 3rem;
+    }
+    
+    .comment-list{
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .load-more{
+        align-self: center;
+        background: #F1F2F3;
+        border: #E0E0E1 1px solid;
+        padding: 10px 30px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+
+    .game-instructions h3{
+        text-align: center;
+        font-size: 1.25em;
+        font-family: 'Inter', sans-serif; 
+        margin-bottom: 5px;       
+    }
+
+    .gameInfo a{
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+    }
+
+    .game-instructions, .gameInfo{
+        background: #0C2640;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .link-label{
+        color: #707070;
+    }
+
+    .game-container p{
+        font-family: 'Nunito', sans-serif;
+    }
+
+    .socialMedia, .gameInfo{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /*animacion  */       
+    .socialMedia li:hover {
+        background-color: #8AE633;
+        color: #ffffff;
+        animation: example 0.6s;
+    }
+
+    @keyframes example{
+        0% {
+            transform: rotate(0deg);
+
         }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
         
-        .comment-list{
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+       /*---------------------------------*/
+    .load-more-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .arrows-container {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .load-more:hover .arrows-container {
+        opacity: 0.6;
+    }
+
+    .arrow {
+        color: #333;
+        font-size: 24px;
+        line-height: 1;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .load-more-container:hover .arrow {
+        opacity: 0.6;
+        animation: moveDown 1.5s infinite;
+    }
+
+    @keyframes moveDown {
+        0% {
+            transform: translateY(-20px);
+            opacity: 0;
         }
-
-        .load-more{
-            align-self: center;
-            background: #F1F2F3;
-            border: #E0E0E1 1px solid;
-            padding: 10px 30px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.9rem;
+        50% {
+            opacity: 0.6;
         }
-
-        .game-instructions h3{
-            text-align: center;
-            font-size: 1.25em;
-            font-family: 'Inter', sans-serif; 
-            margin-bottom: 5px;       
+        100% {
+            transform: translateY(20px);
+            opacity: 0;
         }
-
-        .gameInfo a{
-            font-weight: bold;
-            text-decoration: none;
-            color: white;
-        }
-
-        .game-instructions, .gameInfo{
-            background: #0C2640;
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-        .link-label{
-            color: #707070;
-        }
-
-        .game-container p{
-            font-family: 'Nunito', sans-serif;
-        }
-
-        .socialMedia, .gameInfo{
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        /*animacion  */       
-        .socialMedia li:hover {
-            background-color: #8AE633;
-            color: #ffffff;
-            animation: example 0.6s;
-        }
-
-        @keyframes example{
-            0% {
-                transform: rotate(0deg);
-
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        
-       
-
-
+    }
      
           
-  </style>
+</style>
