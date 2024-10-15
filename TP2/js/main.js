@@ -11,6 +11,20 @@ import { fixedNav } from './userSystem.js';
 
 //primera funcion que ocurre al cargar la pagina
 document.addEventListener('DOMContentLoaded', function() {
+/*
+    const loader = createLoader();
+    document.body.appendChild(loader);
+
+    // Simula la carga durante 5 segundos
+    simulateLoading(5000).then(() => {
+        
+        document.body.removeChild(loader);
+
+
+        console.log('ping');
+    });
+
+*/
 
     // prometemos traer el header
     console.log("cargando header...");
@@ -120,6 +134,7 @@ export function getCarousels() {
             // ahora añadimos el fragment al contenedor de la página
             const pageContent = document.getElementById('page_content');
             pageContent.appendChild(fragment);
+
         }).catch(error => console.error('Error fetching games:', error));
 }
 
@@ -134,7 +149,7 @@ function toggleMenu(event) {
 
     var icon = document.querySelector('#hamburger-menu img');
     var headerNav = document.getElementById('header_nav');
-
+    
     if (isMenuVisible) {
 
         fetch('frames/nav.html')
@@ -377,3 +392,39 @@ function closeCart() {
     }
 }
 
+function createLoader() {
+    const loader = document.createElement('div');
+    loader.className = 'loader-capa';
+    loader.innerHTML = `
+            <div class="loader-circle"></div>
+            <div class="loader-percentage">0%</div>
+    `;
+    return loader;
+}
+
+function simulateLoading(duration) {
+
+    return new Promise(resolve => {
+        const loaderPercentage = document.querySelector('.loader-percentage');
+        const startTime = Date.now();
+
+        //esta funcion se va a llamar recursivamente hasta que se cumpla la condicion
+        function updateLoader() {
+            const elapsedTime = Date.now() - startTime;
+            const progress = Math.min(elapsedTime / duration, 1);
+            const percentage = Math.round(progress * 100);
+
+            loaderPercentage.textContent = `${percentage}%`;
+
+            if (progress < 1) {
+                //mientras progress < 1 se va a llamar recursivamente a updateLoader
+                requestAnimationFrame(updateLoader); 
+            } else {
+                // resolve se va a retornar cuando progress sea igual a 1. Es como un anuncio de que termino la carga
+                resolve(); 
+            }
+        }
+
+        requestAnimationFrame(updateLoader);
+    });
+}
