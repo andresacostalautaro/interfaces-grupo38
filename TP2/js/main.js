@@ -103,7 +103,20 @@ export function getCarousels() {
             let sugerencias;
             const fragment = document.createDocumentFragment();
 
-            // ... (tu código para manejar las sugerencias)
+            // si esta la guardo y la elimino del array
+            if (sugerenciasIndex !== -1) {
+                // splice devuelve un array con los elementos eliminados, en este caso solo uno
+                sugerencias = categories.splice(sugerenciasIndex, 1)[0];
+                //creo el carrusel de sugerencias, lo agrego al fragment y lo instancio
+                const suggestionsContainer = ElementFactory.createSuggestionsContainer(sugerencias);
+                fragment.appendChild(suggestionsContainer);
+                new SuggestedCarousel(suggestionsContainer);
+                //agrego el evento click al primer juego del carrusel de sugerencias que SE que es el 4 en linea
+                suggestionsContainer.querySelectorAll('.game-card')[0].addEventListener('click', () => {
+                    console.log('click en el juego 4 en linea');
+                    loadGameDetail();
+                });
+            }
 
             // crea los carruseles de las categorias restantes
             categories.forEach(category => {
@@ -116,7 +129,7 @@ export function getCarousels() {
             const pageContent = document.getElementById('page_content');
             pageContent.appendChild(fragment);
 
-            // Agrega aquí el event listener para los botones de carrito después de que se haya añadido el fragmento al DOM
+            // Agregar EventListener para los botones de carrito después de que se haya añadido el fragmento al DOM
             const cartBtns = document.querySelectorAll('.cart-btn');
             console.log(cartBtns);
             cartBtns.forEach(cartBtn => {
@@ -146,12 +159,12 @@ export function getCarousels() {
 }
 
 
-//funcion para despleagar el nav al clickear el boton hamburgesa
+// Funcion para despleagar el nav al clickear el boton hamburgesa
 var isMenuVisible = false;
 function toggleMenu(event) {
     event.stopPropagation(); // Evita que el clic se propague al documento
 
-    //si es true abre, si es false cierra.
+    // Si es true abre, si es false cierra.
     isMenuVisible = !isMenuVisible;
 
     var icon = document.querySelector('#hamburger-menu img');
@@ -169,11 +182,11 @@ function toggleMenu(event) {
                 headerNav.classList.add('show-two'); // Segunda animación
             }, 300);
 
-            icon.src = "assets/images/hamburger-menu-2.png"; //cambiar el icono de hamburgesa
+            icon.src = "assets/images/hamburger-menu-2.png"; // Cambiar el icono de hamburgesa
 
             fixedNav(); // Actualiza el nav con la información del usuario
 
-            // boton de inicio de sesión
+            // Boton de inicio de sesión
             const signInButton = document.getElementById('sign-in');
             if (signInButton) {
                 signInButton.addEventListener('click', function(event) {
