@@ -11,6 +11,7 @@ import { fixedNav } from './userSystem.js';
 import { createLoader } from './app.js';
 import {simulateLoading} from './app.js';
 import { loadCommentsFromFile, renderComments, setupLoadMoreButton, setupCommentSubmission } from './comments.js';
+import { Circulo } from './Circulo.js';
 
 //primera funcion que ocurre al cargar la pagina
 document.addEventListener('DOMContentLoaded', function() {
@@ -338,7 +339,7 @@ window.getSignUpForm = function() {
 
 
 /*
-Llamar a la funcion loadGamePage
+Llamar a la funcion loadGameDetail
 TODO: agregar "video", animacion a los botones de socialmedia y actualizar breadcrumbs
 */
 function loadGameDetail() {
@@ -349,8 +350,8 @@ function loadGameDetail() {
         .then(data => {
             mainContent.innerHTML = data;
             console.log('Detalle del juego cargada');
+            loadCircleScript(); // Carga y ejecuta el script necesario para el 4 En Línea
             loadCommentsScript(); // Carga y ejecuta el script de comentarios
-            setupEventListeners(); // Configura los escuchadores de eventos
         })
         .catch(error => {
             console.error('Error al cargar el detalle del juego:', error);
@@ -374,24 +375,6 @@ function loadCommentsScript() {
     };   
     document.body.appendChild(script);
 }
-
-function setupEventListeners() {
-    const loadMoreBtn = document.querySelector('.load-more');
-    const submitBtn = document.querySelector('.submit-button');
-    const commentInput = document.getElementById('#comment-input');
-
-    loadMoreBtn.addEventListener('click', () => {
-        console.log('Cargar más clicado');
-        // Lógica para cargar más comentarios
-    });
-
-    submitBtn.addEventListener('click', () => {
-        console.log('Enviar comentario clicado');
-        // Lógica para enviar comentario
-    });
-}
-
-
 
 //funcionalidad para el carrito de compra
 function getCart() {
@@ -448,5 +431,101 @@ function closeCart() {
     }
 }
 
+// LO RELACIONADO AL CANVAS DEBAJO
 
+
+
+// Crear las posiciones del tablero
+function createBoard() {
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let figures = []; 
+    
+    console.log("canvas", canvas); 
+    let canvasWidth = canvas.width;
+    let canvasHeight = canvas.height;
+    
+    let rows = 6; // Número de filas
+    let cols = 7; // Número de columnas
+    let cellSize = 80; // Tamaño de cada celda del tablero
+    let margin = 10; // Margen entre celdas
+
+    let startX = (canvasWidth - (cols * (cellSize + margin))) / 2;
+    let startY = (canvasHeight - (rows * (cellSize + margin))) / 2;
+
+    for (let row = 0; row < rows; row++) {
+        let rowCircles = [];
+        for (let col = 0; col < cols; col++) {
+            let posX = startX + col * (cellSize + margin) + cellSize / 2;
+            let posY = startY + row * (cellSize + margin) + cellSize / 2;
+            let circle = new Circulo(posX, posY, cellSize / 2, '#fff', ctx); // Color blanco para celdas vacías
+            rowCircles.push(circle);
+            circle.draw(); // Dibuja cada círculo
+        }
+        figures.push(rowCircles); // Añadir fila al tablero
+    }
+}
+
+// Limpiar el canvas
+function clearCanvas() {   
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// Dibuja el tablero completo
+function drawBoard() {
+    clearCanvas();
+    figures.forEach(row => {
+        row.forEach(circle => {
+            circle.draw();
+        });
+    });
+}
+
+// Detectar clic en un círculo
+function findClickedCircle(x, y) {
+    for (let row = 0; row < figures.length; row++) {
+        for (let col = 0; col < figures[row].length; col++) {
+            let circle = figures[row][col];
+            if (circle.isPointInside(x, y)) {
+                return circle;
+            }
+        }
+    }
+    return null;
+}
+
+// Cargar el script del círculo
+function loadCircleScript() {
+    const script = document.createElement('script');
+    script.src = 'js/Circulo.js';
+    script.type = "module";
+    script.onload = () => {
+        console.log('Script de Circulo.js cargado');
+        initializeGame(); // Inicia el 4 en línea después de cargar el script
+    }
+    document.body.appendChild(script);
+}
+
+// Inicializar el tablero
+function initializeGame() {
+    createBoard(); // Crear el tablero
+
+    // Añadir el evento de clic al canvas (solo necesita añadirse una vez):
+    canvas.addEventListener('click', function (e) {
+        let rect = canvas.getBoundingClientRect();
+        let mouseX = e.clientX - rect.left;
+        let mouseY = e.clientY - rect.top;
+        
+        let clickedCircle = findClickedCircle(mouseX, mouseY);
+        if (clickedCircle) {
+            console.log("Círculo clicado en posición:", clickedCircle.getPosition());
+            // Cambiar color del círculo clicado (simulando poner una ficha)
+            clickedCircle.setFill('#ff0000'); // Aquí puedes usar el color que desees
+            drawBoard(); // Redibujar el tablero con los cambios
+        }
+    });
+
+    // Dibujar el tablero por primera vez
+    drawBoard();
+}
 
