@@ -431,15 +431,12 @@ function closeCart() {
     }
 }
 
-// LO RELACIONADO AL CANVAS DEBAJO
+// LO RELACIONADO AL CANVAS DEBAJO ///////////////////////////////////
 
 
 
 // Crear las posiciones del tablero
-function createBoard() {
-    let canvas = document.getElementById('canvas');
-    let ctx = canvas.getContext('2d');
-    let figures = []; 
+function createBoard(canvas, ctx, figures) {
     
     console.log("canvas", canvas); 
     let canvasWidth = canvas.width;
@@ -447,7 +444,7 @@ function createBoard() {
     
     let rows = 6; // Número de filas
     let cols = 7; // Número de columnas
-    let cellSize = 80; // Tamaño de cada celda del tablero
+    let cellSize = 60; // Tamaño de cada celda del tablero
     let margin = 10; // Margen entre celdas
 
     let startX = (canvasWidth - (cols * (cellSize + margin))) / 2;
@@ -467,13 +464,13 @@ function createBoard() {
 }
 
 // Limpiar el canvas
-function clearCanvas() {   
+function clearCanvas(canvas, ctx) {   
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 // Dibuja el tablero completo
-function drawBoard() {
-    clearCanvas();
+function drawBoard(canvas, ctx, figures) {
+    clearCanvas(canvas, ctx);
     figures.forEach(row => {
         row.forEach(circle => {
             circle.draw();
@@ -482,7 +479,7 @@ function drawBoard() {
 }
 
 // Detectar clic en un círculo
-function findClickedCircle(x, y) {
+function findClickedCircle(x, y, figures) {
     for (let row = 0; row < figures.length; row++) {
         for (let col = 0; col < figures[row].length; col++) {
             let circle = figures[row][col];
@@ -506,26 +503,52 @@ function loadCircleScript() {
     document.body.appendChild(script);
 }
 
-// Inicializar el tablero
+// Iniciar el juego
 function initializeGame() {
-    createBoard(); // Crear el tablero
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let figures = []; 
+    createBoard(canvas, ctx, figures); // Crear el tablero
 
-    // Añadir el evento de clic al canvas (solo necesita añadirse una vez):
-    canvas.addEventListener('click', function (e) {
-        let rect = canvas.getBoundingClientRect();
-        let mouseX = e.clientX - rect.left;
-        let mouseY = e.clientY - rect.top;
-        
-        let clickedCircle = findClickedCircle(mouseX, mouseY);
-        if (clickedCircle) {
-            console.log("Círculo clicado en posición:", clickedCircle.getPosition());
-            // Cambiar color del círculo clicado (simulando poner una ficha)
-            clickedCircle.setFill('#ff0000'); // Aquí puedes usar el color que desees
-            drawBoard(); // Redibujar el tablero con los cambios
-        }
+    // Cargar las imágenes antes de agregar el evento
+    const playerImages = [new Image(), new Image()];
+    playerImages[0].src = './assets/userIcons/userIcon1.png'; 
+    playerImages[1].src = './assets/userIcons/userIcon2.png'; 
+
+    let currentPlayer = 0; // 0 para el jugador 1, 1 para el jugador 2
+    // Esperar hasta que las imágenes estén cargadas
+    let imagesLoaded = 0;
+
+    playerImages.forEach((image, index) => {
+        image.onload = () => {
+            imagesLoaded++;
+            // Si ambas imágenes están cargadas, se puede iniciar el juego
+            if (imagesLoaded === playerImages.length) {
+                // Añadir el evento de clic al canvas
+                canvas.addEventListener('click', function (e) {
+                    let rect = canvas.getBoundingClientRect();
+                    let mouseX = e.clientX - rect.left;
+                    let mouseY = e.clientY - rect.top;
+                    
+                    let clickedCircle = findClickedCircle(mouseX, mouseY, figures);
+                    if (clickedCircle) {
+                        console.log("Círculo clicado en posición:", clickedCircle.getPosition());
+                        // Cambiar imagen del círculo clicado
+                        clickedCircle.setImage(playerImages[currentPlayer]); // Establecer la imagen del jugador actual
+                        drawBoard(canvas, ctx, figures); // Redibujar el tablero con los cambios
+                        // Cambiar al siguiente jugador
+                        currentPlayer = (currentPlayer + 1) % playerImages.length; // Alternar entre 0 y 1
+                    }
+                });
+                // Dibujar el tablero por primera vez
+                drawBoard(canvas, ctx, figures);
+            }
+        };
+        image.onerror = () => {
+            console.error(`Error al cargar la imagen para el jugador ${index + 1}`);
+        };
+        image.src = image.src; // Iniciar la carga de la imagen
     });
-
-    // Dibujar el tablero por primera vez
-    drawBoard();
 }
+
 
