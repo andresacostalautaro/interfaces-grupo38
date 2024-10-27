@@ -186,7 +186,7 @@ export function fixedNav() {
                     <h1>${USER.username}</h1>
                     <div>
                         <h5 id="btn-MySession">Mi Sesion</h5>
-                        <h5>|</h5>
+                        <h5 style=" width: fit-content !important;">|</h5>
                         <h5 id="btn-Sign-out">Cerrar Sesion</h5>
                     </div>
                 </td>
@@ -207,44 +207,47 @@ export function fixedNav() {
 }
 
 export function getUserCart() {
-    
+    // Verificar si el carrito existe y tiene elementos
     if (USER.cart && USER.cart.length > 0) {
-        let id_array = new Array(USER.cart.length);
-
-        // Llenar el id_array con los IDs de los juegos en el carrito
-        for (let i = 0; i < USER.cart.length; i++) {
-            id_array[i] = USER.cart[i].id;
-        }
+        // id_array ya contiene directamente los valores de USER.cart
+        let id_array = USER.cart; 
 
         let cart = document.getElementById('cart-items');
-        
+
         // Fetch al archivo JSON
         fetch('data/gamesByCategory.json')
             .then(response => response.json())
             .then(data => {
-                console.log("buscando los juegos del carrito en gamesByCategory.json.");
-                
-                // Recorrer el array de IDs del carrito
-                id_array.forEach(id => {
+                console.log(`Buscando los juegos del carrito en gamesByCategory.json. Total de IDs: ${id_array.length}`);
 
+                for (let i = 0; i < id_array.length; i++) {
+                    console.log("i=" + i + " : " + id_array[i]);
+                    
                     // Recorrer las categorías en el JSON
                     data.forEach(category => {
-                        // Buscar el juego en la categoría
-                        const game = category.games.find(game => game.id === id);
+                        // Recorrer cada juego dentro de la categoría
+                        category.games.forEach(game => {
 
-                        if (game) {
-                            const item = ' ';
-                            // Crear el elemento li
-                            item.innerHTML = `
-                                            <li>
+                            console.log("Comparando:", id_array[i], "con", game.id);
+
+                            // Si el ID del carrito coincide con el ID del juego, agregarlo al DOM
+                            if (id_array[i].toString() === game.id.toString()) {
+
+                                console.log("Juego encontrado:", game); // Mostrar si se encuentra un juego
+
+                                const price = game.price === 0 ? "FREE" : game.price;
+                                // Crear un nuevo elemento li
+                                const item = `<li>
                                                 <img src="${game.image}" alt="${game.title}">
-                                                <h4>${game.price}</h4>
+                                                <h4>${price}</h4>
                                                 <h2>${game.title}</h2>
                                             </li>`;
-                            cart.appendChild(li);
-                        }
+                                // Añadir el juego al carrito
+                                cart.innerHTML+=item;
+                            }
+                        });
                     });
-                });
+                }
             })
             .catch(error => console.error('Error fetching gamesByCategory.json:', error));
     } else {

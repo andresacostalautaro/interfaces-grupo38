@@ -61,7 +61,8 @@ class ElementFactory {
                         <div class="price-cart">
                             <span class="game-price">$${game.price}</span>
                             <button class="cart-btn" aria-label="Jugar Bloxd.io">
-                                <img src="./assets/carrito.svg" alt="Agregar al carrito">
+                                <img class="cart-icon" src="./assets/carrito.svg" alt="Agregar al carrito">
+                                <span class="confirmation-icon" style="display: none;"></span>
                             </button>
                         </div>
                         ` 

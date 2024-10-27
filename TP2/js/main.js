@@ -8,6 +8,10 @@ import { getUserCart} from './userSystem.js';
 import { getUser} from './userSystem.js';
 import { updateNav } from './userSystem.js';
 import { fixedNav } from './userSystem.js';
+import { createLoader } from './app.js';
+import {simulateLoading} from './app.js';
+import { loadCommentsFromFile, renderComments, setupLoadMoreButton, setupCommentSubmission } from './comments.js';
+import { Circulo } from './Circulo.js';
 
 //primera funcion que ocurre al cargar la pagina
 document.addEventListener('DOMContentLoaded', function() {
@@ -68,7 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("footer cargado");
     })
     .catch(error => console.error('Error fetching footer:', error));
-
+        
+    
     //cuando las promesas de header, breadcrums y footer se cumplen ejecutamos la pagina principal
     Promise.all([headerLoaded, breadcrumbsLoaded, footerLoaded])
     .then(() => {
@@ -79,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(error => console.error('Error en la carga de recursos:', error));
 });
+
 
 //funcion para cargar la pagina principal
 async function homePage() {
@@ -92,7 +98,7 @@ async function homePage() {
     Promise.all([breadcrumbs, carrouseles])
     .then(() => {
         console.log("página principal cargada.");
-
+        
     })
     .catch(error => console.error('Error en la carga de recursos:', error));
 }
@@ -102,7 +108,6 @@ export function getCarousels() {
     fetch('data/gamesByCategory.json')
         .then(response => response.json())
         .then(categories => {
-            // busco la categoria sugerencias
             const sugerenciasIndex = categories.findIndex(category => category.categoryTitle === 'Sugerencias');
             let sugerencias;
             const fragment = document.createDocumentFragment();
@@ -111,12 +116,10 @@ export function getCarousels() {
             if (sugerenciasIndex !== -1) {
                 // splice devuelve un array con los elementos eliminados, en este caso solo uno
                 sugerencias = categories.splice(sugerenciasIndex, 1)[0];
-
                 //creo el carrusel de sugerencias, lo agrego al fragment y lo instancio
                 const suggestionsContainer = ElementFactory.createSuggestionsContainer(sugerencias);
                 fragment.appendChild(suggestionsContainer);
                 new SuggestedCarousel(suggestionsContainer);
-
                 //agrego el evento click al primer juego del carrusel de sugerencias que SE que es el 4 en linea
                 suggestionsContainer.querySelectorAll('.game-card')[0].addEventListener('click', () => {
                     console.log('click en el juego 4 en linea');
@@ -124,7 +127,7 @@ export function getCarousels() {
                 });
             }
 
-            // creo los carruseles de las categorias restantes
+            // crea los carruseles de las categorias restantes
             categories.forEach(category => {
                 const categoryContainer = ElementFactory.createCategoryContainer(category);
                 fragment.appendChild(categoryContainer);
@@ -134,17 +137,44 @@ export function getCarousels() {
             // ahora añadimos el fragment al contenedor de la página
             const pageContent = document.getElementById('page_content');
             pageContent.appendChild(fragment);
+            
 
+            // Agregar EventListener para los botones de carrito después de que se haya añadido el fragmento al DOM
+            const cartBtns = document.querySelectorAll('.cart-btn');
+            console.log(cartBtns);
+            cartBtns.forEach(cartBtn => {
+                cartBtn.addEventListener("click", function() {
+                    // Cambiar la imagen del carrito
+                    const cartIcon = this.querySelector('.cart-icon');
+                    cartIcon.src = './assets/carrito-confirmado.svg'; // Cambia a la imagen de confirmación
+                    // Mostrar el símbolo de confirmación
+                    const confirmationIcon = this.querySelector('.confirmation-icon');
+                    confirmationIcon.style.display = 'inline';
+                    confirmationIcon.style.opacity = '1'; // Asegúrate de que esté visible
+
+                    // Agregar una clase para manejar el estado del botón
+                    this.classList.add('confirmed');
+
+                    // Revertir el cambio después de 2 segundos
+                    setTimeout(() => {
+                        // Restablecer la imagen del carrito
+                        cartIcon.src = './assets/carrito.svg'; // Cambia de nuevo a la imagen original
+                        confirmationIcon.style.opacity = '0'; // Ocultar el símbolo de confirmación
+                        confirmationIcon.style.display = "none";
+                        this.classList.remove('confirmed');
+                    }, 2000); // Cambiar a la imagen original después de 2 segundos
+                });
+            }); // Cierre correcto para forEach
         }).catch(error => console.error('Error fetching games:', error));
 }
 
 
-//funcion para despleagar el nav al clickear el boton hamburgesa
+// Funcion para despleagar el nav al clickear el boton hamburgesa
 var isMenuVisible = false;
 function toggleMenu(event) {
     event.stopPropagation(); // Evita que el clic se propague al documento
 
-    //si es true abre, si es false cierra.
+    // Si es true abre, si es false cierra.
     isMenuVisible = !isMenuVisible;
 
     var icon = document.querySelector('#hamburger-menu img');
@@ -162,11 +192,11 @@ function toggleMenu(event) {
                 headerNav.classList.add('show-two'); // Segunda animación
             }, 300);
 
-            icon.src = "assets/images/hamburger-menu-2.png"; //cambiar el icono de hamburgesa
+            icon.src = "assets/images/hamburger-menu-2.png"; // Cambiar el icono de hamburgesa
 
             fixedNav(); // Actualiza el nav con la información del usuario
 
-            // boton de inicio de sesión
+            // Boton de inicio de sesión
             const signInButton = document.getElementById('sign-in');
             if (signInButton) {
                 signInButton.addEventListener('click', function(event) {
@@ -316,9 +346,9 @@ window.getSignUpForm = function() {
     console.log("breadcrums > sign up.");
 }
 
- 
+
 /*
-Llamar a la funcion loadGamePage
+Llamar a la funcion loadGameDetail
 TODO: agregar "video", animacion a los botones de socialmedia y actualizar breadcrumbs
 */
 function loadGameDetail() {
@@ -330,11 +360,30 @@ function loadGameDetail() {
         .then(data => {
             mainContent.innerHTML = data;
             console.log('Detalle del juego cargada');
+            loadCircleScript(); // Carga y ejecuta el script necesario para el 4 En Línea
+            loadCommentsScript(); // Carga y ejecuta el script de comentarios
         })
         .catch(error => {
             console.error('Error al cargar el detalle del juego:', error);
             mainContent.innerHTML = '<p>Error al cargar el detalle del juego.</p>';
         });
+}
+
+function loadCommentsScript() {
+    const script = document.createElement('script');
+    script.src = 'js/comments.js'; // Ruta del script de comentarios
+    script.type = 'module'; // Asegúrate de que se ejecute como un módulo
+    script.onload = () => {
+        console.log('Script de comentarios cargado');
+        // Llama a la función para cargar los comentarios
+        const jsonFilePath = './data/initialComments.json'; // Ajusta la ruta según sea necesario
+        loadCommentsFromFile(jsonFilePath, (comments) => {
+            renderComments(comments, 2);  // Mostrar inicialmente 2 comentarios
+            setupLoadMoreButton(comments);
+            setupCommentSubmission(comments);
+        });
+    };   
+    document.body.appendChild(script);
 }
 
 //funcionalidad para el carrito de compra
@@ -346,13 +395,7 @@ function getCart() {
     fetch('frames/cart.html')
     .then(response => response.text())
     .then(data => {
-        page.innerHTML += data; // Asegúrate de que `cart.html` tenga un div con id `cart_container`.
-
-        const user = getUser(); // Llama a getUser() para obtener el objeto USER
-        if (user.username) { // Verifica si hay un nombre de usuario
-            getUserCart(); // Cargar datos del carrito de usuario
-            console.log("cargando datos del usuario al card.");
-        }
+        page.innerHTML += data;
 
         // Agrega el evento al botón de cerrar carrito
         const btn_close = document.getElementById('close-cart');
@@ -363,6 +406,12 @@ function getCart() {
             });
         } else {
             console.log("No se encontró el botón de cerrar carrito.");
+        }
+
+        const user = getUser(); // getUser() para obtener el objeto USER
+        if (user.username) { // Verifica si hay un nombre de usuario
+            getUserCart(); // Cargar datos del carrito de usuario
+            console.log("cargando datos del usuario al card.");
         }
     })
     .catch(error => console.error('Error fetching cart:', error));
@@ -392,39 +441,124 @@ function closeCart() {
     }
 }
 
-function createLoader() {
-    const loader = document.createElement('div');
-    loader.className = 'loader-capa';
-    loader.innerHTML = `
-            <div class="loader-circle"></div>
-            <div class="loader-percentage">0%</div>
-    `;
-    return loader;
+// LO RELACIONADO AL CANVAS DEBAJO ///////////////////////////////////
+
+
+
+// Crear las posiciones del tablero
+function createBoard(canvas, ctx, figures) {
+    
+    console.log("canvas", canvas); 
+    let canvasWidth = canvas.width;
+    let canvasHeight = canvas.height;
+    
+    let rows = 6; // Número de filas
+    let cols = 7; // Número de columnas
+    let cellSize = 60; // Tamaño de cada celda del tablero
+    let margin = 10; // Margen entre celdas
+
+    let startX = (canvasWidth - (cols * (cellSize + margin))) / 2;
+    let startY = (canvasHeight - (rows * (cellSize + margin))) / 2;
+
+    for (let row = 0; row < rows; row++) {
+        let rowCircles = [];
+        for (let col = 0; col < cols; col++) {
+            let posX = startX + col * (cellSize + margin) + cellSize / 2;
+            let posY = startY + row * (cellSize + margin) + cellSize / 2;
+            let circle = new Circulo(posX, posY, cellSize / 2, '#fff', ctx); // Color blanco para celdas vacías
+            rowCircles.push(circle);
+            circle.draw(); // Dibuja cada círculo
+        }
+        figures.push(rowCircles); // Añadir fila al tablero
+    }
 }
 
-function simulateLoading(duration) {
+// Limpiar el canvas
+function clearCanvas(canvas, ctx) {   
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
-    return new Promise(resolve => {
-        const loaderPercentage = document.querySelector('.loader-percentage');
-        const startTime = Date.now();
-
-        //esta funcion se va a llamar recursivamente hasta que se cumpla la condicion
-        function updateLoader() {
-            const elapsedTime = Date.now() - startTime;
-            const progress = Math.min(elapsedTime / duration, 1);
-            const percentage = Math.round(progress * 100);
-
-            loaderPercentage.textContent = `${percentage}%`;
-
-            if (progress < 1) {
-                //mientras progress < 1 se va a llamar recursivamente a updateLoader
-                requestAnimationFrame(updateLoader); 
-            } else {
-                // resolve se va a retornar cuando progress sea igual a 1. Es como un anuncio de que termino la carga
-                resolve(); 
-            }
-        }
-
-        requestAnimationFrame(updateLoader);
+// Dibuja el tablero completo
+function drawBoard(canvas, ctx, figures) {
+    clearCanvas(canvas, ctx);
+    figures.forEach(row => {
+        row.forEach(circle => {
+            circle.draw();
+        });
     });
 }
+
+// Detectar clic en un círculo
+function findClickedCircle(x, y, figures) {
+    for (let row = 0; row < figures.length; row++) {
+        for (let col = 0; col < figures[row].length; col++) {
+            let circle = figures[row][col];
+            if (circle.isPointInside(x, y)) {
+                return circle;
+            }
+        }
+    }
+    return null;
+}
+
+// Cargar el script del círculo
+function loadCircleScript() {
+    const script = document.createElement('script');
+    script.src = 'js/Circulo.js';
+    script.type = "module";
+    script.onload = () => {
+        console.log('Script de Circulo.js cargado');
+        initializeGame(); // Inicia el 4 en línea después de cargar el script
+    }
+    document.body.appendChild(script);
+}
+
+// Iniciar el juego
+function initializeGame() {
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let figures = []; 
+    createBoard(canvas, ctx, figures); // Crear el tablero
+
+    // Cargar las imágenes antes de agregar el evento
+    const playerImages = [new Image(), new Image()];
+    playerImages[0].src = './assets/userIcons/userIcon1.png'; 
+    playerImages[1].src = './assets/userIcons/userIcon2.png'; 
+
+    let currentPlayer = 0; // 0 para el jugador 1, 1 para el jugador 2
+    // Esperar hasta que las imágenes estén cargadas
+    let imagesLoaded = 0;
+
+    playerImages.forEach((image, index) => {
+        image.onload = () => {
+            imagesLoaded++;
+            // Si ambas imágenes están cargadas, se puede iniciar el juego
+            if (imagesLoaded === playerImages.length) {
+                // Añadir el evento de clic al canvas
+                canvas.addEventListener('click', function (e) {
+                    let rect = canvas.getBoundingClientRect();
+                    let mouseX = e.clientX - rect.left;
+                    let mouseY = e.clientY - rect.top;
+                    
+                    let clickedCircle = findClickedCircle(mouseX, mouseY, figures);
+                    if (clickedCircle) {
+                        console.log("Círculo clicado en posición:", clickedCircle.getPosition());
+                        // Cambiar imagen del círculo clicado
+                        clickedCircle.setImage(playerImages[currentPlayer]); // Establecer la imagen del jugador actual
+                        drawBoard(canvas, ctx, figures); // Redibujar el tablero con los cambios
+                        // Cambiar al siguiente jugador
+                        currentPlayer = (currentPlayer + 1) % playerImages.length; // Alternar entre 0 y 1
+                    }
+                });
+                // Dibujar el tablero por primera vez
+                drawBoard(canvas, ctx, figures);
+            }
+        };
+        image.onerror = () => {
+            console.error(`Error al cargar la imagen para el jugador ${index + 1}`);
+        };
+        image.src = image.src; // Iniciar la carga de la imagen
+    });
+}
+
+
