@@ -202,24 +202,8 @@ h1 {
 .carousel-dots{
     display: none;
 }
-/* -------------estilos carrusel mobile-------------*/
 
-/* Media Queries */
-@media (max-width: 600px) {
-    .logo {
-        max-width: 200px;
-        margin: 0;
-    }
-
-.page_content{
-    padding: 10px;
-}
-
-.breadcrumbs {
-    padding: 0;
-}
-
-header a img {
+.hamburger-icon {
     max-width: 50px;
     margin: 12px;
 }
@@ -229,7 +213,7 @@ header a img {
     text-align: center;
     margin: 10;
 }
-/* -------------fin estilos carrusel mobile-------------*/
+
 
 /* -------------estilos carrusel desktop-------------*/
 
