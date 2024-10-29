@@ -1,0 +1,47 @@
+<div id="breadcrumbs" class="breadcrumbs">
+    <!-- default  H >  -->
+    <img src="assets/images/breadcrums-home.svg" alt="house" class="breadcrumbs_home_icon" id="breadcrumbs_home_icon">
+    <img src="assets/images/breadcrums-greater-than.svg" alt=">" class="breadcrumbs_greaterthan_icon">
+    <!-- direccion dinamica -->
+    <h3 id="bcs_content">default</h3>
+</div>
+<style>
+    /* Estilo de los breadcrumbs */
+    .breadcrumbs {
+        background-color: transparent;
+        opacity: 50%;
+    }
+
+    .breadcrumbs img {
+        display: inline;
+        width: 20px; /* Puedes ajustar el tamaño aquí */
+        height: auto;
+        margin-right: 5px; /* Espaciado entre las imágenes */
+    }
+
+    .breadcrumbs_home_icon{
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .breadcrumbs_home_icon:hover{
+        transform: scale(1.2);
+        filter: brightness(0.1);
+    }
+
+    .breadcrumbs_greaterthan_icon {
+        max-width: 18px;
+    }
+
+    .breadcrumbs h3 {
+        color: #FFF;
+        padding-bottom: 3px;
+        font-size: 20px;
+        display: inline;
+        margin-right: 5px;
+    }
+    @media (max-width: 600px) {
+        .breadcrumbs {
+            margin: 10px;
+        }
+    }
+</style>

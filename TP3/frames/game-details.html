@@ -1,0 +1,497 @@
+<article class="game-container">
+    <div class="game-layout">
+        <!--aca puedo empezar a diseñar el canvas directo para la prox entrega-->
+        <div class="game-preview"> 
+            <canvas id="canvas" width="737" height="490"></canvas>
+            <!--
+            <img src="./assets/gameDetail.png" alt="gameDetail" >
+            -->
+        </div>
+
+        <aside class="game-instructions">
+            <div class="item-instruction">
+                <h3>Objetivo</h3>
+                <p>Formar una linea vertical, horizontal o diagonal, posicionando 4 de tus fichas de manera consecutiva</p>
+            </div>
+            <div class="item-instruction">
+                <h3>Como se juega</h3>
+                <p>Selecciona la columna donde deseas colocar una de tus fichas y dale CLICK!</p>
+            </div>
+            <img src="./assets/mouseControl.svg" alt="gameControls">
+        </aside>
+        
+    </div>
+
+    <h2>4 en linea: Mortal Kombat Edition</h2>
+
+    <section class="game-galery">
+        <figure>
+            <img src="./assets/game-galery/cap1.svg" alt="game1">
+        </figure>
+        <figure>
+            <img src="./assets/game-galery/cap2.svg" alt="game2">
+        </figure>
+        <figure>
+            <img src="./assets/game-galery/cap3.svg" alt="game2">
+        </figure>
+    </section>
+
+    <section class="socialMedia">
+        <h3>Comparte el juego con tus amigos</h3>
+        <ul>
+            <li>
+                <img src="./assets/social-icons/twitterIcon.svg" alt="twitter"></a>
+            </li>
+            <li>
+                <img src="./assets/social-icons/facebookIcon.svg" alt="instagram"></a>
+            </li>
+            <li>
+                <img src="./assets/social-icons/redditIcon.svg" alt="tiktok">
+            </li>
+            <li>
+                <img src="./assets/social-icons/gmailIcon.svg" alt="tiktok">
+            </li>
+            <li>
+                <img src="./assets/social-icons/smsIcon.svg" alt="tiktok">
+            </li>
+            <li>
+                <img src="./assets/social-icons/shareIcon.svg" alt="tiktok">
+            </li>
+        </ul>
+    </section>
+
+    <!--info del juego-->
+    <section class="gameInfo">
+        <h3>Informacion del juego:</h3>
+        <p>Sumérgete en el universo de Mortal Kombat. Escoge a tu luchador favorito y enfréntate a tu oponente en este juego inspirado en Mortal Kombat 3.</p>
+        <p>Toma el control del tablero y desata el poder de los reinos en este enfrentamiento único. ¿Quién dominará el campo de batalla? ¡Solo hay un camino hacia la victoria!</p>
+
+        <p>
+            <span class="link-label">Wiki:</span>
+            <a href="#">Fandom</a>
+        </p>
+            
+        <p>
+            <span class="link-label">Clasificación:</span>
+            <a href="#">Juegos</a> &gt; <a href="#">aventura</a>
+        </p>
+    </section>
+
+</article>
+
+<!--comentarios-->
+<section class="comments">
+    <h2>Comentarios</h2>
+    
+    <div class="commentInput-section">
+        <div class="user-info">
+        <!--desde js voy a chequear la sesion y extraer los datos del json-->
+        <img src="./assets/userIcons/userIcon1.png" class="avatar"  alt="Avatar de John Doe" class="avatar">
+        <span>John Doe</span>
+        </div>
+        <form class="comment-form" aria-label="Formulario de comentarios">
+        <textarea id="comment-input" name="comment" placeholder="Escribe tu comentario aquí..." rows="4"></textarea>
+        <button type="submit" class="submit-button">Publicar comentario</button>
+        </form>
+    </div>
+
+    <ul class="comment-list">
+      <li class="comment">
+        <article>
+          <header class="user-info">
+            <img src="./assets/userIcons/userIcon2.png" class="avatar" alt="Avatar de Jane Doe" class="avatar">
+            <span>Jane Doe</span>
+          </header>
+          <p>Lo disfruté mucho jugando con mi hermanita</p>
+        </article>
+      </li>
+      <li class="comment">
+        <article>
+          <header class="user-info">
+            <img src="./assets/userIcons/userIcon2.png" class="avatar" alt="Avatar de Jane Doe" class="avatar">
+            <span>Jan Doe</span>
+          </header>
+          <p>Muy bueno!!</p>
+        </article>
+      </li>
+      <li class="comment">
+        <article>
+          <header class="user-info">
+            <img src="./assets/userIcons/userIcon2.png" class="avatar" alt="Avatar de Jane Doe" class="avatar">
+            <span>Jay Doe</span>
+          </header>
+          <p>Juegazoooooooooo!</p>
+        </article>
+      </li>
+      <!-- Aca deberia agregar mas comentarios como nos pedian -->
+    </ul>
+  
+    <div class="load-more-container">
+        <button type="button" class="load-more">
+            Cargar más
+        </button>
+        <div class="arrows-container">
+            <div class="arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </div>
+
+    
+</section>
+<style>
+
+    .game-container{
+        width: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .game-container h1{
+        font-size: 1.75rem;
+    }
+
+    .game-preview{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .game-layout{
+        display: grid;
+        grid-template-columns: 5fr 1.3fr;
+        gap: 15px;
+    }
+
+    .game-preview img{
+        width: 100%;
+        height: auto;
+    }
+
+    .game-instructions{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        line-height: 25.1px;
+        text-align: justify;
+    }
+
+    .socialMedia ul{
+        list-style: none;
+        display: flex;
+        gap: 9px;
+    }
+
+    .game-galery{
+        display: flex;
+    }
+
+    .game-galery figure{
+        width: 100%;
+    }
+
+    .game-galery img{
+        width: 100%;
+        height: auto;
+    }
+
+    .socialMedia li{
+        min-width: 40px;
+        padding: 5px;
+        cursor: pointer;
+        border-radius: 20px;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .comments{
+        width: 100%;
+        padding: 30px;
+        background: white;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+        border-radius: 8px;
+    }
+
+    .comment{
+        border: #bbbaba 1px solid;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .comments button{
+        width: fit-content;
+    }
+
+    .commentInput-section{
+        background: white;
+        padding: 20px;
+        border: 1px solid #0061C3;
+        border-radius: 8px;
+    }
+
+    #comment-input{
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #c1bcbc;
+        resize: none;
+        
+    }
+
+    .comments form{
+        display: flex;
+        flex-direction: column;
+        justify-content: right;
+        align-items: end;
+        gap: 15px;
+    }
+
+    .comments form button, .comments form textarea{
+        font-size: 1rem;
+        font-family: sans-serif;
+    }
+
+    .commentInput-section button{
+        background: #023467;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+    }
+    
+    .user-info{
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 15px;
+        font-weight: 700;
+        font-size: 1.125rem;
+    }
+
+    .avatar{
+        border-radius: 30px;
+        max-height: 3rem;
+    }
+    
+    .comment-list{
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .load-more{
+        align-self: center;
+        background: #F1F2F3;
+        border: #E0E0E1 1px solid;
+        padding: 10px 30px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+
+    .game-instructions h3{
+        text-align: center;
+        font-size: 1.25em;
+        font-family: 'Inter', sans-serif; 
+        margin-bottom: 5px;       
+    }
+
+    .gameInfo a{
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+    }
+
+    .game-instructions, .gameInfo{
+        background: #0C2640;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .link-label{
+        color: #707070;
+    }
+
+    .game-container p{
+        font-family: 'Nunito', sans-serif;
+    }
+
+    .socialMedia, .gameInfo{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /*animacion  */       
+    .socialMedia li:hover {
+        background-color: #8AE633;
+        color: #ffffff;
+        animation: example 0.6s;
+    }
+
+    @keyframes example{
+        0% {
+            transform: rotate(0deg);
+
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+        
+       /*---------------------------------*/
+    .load-more-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .arrows-container {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .load-more:hover .arrows-container {
+        opacity: 0.6;
+    }
+
+    .arrow {
+        color: #333;
+        font-size: 24px;
+        line-height: 1;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .load-more-container:hover .arrow {
+        opacity: 0.6;
+        animation: moveDown 1.5s infinite;
+    }
+
+    @keyframes moveDown {
+        0% {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        50% {
+            opacity: 0.6;
+        }
+        100% {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+    }
+     
+          
+</style>
+<script src="../js/Circulo.js"></script>
+<script>
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let figures = []; 
+    // Crear las posiciones del tablero
+    function createBoard() {
+        
+        let canvasWidth = canvas.width;
+        let canvasHeight = canvas.height;
+        
+        let rows = 6; // Número de filas
+        let cols = 7; // Número de columnas
+        let cellSize = 80; // Tamaño de cada celda del tablero
+        let margin = 10; // Margen entre celdas
+
+        let startX = (canvasWidth - (cols * (cellSize + margin))) / 2;
+        let startY = (canvasHeight - (rows * (cellSize + margin))) / 2;
+
+        for (let row = 0; row < rows; row++) {
+            let rowCircles = [];
+            for (let col = 0; col < cols; col++) {
+                let posX = startX + col * (cellSize + margin) + cellSize / 2;
+                let posY = startY + row * (cellSize + margin) + cellSize / 2;
+                let circle = new Circulo(posX, posY, cellSize / 2, '#fff', ctx); // Color blanco para celdas vacías
+                rowCircles.push(circle);
+                circle.draw(); // Dibuja cada círculo
+            }
+            figures.push(rowCircles); // Añadir fila al tablero
+        }
+    }
+
+    // Limpiar el canvas
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // Dibuja el tablero completo
+    function drawBoard() {
+        clearCanvas();
+        figures.forEach(row => {
+            row.forEach(circle => {
+                circle.draw();
+            });
+        });
+    }
+
+    // Detectar clic en un círculo
+    function findClickedCircle(x, y) {
+        for (let row = 0; row < figures.length; row++) {
+            for (let col = 0; col < figures[row].length; col++) {
+                let circle = figures[row][col];
+                if (circle.isPointInside(x, y)) {
+                    return circle;
+                }
+            }
+        }
+        return null;
+    }
+
+    // Cargar el script del círculo
+    function loadCircleScript() {
+        const script = document.createElement('script');
+        script.src = 'js/Circulo.js';
+        script.type = "module";
+        script.onload = () => {
+            console.log('Script de Circulo.js cargado');
+            initializeGame(); // Inicia el 4 en línea después de cargar el script
+        }
+        document.body.appendChild(script);
+    }
+
+    // Inicializar el tablero
+    function initializeGame() {
+        createBoard(); // Crear el tablero
+
+        // Añadir el evento de clic al canvas (solo necesita añadirse una vez):
+        canvas.addEventListener('click', function (e) {
+            let rect = canvas.getBoundingClientRect();
+            let mouseX = e.clientX - rect.left;
+            let mouseY = e.clientY - rect.top;
+            
+            let clickedCircle = findClickedCircle(mouseX, mouseY);
+            if (clickedCircle) {
+                console.log("Círculo clicado en posición:", clickedCircle.getPosition());
+                // Cambiar color del círculo clicado (simulando poner una ficha)
+                clickedCircle.setFill('#ff0000'); // Aquí puedes usar el color que desees
+                drawBoard(); // Redibujar el tablero con los cambios
+            }
+        });
+
+        // Dibujar el tablero por primera vez
+        drawBoard();
+    }
+</script>

@@ -11,12 +11,12 @@ import { fixedNav } from './userSystem.js';
 import { createLoader } from './loader.js';
 import {simulateLoading} from './loader.js';
 import { loadCommentsFromFile, renderComments, setupLoadMoreButton, setupCommentSubmission } from './comments.js';
-import { loadCircleScript } from './board.js';
-
+import { Board } from './board.js';
+import { Game } from './game.js';
 
 //primera funcion que ocurre al cargar la pagina
 document.addEventListener('DOMContentLoaded', function() {
-
+/*
     const loader = createLoader();
     document.body.appendChild(loader);
 
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-
+*/
     // prometemos traer el header
     console.log("cargando header...");
     let headerLoaded = fetch('frames/header.html')
@@ -361,7 +361,9 @@ function loadGameDetail() {
         .then(data => {
             mainContent.innerHTML = data;
             console.log('Detalle del juego cargada');
-            loadCircleScript(); // Carga y ejecuta el script necesario para el 4 En Línea
+            new Game(); // Inicia el juego 4 en línea
+            //let board = new Board(6, 7);
+            //board.loadCircleScript(); // Carga y ejecuta el script necesario para el 4 En Línea
             loadCommentsScript(); // Carga y ejecuta el script de comentarios
         })
         .catch(error => {
