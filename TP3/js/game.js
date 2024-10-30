@@ -67,7 +67,7 @@ export class Game{
 
 
     onClick(event) {
-        if (!this.gameOver) {
+        if (!this.gameOver && this.board ) {
             const rect = this.canvas.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
             
@@ -77,15 +77,21 @@ export class Game{
             if (lowestEmptyRow !== -1) {
                 
                 const hasAWinner = this.board.placePiece(lowestEmptyRow, clickedColumn);
-                if (hasAWinner) {
-                    console.log(`¡El jugador ${this.getCurrentPlayer().name} ha ganado!`);
-                    this.gameOver = true;
-                } else {
-                    this.updateTurn();
-                    this.board.drawBoard();
-                    console.log('ahora le toca a', this.getCurrentPlayer());
-                }
+                this.hasAWinner(hasAWinner);
+            
             }
+        }
+    }
+
+    hasAWinner(hasAWinner){
+
+        if (hasAWinner) {
+            console.log(`¡El jugador ${this.getCurrentPlayer().name} ha ganado!`);
+            this.gameOver = true;
+        } else {
+            this.updateTurn();
+            this.board.drawBoard();
+            console.log('ahora le toca a', this.getCurrentPlayer());
         }
     }
 }

@@ -5,144 +5,197 @@ export class StartMenu {
         this.ctx = ctx;
         this.backgroundImage = backgroundImage;
 
-        // Lista de botones del menú de inicio
-        this.buttons = [
-            { text: 'Iniciar Juego', x: this.canvas.width / 2 - 75, y: 60, width: 150, height: 40 },
-            { text: 'Tamaño del Tablero', x: this.canvas.width / 2 - 100, y: 120, width: 200, height: 40, isSelect: true, options: ['4 en línea', '5 en línea', '6 en línea', '7 en línea'] },
-            { text: 'Tiempo por Turno', x: this.canvas.width / 2 - 100, y: 180, width: 200, height: 40, isSelect: true, options: [10, 20, 30, 40, 50, 60] }
+        this.menuWidth = this.canvas.width * 0.45;
+        this.menuHeight = this.canvas.height * 0.5;
+        this.menuGap = this.menuHeight * 0.09;
+        this.buttonWidth = this.canvas.width * 0.4;
+        this.buttonHeight = this.canvas.height * 0.08;
+        this.menuItems = [
+            { 
+                text: 'Iniciar Juego', 
+                isSelect: false,
+                x: 0,
+                y: 0,
+            },
+            { 
+                text: 'Tamaño del Tablero', 
+                isSelect: true,
+                options: [
+                    { text: '4 en linea', rows: 6, columns: 7, connect: 4 },
+                    { text: '5 en linea', rows: 7, columns: 8, connect: 5 },
+                    { text: '6 en linea', rows: 8, columns: 9, connect: 6 },
+                    { text: '7 en linea', rows: 9, columns: 10, connect: 7 }
+                ],
+                selectedOption: 0,
+                isDropdownOpen: false,
+                x: 0,
+                y: 0,
+            },
+            { 
+                text: 'Tiempo por Turno',
+                isSelect: true,
+                options: [
+                    { text: '5 segundos', time: 5 },
+                    { text: '15 segundos', time: 15 },
+                    { text: '25 segundos', time: 25 }
+                ],
+                selectedOption: 0,
+                isDropdownOpen: false,
+                x: 0,
+                y: 0,
+            }
         ];
-
-        this.boardSizeMap = {
-            '4 en línea': { rows: 6, columns: 7 },
-            '5 en línea': { rows: 7, columns: 8 },
-            '6 en línea': { rows: 8, columns: 9 },
-            '7 en línea': { rows: 9, columns: 10 }
-        };
-
-        // Valores por defecto
-        this.selectedBoardSize = this.boardSizeMap['4 en línea'];  
-        this.selectedTurnTime = 10; 
-        this.showBoardSizeOptions = false;
-        this.showTurnTimeOptions = false;
-
-
-        // Crear un método manejador de clics y usarlo para poder eliminarlo después
-        this.handleCanvasClick = this.handleCanvasClick.bind(this); 
+        
+        //este bind es para enlazar el metodo con el objeto
+        this.handleCanvasClick = this.handleCanvasClick.bind(this);
         this.canvas.addEventListener('click', this.handleCanvasClick);
     }
 
-    drawButton(button) {
-        const { text, x, y, width, height } = button;
-
-        // Fondo y borde del botón
-        this.ctx.fillStyle = '#007bff';
-        this.ctx.fillRect(x, y, width, height);
-        this.ctx.strokeStyle = '#0056b3';
-        this.ctx.lineWidth = 3;
-        this.ctx.strokeRect(x, y, width, height);
-
-        // Texto del botón
-        this.ctx.fillStyle = 'white';
-        this.ctx.font = '18px Arial';
-        this.ctx.textAlign = 'center';
-        this.ctx.textBaseline = 'middle';
-
-        let displayText = text;
-        if (text === 'Tamaño del Tablero') displayText += `: ${this.selectedBoardSize}`;
-        if (text === 'Tiempo por Turno') displayText += `: ${this.selectedTurnTime}s`;
-
-        this.ctx.fillText(displayText, x + width / 2, y + height / 2);
-    }
-
-    drawOptions(button) {
-        const { x, y, width, height, options } = button;
-
-        options.forEach((option, index) => {
-            this.ctx.fillStyle = '#333';
-            const optionY = y + height * (index + 1);
-            this.ctx.fillRect(x, optionY, width, height);
-            this.ctx.strokeRect(x, optionY, width, height);
-            this.ctx.fillStyle = 'white';
-            this.ctx.fillText(option, x + width / 2, optionY + height / 2);
-        });
-    }
-
     showStartMenu() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Limpiar el canvas
-        this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvas.width, this.canvas.height);
-        this.buttons.forEach(button => this.drawButton(button));
+        this.clearCanvas();
+    
+        const ctx = this.ctx;
+    
+        const centerX = this.canvas.width / 2; // el centro del canvas
+        const centerY = this.canvas.height / 2; // el centro del canvas   
+        const menuX = centerX - this.menuWidth / 2; // la coordenada x del menu
+        const menuY = centerY - this.menuHeight / 2; // la coordenada y del menu
+    
+        const gradient = ctx.createLinearGradient(menuX, menuY, menuX, menuY + this.menuHeight);
+        gradient.addColorStop(0, '#3d3d3d');
+        gradient.addColorStop(1, '#1a1a1a');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(menuX, menuY, this.menuWidth, this.menuHeight);
+    
+        ctx.strokeStyle = '#4a4a4a';
+        ctx.lineWidth = 12;
+        ctx.strokeRect(menuX, menuY, this.menuWidth, this.menuHeight);
+    
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+        ctx.shadowBlur = 10;
+        ctx.shadowOffsetX = 5;
+        ctx.shadowOffsetY = 5;
+    
+        //titulo del menu (capaz lo saco)
+        const titleY = menuY + this.menuGap + ctx.lineWidth;
+        ctx.font = 'bold 28px Arial';
+        ctx.fillStyle = '#FFD700';
+        ctx.textAlign = 'center';
+        ctx.fillText('Menú de Inicio', centerX, titleY);
+    
+        //dibuja todo lo que son los items del menu
+        let itemY = titleY + this.menuGap //aca va a empezar a dibujar el primer item
+ 
+        this.menuItems.forEach((item, index) => {
+            const itemX = menuX + this.menuWidth / 2 - this.buttonWidth / 2 - 1;
 
-        // Dibujar opciones encima si están desplegadas
-        this.buttons.forEach(button => {
-            if ((this.showBoardSizeOptions && button.text === 'Tamaño del Tablero') || 
-                (this.showTurnTimeOptions && button.text === 'Tiempo por Turno')) {
-                this.drawOptions(button);
-            }
+            this.drawMenuItem(item.text, itemX, itemY);
+            item.x = itemX;  
+            item.y = itemY;
+            item.width = this.buttonWidth;
+            item.height = this.buttonHeight;
+
+           //actualiza y pasa al siguiente item
+            itemY += this.buttonHeight + this.menuGap;
         });
+
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+    }
+    
+    clearCanvas() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvas.width, this.canvas.height);
+    }
+    
+    drawMenuItem(text, x, y) {
+        const ctx = this.ctx;
+        const width = this.buttonWidth;
+        const height = this.buttonHeight;
+
+        // fondo del boton con gradiente
+        const itemGradient = ctx.createLinearGradient(x, y, x, y + height); 
+        itemGradient.addColorStop(0, '#5e5e5e'); 
+        itemGradient.addColorStop(1, '#3a3a3a');
+        ctx.fillStyle = itemGradient;
+        ctx.fillRect(x, y, width, height);
+    
+        
+        ctx.strokeStyle = '#696969';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(x, y, width, height);
+    
+        
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+        ctx.shadowBlur = 4;
+        ctx.fillStyle = '#FFD700';
+        ctx.font = 'bold 18px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, x + width / 2, y + height / 2);
+    
+        //restaurar sombras
+        ctx.shadowBlur = 0;
+    }
+    
+
+    /*
+    * Devuelve el ítem del menu que esta siendo clickeado    
+    */
+    getClickedButton(buttonsArray, x, y) {
+        console.log(buttonsArray);
+        return buttonsArray.find(item => 
+            x > item.x && x < item.x + this.buttonWidth && 
+            y > item.y && y < item.y + this.buttonHeight
+        );
     }
 
     handleCanvasClick(e) {
+        console.log(this.canvas);
         const rect = this.canvas.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
+        const mouseX = e.clientX - rect.left; // rect.left es donde empieza el canvas
+        const mouseY = e.clientY - rect.top; // rect.top es donde empieza el canvas
 
-        this.buttons.forEach(button => {
-            if (this.isInsideButton(mouseX, mouseY, button.x, button.y, button.width, button.height)) {
-                if (button.text === 'Tamaño del Tablero') {
-                    console.log('Tamaño del Tablero');
-                    this.showBoardSizeOptions = !this.showBoardSizeOptions;
-                    this.showTurnTimeOptions = false;
-                } else if (button.text === 'Tiempo por Turno') {
-                    console.log('Tiempo por Turno');
-                    this.showTurnTimeOptions = !this.showTurnTimeOptions;
-                    this.showBoardSizeOptions = false;
-                } else if (button.text === 'Iniciar Juego') {
-                    // Notificar que se inicia el juego
-                    this.removeClickEvent(); // Remover evento de clic del menú                    
-                    this.notifyGameStart(this.selectedBoardSize, this.selectedTurnTime);
-                }
-                //this.showStartMenu(); // Redibujar el menú después de cualquier acción
-            } else if (button.isSelect) {
-                this.handleOptionClick(mouseX, mouseY, button);
+        const clickedItem = this.getClickedButton(this.menuItems, mouseX, mouseY);
+        console.log('clickedItem', clickedItem);
+        if (clickedItem) {
+            if (!clickedItem.isSelect) {
+                this.removeClickEvent();
+                this.notifyGameStart();
+            }else if (clickedItem.isSelect && clickedItem.isDropdownOpen)
+                handleSelectOptions(clickedItem, mouseX, mouseY);
+            else if (clickedItem.isSelect)
+                toggleOptions(clickedItem);
+        }
+    }
+
+    handleSelectOptions(item, x, y) {
+        item.options.forEach((option, index) => {
+            const optionY = item.y + this.buttonHeight * (index + 1);
+            if ((x, y, item.x, optionY, item.width, item.height)) {
+                item.selectedOption = index;
+                item.isDropdownOpen = false;
             }
         });
-    }
-
-    handleOptionClick(mouseX, mouseY, button) {
-        const { x, y, width, height, options } = button;
-    
-        options.forEach((option, index) => {
-            const optionY = y + height * (index + 1);
-    
-            // Solo procesa el clic si el menú desplegable de esta opción está visible
-            if ((button.text === 'Tamaño del Tablero' && this.showBoardSizeOptions) ||
-                (button.text === 'Tiempo por Turno' && this.showTurnTimeOptions)) {
-                
-                if (this.isInsideButton(mouseX, mouseY, x, optionY, width, height)) {
-                    if (button.text === 'Tamaño del Tablero') {
-                        this.selectedBoardSize = this.boardSizeMap[option]; // Mapeo de opción a tamaño
-                        this.showBoardSizeOptions = false; // Oculta opciones después de seleccionar
-                    } else if (button.text === 'Tiempo por Turno') {
-                        this.selectedTurnTime = option;
-                        this.showTurnTimeOptions = false; // Oculta opciones después de seleccionar
-                    }
-                    this.showStartMenu(); // Redibujar el menú después de seleccionar la opción
-                }
-            }
-        });
-    }
-
-    isInsideButton(x, y, buttonX, buttonY, buttonWidth, buttonHeight) {
-        return x > buttonX && x < buttonX + buttonWidth &&
-               y > buttonY && y < buttonY + buttonHeight;
-    }
-
-    notifyGameStart(boardSize, turnTime) {
-        const event = new CustomEvent('gameStart', { detail: { boardSize, turnTime } });
-        window.dispatchEvent(event);
     }
 
     removeClickEvent() {
         this.canvas.removeEventListener('click', this.handleCanvasClick);
     }
+
+    notifyGameStart() {
+        const boardOption = this.menuItems[1].options[this.menuItems[1].selectedOption];
+        const { rows, columns } = boardOption;
+        const turnTime = this.menuItems[2].options[this.menuItems[2].selectedOption].time;
+
+        const event = new CustomEvent('gameStart', { detail: { boardSize: { rows, columns }, turnTime } });
+        window.dispatchEvent(event);
+    }
+
+    //Y no, el menu no va a quedar con este estilo tan feo, es solo para probar
+    //falta un drawOptions que dibuje las opciones de los items
+    //falta que al dibujar los items, muestre los valores por defecto
+    //en una esquina podria tener un boton para volver al menu principal o restart
+    //tambien podria enviar el valor de connect en el evento de gameStart
 }

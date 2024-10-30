@@ -49,12 +49,11 @@ export class Cell {
             );
             ctx.restore();
         } else {
-            //color solido de la celda vacía
             ctx.fillStyle = '#ecf0f1';
             ctx.fill();
         }
 
-        // Borde
+    
         ctx.strokeStyle = '#2980b9';
         ctx.stroke();
     }
