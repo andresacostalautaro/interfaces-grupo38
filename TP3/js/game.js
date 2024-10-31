@@ -14,12 +14,6 @@ export class Game{
         this.backgroundImage = new Image();
         this.backgroundImage.src = './assets/game-background.svg'
 
-        /* Esto lo puse para manejar el tema de si seguía en juego o no, 
-        // aunque la verdad nose si el estado se pasa correctamente al board porque al
-        // lanzar un ganador se setea en false pero aun asi sigue escuchando el evento de mover el mouse
-        */
-        this.gameActive = null; // no se instancia hasta que no se lanza gameStart
-
         this.players = [
             new Player(1, 'Scorpion'),
             new Player(2, 'Subzero')
@@ -30,15 +24,14 @@ export class Game{
         // observador de eventos, cuando se dispara el evento gameStart desde el startMenu, se ejecuta la función startGame
         window.addEventListener('gameStart', (e) => {
             this.startGame(e.detail.boardSize, e.detail.turnTime);
-            this.gameActive = true;
         });
 
         // Evento para volver al menú
         window.addEventListener('resetGame', () => {
             this.resetGame()
-            this.gameActive = false;
         });
 
+        this.onClick = this.onClick.bind(this);
         this.canvas.addEventListener('click', (e) => this.onClick(e));
         
         this.startMenu = new StartMenu(this.canvas, this.ctx, this.backgroundImage);
@@ -62,8 +55,7 @@ export class Game{
             boardSize.rows,
             boardSize.columns,
             this.backgroundImage, 
-            () => this.getCurrentPlayer(),
-            () => this.isGameActive(),
+            () => this.getCurrentPlayer()
         );
         this.board.drawBoard();
     }
@@ -74,17 +66,13 @@ export class Game{
     
     }
 
-    isGameActive(){
-        return this.gameActive;
-    }
-
     getCurrentPlayer() {
         return this.players[this.currentPlayerIndex];
     }
 
 
     onClick(event) {
-        if (!this.gameOver && this.board && this.isGameActive()) { // Agregue verificación de isGameActive
+        if (!this.gameOver && this.board) {
             const rect = this.canvas.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
             
@@ -94,6 +82,7 @@ export class Game{
             if (lowestEmptyRow !== -1) {
                 
                 const hasAWinner = this.board.placePiece(lowestEmptyRow, clickedColumn);
+                console.log("Llamado desde onClick");
                 this.hasAWinner(hasAWinner);
             
             }
@@ -105,11 +94,18 @@ export class Game{
         if (hasAWinner) {
             console.log(`¡El jugador ${this.getCurrentPlayer().name} ha ganado!`);
             this.gameOver = true;
-            this.gameActive = false;
 
             // Aca se llama para poner la imagen del ganador 
             const winnerImg = this.getCurrentPlayer().avatarImg; 
             this.board.drawWinnerImage(winnerImg, this.getCurrentPlayer().name); // Dibuja el cuadrado del ganador
+            
+            // borro los eventos del board para que no interfieran con la pantalla de ganador
+            this.board.removeEvents();
+            // pausa antes de reiniciar el juego
+            setTimeout(() => {
+                this.resetGame();
+            }, 5000); // 5000 milisegundos = 5 segundos
+
         } else {
             this.updateTurn();
             this.board.drawBoard();
@@ -118,24 +114,20 @@ export class Game{
     }
 
 
-    /* AYUDA
-    // No consigo que al reiniciar el juego me deje volver a interactuar con el menu
-    // imagino que es algun problema relacionado con los event listeners pero no lo encuentro
-    // tampoco me tira errores en la consola lo que hace mas dificil encontrar el problema
-    */
     // Metodo para reiniciar el juego
     resetGame() {
-        // Limpia el tablero y restablece las variables del juego
         if (this.board) {
-            this.board.clear();
+            this.board.clearCanvas();
+            this.board = null; // Eliminar referencia al tablero actual
         }
-        
-        this.board = null; // Eliminar referencia al tablero actual
+
+        // reinicio variables
         this.currentPlayerIndex = 0;
         this.gameOver = false;
-        this.gameActive = false;
 
         // Redibujar el menú inicial
+        this.startMenu = null;
+        this.startMenu = new StartMenu(this.canvas, this.ctx, this.backgroundImage);
         this.createBoardUI();
     }
 }

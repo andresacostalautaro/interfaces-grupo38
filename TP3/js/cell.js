@@ -1,17 +1,18 @@
 "use strict";
 
 export class Cell {
-    constructor(row, col, cellSize) {
+    constructor(row, col, cellSize, offsetX, offsetY) {
         this.row = row; 
         this.col = col; 
-        this.cellSize = cellSize; 
+        this.cellSize = cellSize - 15; 
         this.hovered = false; 
         this.occupied = false; 
 
         this.imageToken = null; // Imagen de la ficha a menos que este ocupada
 
-        this.posX = col * cellSize + cellSize / 2; 
-        this.posY = row * cellSize + cellSize / 2; 
+        // Calcula la posición de cada celda considerando el offset
+        this.posX = col * cellSize + cellSize / 2 + offsetX; 
+        this.posY = row * cellSize + cellSize / 2 + offsetY;
     }
 
     draw(ctx) {

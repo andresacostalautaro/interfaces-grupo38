@@ -1,16 +1,29 @@
 import { Cell } from './cell.js';
 export class Board {
-    constructor(canvas, ctx, rows, columns, backgroundImage, getCurrentPlayerCallback, gameActiveCallback) {
+    constructor(canvas, ctx, rows, columns, backgroundImage, getCurrentPlayerCallback) {
         this.canvas = canvas;
         this.ctx = ctx;
         this.rows = rows;
         this.columns = columns;
         this.backgroundImage = backgroundImage;
-        this.cellSize = Math.min(canvas.width / this.columns, canvas.height / this.rows);
+
+        this.cellSize = Math.min(
+            (canvas.width - 20) / this.columns, 
+            (canvas.height - 20) / this.rows
+        );
+        // Calcular el offset (desplazamiento) para centrar el tablero
+        this.boardWidth = this.cellSize * this.columns;
+        this.boardHeight = this.cellSize * this.rows;
+        this.offsetX = (canvas.width - this.boardWidth) / 2;
+        this.offsetY = (canvas.height - this.boardHeight) / 2;
+
         this.grid = this.initializeGrid();
         this.margin = 10;
         this.getCurrentPlayer = getCurrentPlayerCallback;
-        this.isGameActive = gameActiveCallback; //nuevas referencias
+
+        // Fichas de cada jugador
+        this.player1Pieces = this.createPieces('player1');
+        this.player2Pieces = this.createPieces('player2');
 
         // Botón de reiniciar el juego
         this.restartButton = {
@@ -20,9 +33,26 @@ export class Board {
             width: 90,
             height: 40
         };
-        this.canvas.addEventListener('click', (e) => this.handleClick(e));
 
-        this.canvas.addEventListener('mousemove', (e) => this.onMouseMove(e));
+        // Guardo las referencias a los eventos
+        this.handleClick = this.handleClick.bind(this);
+        // nose porque era una funcion flecha pero lo cambie
+        // this.canvas.addEventListener('click', (e) => this.handleClick(e));
+        this.canvas.addEventListener('click', this.handleClick);
+
+        this.onMouseMove = this.onMouseMove.bind(this);
+        this.canvas.addEventListener('mousemove', this.onMouseMove);
+
+        this.handleMouseDown = this.handleMouseDown.bind(this);
+        this.canvas.addEventListener('mousedown', this.handleMouseDown);
+
+        this.handleMouseUp = this.handleMouseUp.bind(this);
+        this.canvas.addEventListener('mouseup', this.handleMouseUp);
+
+        // el dragging es para el metodo relacionado con arrastrar las fichas
+        this.dragging = false;
+        this.selectedPiece = null;
+
         this.hoveredColumn = null;
         this.selectedCell = null;
     }
@@ -32,7 +62,7 @@ export class Board {
         return Array.from({ length: this.rows }, (_, row) => 
             Array.from({ length: this.columns }, (_, col) => 
                 // Crea una nueva instancia de Celda para cada posición de la matriz
-                new Cell(row, col, this.cellSize)
+                new Cell(row, col, this.cellSize, this.offsetX, this.offsetY)
             )
         );
     }
@@ -46,6 +76,11 @@ export class Board {
     // Dibuja el tablero completo
     drawBoard() {
         this.clearCanvas();
+
+        // Dibuja las fichas de ambos jugadores en los laterales
+        this.drawPlayerPieces(this.player1Pieces, 50, 20); // Lado izquierdo
+        this.drawPlayerPieces(this.player2Pieces, this.canvas.width - 70, 20); // Lado derecho
+
         for (let row = 0; row < this.rows; row++) {
             for (let col = 0; col < this.columns; col++) {
                 const currentCell = this.grid[row][col];
@@ -65,9 +100,10 @@ export class Board {
     
     /*
         Calculo la columna más cercana a la coordenada x del mouse
+            añadi el offsetX al calculo para hacerlo acorde a los cambios
     */
     getColumnFromX(x) {
-        return Math.floor(x / this.cellSize);
+        return Math.floor((x - this.offsetX) / this.cellSize);
     }
     
     drawGhostPiece(row, col) {
@@ -111,8 +147,11 @@ export class Board {
     }
 
     onMouseMove(event) {
-        if (!this.isGameActive) return; // Solo ejecutar si el juego está activo
-        
+        if (!this.dragging || !this.selectedPiece) return;
+        const mousePos = this.getMousePosition(event);
+        this.selectedPiece.x = mousePos.x - this.selectedPieceOffset.x;
+        this.selectedPiece.y = mousePos.y - this.selectedPieceOffset.y;
+
         const rect = this.canvas.getBoundingClientRect();
         const mouseX = event.clientX - rect.left;
         
@@ -124,7 +163,13 @@ export class Board {
         }
     }
 
-  
+    /*
+    // El problema actual es que el metodo onClick (clase Game) llama a placePiece para colocar una ficha
+    // y saber si alguien ya ganó o no.
+    // con los cambios para implementar el drag & drop la colocacion de fichas ahora la manejan los eventos de Board.
+    // pero el metodo onClick todavia necesita saber si hay un ganador o no para que el juego funcione.
+    // No lo pude solucionar, actualmente ambos juegos colocan fichas por eso se colocan dobles.
+    */
     placePiece(row, col) {
         const cell = this.grid[row][col];
 
@@ -186,12 +231,12 @@ export class Board {
 
     // Maneja el evento que corresponde al boton de reiniciar el juego
     handleClick(event) {
+        console.log("Al parecer se hizo igual");
         const rect = this.canvas.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
         if (this.isRestartButtonClicked(x, y)) {
             this.resetGame();
-            this.isGameActive = false;
         }
     }
 
@@ -206,8 +251,8 @@ export class Board {
         const event = new CustomEvent('resetGame');
         window.dispatchEvent(event);
 
-        // esto para deshabilitar el evento de mousemove cuando se reincia el juego
-        this.isGameActive = false;
+        // borro los eventos
+        this.removeEvents();
     }
 
     // Dibuja el boton de reiniciar el juego en el tablero
@@ -245,7 +290,7 @@ export class Board {
         this.drawBoard();
     }
 
-    // Método para dibujar la imagen del ganador
+    // Metodo para dibujar la imagen del ganador
     drawWinnerImage(winnerImage, name) {
         winnerImage.onload = () => {
             this.clearCanvas(); // limpio
@@ -275,6 +320,93 @@ export class Board {
         if (winnerImage.complete) {
             winnerImage.onload(); // Llama a la función para dibujar
         }
+    }
+
+    // metodo que crea las piezas para los jugadores
+    createPieces(player) {
+        // Crea una cantidad de fichas para cada jugador
+        const pieces = [];
+        for (let i = 0; i < 21; i++) {
+            pieces.push({ x: 0, y: 0, radius: 20, player, draggable: true });
+        }
+        return pieces;
+    }
+
+    // metodo que dibuja las piezas en el canvas
+    drawPlayerPieces(pieces, startX, startY) {
+        pieces.forEach((piece, index) => {
+            const y = startY + index * (piece.radius * 2 + 5); // Espaciado entre fichas
+            piece.x = startX;
+            piece.y = y;
+            
+            this.ctx.beginPath();
+            this.ctx.arc(piece.x, piece.y, piece.radius, 0, Math.PI * 2);
+            this.ctx.closePath();
+
+            // Color según el jugador
+            this.ctx.fillStyle = piece.player === 'player1' ? '#FF5733' : '#33A1FF';
+            this.ctx.fill();
+            this.ctx.stroke();
+        });
+    }
+
+    // metodo que maneja el evento de cuando holdeas el click
+    handleMouseDown(event) {
+        const mousePos = this.getMousePosition(event);
+        this.selectedPiece = this.getSelectedPiece(mousePos);
+        
+        if (this.selectedPiece) {
+            this.dragging = true;
+            this.selectedPieceOffset = {
+                x: mousePos.x - this.selectedPiece.x,
+                y: mousePos.y - this.selectedPiece.y,
+            };
+        }
+    }
+
+    // metodo que maneja el evento de cuando levantas el dedo del click
+    handleMouseUp(event) {
+        if (this.dragging && this.selectedPiece) {
+            const mousePos = this.getMousePosition(event);
+            const col = this.getColumnFromX(mousePos.x);
+
+            if (col >= 0 && col < this.columns) {
+                const row = this.getLowestEmptyRow(col);
+                if (row !== -1) {
+                    console.log("Llamado desde handleMouseUp");
+                    this.placePiece(row, col);
+                }
+            }
+        }
+
+        this.dragging = false;
+        this.selectedPiece = null;
+        this.drawBoard();
+    }
+
+    // metodo que devuelve la pieza que estamos queriendo arrastrar
+    getSelectedPiece(mousePos) {
+        const allPieces = [...this.player1Pieces, ...this.player2Pieces];
+        return allPieces.find(piece => 
+            Math.hypot(piece.x - mousePos.x, piece.y - mousePos.y) < piece.radius
+        );
+    }
+
+    // metodo que devuelve la posicion actual del mouse
+    getMousePosition(event) {
+        const rect = this.canvas.getBoundingClientRect();
+        return {
+            x: event.clientX - rect.left,
+            y: event.clientY - rect.top,
+        };
+    }
+
+    // metodo que borra el evento de mover el mouse sobre el tablero
+    removeEvents() {
+        this.canvas.removeEventListener('click', this.handleClick);
+        this.canvas.removeEventListener('mousemove', this.onMouseMove);
+        this.canvas.removeEventListener('mousedown', this.handleMouseDown);
+        this.canvas.removeEventListener('mouseup', this.handleMouseUp);
     }
 
 }
