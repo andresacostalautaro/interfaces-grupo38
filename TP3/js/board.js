@@ -1,7 +1,6 @@
 import { Cell } from './cell.js';
 export class Board {
-
-    constructor(canvas, ctx, rows, columns, backgroundImage, getCurrentPlayerCallback) {
+    constructor(canvas, ctx, rows, columns, backgroundImage, getCurrentPlayerCallback, gameActiveCallback) {
         this.canvas = canvas;
         this.ctx = ctx;
         this.rows = rows;
@@ -11,7 +10,18 @@ export class Board {
         this.grid = this.initializeGrid();
         this.margin = 10;
         this.getCurrentPlayer = getCurrentPlayerCallback;
-        
+        this.isGameActive = gameActiveCallback; //nuevas referencias
+
+        // Botón de reiniciar el juego
+        this.restartButton = {
+            text: 'Reiniciar',
+            x: this.canvas.width - 90,  
+            y: this.canvas.height - 40,
+            width: 90,
+            height: 40
+        };
+        this.canvas.addEventListener('click', (e) => this.handleClick(e));
+
         this.canvas.addEventListener('mousemove', (e) => this.onMouseMove(e));
         this.hoveredColumn = null;
         this.selectedCell = null;
@@ -50,6 +60,7 @@ export class Board {
                 this.drawGhostPiece(lowestEmptyRow, this.hoveredColumn);
             }
         }
+        this.drawRestartButton(); // Dibujar boton de reinicio
     }
     
     /*
@@ -90,7 +101,9 @@ export class Board {
     getLowestEmptyRow(col) {
         for (let row = this.rows - 1; row >= 0; row--) {
             const currentCell = this.grid[row][col];
-            if (!currentCell.isOccupied()) {
+            // Agregue para verificar si la celda existe para que no tire error en la consola
+            // y no parpadee el tablero al mover el mouse fuera del mismo
+            if (currentCell !== undefined && !currentCell.isOccupied()) {
                 return row;
             }
         }
@@ -98,6 +111,8 @@ export class Board {
     }
 
     onMouseMove(event) {
+        if (!this.isGameActive) return; // Solo ejecutar si el juego está activo
+        
         const rect = this.canvas.getBoundingClientRect();
         const mouseX = event.clientX - rect.left;
         
@@ -167,8 +182,102 @@ export class Board {
     isWithinBounds(row, col) {
         return row >= 0 && row < this.rows && col >= 0 && col < this.columns;
     }
-  
 
+
+    // Maneja el evento que corresponde al boton de reiniciar el juego
+    handleClick(event) {
+        const rect = this.canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        if (this.isRestartButtonClicked(x, y)) {
+            this.resetGame();
+            this.isGameActive = false;
+        }
+    }
+
+    // Verifica que se haya clickeado el boton de reiniciar el juego
+    isRestartButtonClicked(x, y) {
+        const { x: btnX, y: btnY, width, height } = this.restartButton;
+        return x >= btnX && x <= btnX + width && y >= btnY && y <= btnY + height;
+    }
+
+    // Lanza un evento para resetear el juego
+    resetGame() {
+        const event = new CustomEvent('resetGame');
+        window.dispatchEvent(event);
+
+        // esto para deshabilitar el evento de mousemove cuando se reincia el juego
+        this.isGameActive = false;
+    }
+
+    // Dibuja el boton de reiniciar el juego en el tablero
+    // por ahora esta ahi hasta centrar las celdas y ver donde queda mejor
+    drawRestartButton() {
+        const ctx = this.ctx;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(
+            this.restartButton.x,
+            this.restartButton.y,
+            this.restartButton.width,
+            this.restartButton.height
+        );
+
+        ctx.fillStyle = '#000000';
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(
+            this.restartButton.text,
+            this.restartButton.x + this.restartButton.width / 2,
+            this.restartButton.y + this.restartButton.height / 2
+        );
+    }
+
+    // Metodo que limpia el tablero
+    clear() {
+        // Reinicia la cuadricula
+        this.grid = this.initializeGrid();
+        this.hoveredColumn = null;
+        this.selectedCell = null;
+        
+        // Dibuja el fondo y el tablero vacío
+        this.clearCanvas();
+        this.drawBoard();
+    }
+
+    // Método para dibujar la imagen del ganador
+    drawWinnerImage(winnerImage, name) {
+        winnerImage.onload = () => {
+            this.clearCanvas(); // limpio
+            this.ctx.drawImage(winnerImage, 320, 120, 100, 100); // dibujo la foto
+            
+            // estilo de fuente
+            this.ctx.font = '50px Arial';
+
+            // pos del texto
+            const text = `¡${name} es el ganador!`;
+            const x = 370;
+            const y = 250;
+    
+            // borde amarillo
+            this.ctx.fillStyle = 'yellow';
+            this.ctx.fillText(text, x + 2, y + 2);
+    
+            // borde negro
+            this.ctx.fillStyle = 'black';
+            this.ctx.fillText(text, x - 2, y - 2);
+    
+            // texto principal en rojo
+            this.ctx.fillStyle = 'red';
+            this.ctx.fillText(text, x, y);
+        };
+    
+        if (winnerImage.complete) {
+            winnerImage.onload(); // Llama a la función para dibujar
+        }
+    }
+
+}
     
     //ahora hay que trabajar el hover de las celdas
     //mientras el mouse este entre las coordenadas xy de la primer y ultima celda de la matriz, se debe pintar la primera celda valida de la columna
@@ -211,4 +320,3 @@ export class Board {
 //mostrar el tablero con los circulos vacios
 //jugador que empieza = seleccionado
 //jugador seleccionado toca una ficha 
-}
