@@ -31,8 +31,13 @@ export class Game{
             this.resetGame()
         });
 
+        // Agregar listener para el evento pieceDropped
+        window.addEventListener('pieceDropped', this.handlePieceDropped.bind(this));
+
+        /*
         this.onClick = this.onClick.bind(this);
         this.canvas.addEventListener('click', (e) => this.onClick(e));
+        */
         
         this.startMenu = new StartMenu(this.canvas, this.ctx, this.backgroundImage);
 
@@ -70,7 +75,9 @@ export class Game{
         return this.players[this.currentPlayerIndex];
     }
 
-
+    /*
+    // ESTE METODO YA NO HACE FALTA DADO QUE AHORA SE MANEJA LA LOGICA DE GANADOR CON UN EVENTO
+    // DESPACHADO DESDE LA CLASE BOARD
     onClick(event) {
         if (!this.gameOver && this.board) {
             const rect = this.canvas.getBoundingClientRect();
@@ -81,12 +88,22 @@ export class Game{
             
             if (lowestEmptyRow !== -1) {
                 
-                const hasAWinner = this.board.placePiece(lowestEmptyRow, clickedColumn);
-                console.log("Llamado desde onClick");
-                this.hasAWinner(hasAWinner);
+                //const hasAWinner = this.board.placePiece(lowestEmptyRow, clickedColumn);
+                //console.log("Llamado desde onClick");
+                //this.hasAWinner(hasAWinner);
             
             }
         }
+    }
+    */
+
+    // Metodo para manejar el evento de pieza soltada
+    handlePieceDropped(event) {
+        const { row, col } = event.detail;
+
+        // Chequear si hay un ganador
+        const hasAWinner = this.board.checkForWinner(row, col);
+        this.hasAWinner(hasAWinner); //
     }
 
     hasAWinner(hasAWinner){

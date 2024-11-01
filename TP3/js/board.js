@@ -169,16 +169,37 @@ export class Board {
     // con los cambios para implementar el drag & drop la colocacion de fichas ahora la manejan los eventos de Board.
     // pero el metodo onClick todavia necesita saber si hay un ganador o no para que el juego funcione.
     // No lo pude solucionar, actualmente ambos juegos colocan fichas por eso se colocan dobles.
+    // (SOLUCIONADO 👍)
     */
-    placePiece(row, col) {
+    placePiece(row, col, selectedPiece) {
         const cell = this.grid[row][col];
 
         if (!cell.isOccupied()) {
             cell.fillWithPlayerImage(this.ctx, this.getCurrentPlayer());
-            this.selectedCell = cell;
-            return this.checkForWinner(row, col);
+            
+            // Obtener el jugador actual
+            const currentPlayer = this.getCurrentPlayer();
+            const piecesArray = currentPlayer.getName() === 'Scorpion' ? this.player1Pieces : this.player2Pieces;
+    
+            // Encontrar la pieza que estoy colocando y eliminarla del arreglo
+            const pieceIndex = piecesArray.findIndex(piece => 
+                piece === selectedPiece
+            );
+    
+            if (pieceIndex !== -1) {
+                // Eliminar la pieza
+                piecesArray.splice(pieceIndex, 1);
+            }
+            
+            // Despachar un evento personalizado para chequear el ganador
+            const event = new CustomEvent('pieceDropped', {
+                detail: {
+                    row: row,
+                    col: col,
+                }
+            });
+            window.dispatchEvent(event); // Despachar el evento
         }
-        return false;
     }
 
 
@@ -326,7 +347,7 @@ export class Board {
     createPieces(player) {
         // Crea una cantidad de fichas para cada jugador
         const pieces = [];
-        for (let i = 0; i < 21; i++) {
+        for (let i = 0; i < 10; i++) {
             pieces.push({ x: 0, y: 0, radius: 20, player, draggable: true });
         }
         return pieces;
@@ -334,20 +355,39 @@ export class Board {
 
     // metodo que dibuja las piezas en el canvas
     drawPlayerPieces(pieces, startX, startY) {
+        // Cargar las imágenes
+        const player1Image = new Image();
+        const player2Image = new Image();
+        player1Image.src = './assets/player-tokens/scorpion.svg';
+        player2Image.src = './assets/player-tokens/subzero.svg';
+
+        // Ver que las imagenes se hayan cargado antes de dibujar
+        const imagesLoaded = new Promise((resolve) => {
+            let loadedImages = 0;
+            // verificar que ambas imágenes se han cargado
+            const checkImagesLoaded = () => {
+                loadedImages++;
+                if (loadedImages === 2) {
+                    resolve();
+                }
+            };
+            player1Image.onload = checkImagesLoaded;
+            player2Image.onload = checkImagesLoaded;
+        });
+        // Esperar a que se carguen antes de dibujar
+        imagesLoaded.then(() => {
         pieces.forEach((piece, index) => {
-            const y = startY + index * (piece.radius * 2 + 5); // Espaciado entre fichas
+            const y = startY + index * (piece.radius * 2 + 5); // espaciado
             piece.x = startX;
             piece.y = y;
             
-            this.ctx.beginPath();
-            this.ctx.arc(piece.x, piece.y, piece.radius, 0, Math.PI * 2);
-            this.ctx.closePath();
+            // Elegir la imagen segun el jugador
+            const imageToDraw = piece.player === 'player1' ? player1Image : player2Image;
 
-            // Color según el jugador
-            this.ctx.fillStyle = piece.player === 'player1' ? '#FF5733' : '#33A1FF';
-            this.ctx.fill();
-            this.ctx.stroke();
+            // Dibujar la imagen 
+            this.ctx.drawImage(imageToDraw, piece.x - piece.radius, piece.y - piece.radius, piece.radius * 2, piece.radius * 2);
         });
+    });
     }
 
     // metodo que maneja el evento de cuando holdeas el click
@@ -374,19 +414,72 @@ export class Board {
                 const row = this.getLowestEmptyRow(col);
                 if (row !== -1) {
                     console.log("Llamado desde handleMouseUp");
-                    this.placePiece(row, col);
+                    //ahora llamo al metodo de la animacion de caida de ficha
+                    console.log(this.getCurrentPlayer().getName());
+                    this.animatePieceDrop(row, col, this.selectedPiece);
+                    //this.placePiece(row, col, this.selectedPiece); ((anterior))
                 }
             }
         }
-
         this.dragging = false;
         this.selectedPiece = null;
-        this.drawBoard();
+        // ya no hace falta dibujar el tablero aca porque lo dibuja en la animacion de caida de ficha
+        //this.drawBoard();
+    }
+
+    // Hice que la ficha se parezca a la pieza fantasma a propósito en lugar de a la ficha real
+    // con el objetivo de que sea mas acorde la sensación de que "cae" en el lugar que se soltó
+    animatePieceDrop(row, col, selectedPiece) {
+        const targetCell = this.grid[row][col];
+    
+        // Obtener las coordenadas de la celda y el tamaño de la celda
+        const cellCenterX = targetCell.getPosX();
+        const cellCenterY = targetCell.getPosY();
+        const radius = this.cellSize / 2 - 5; // Igual que en drawGhostPiece
+    
+        // Calcular la posición de la ficha
+        const targetY = cellCenterY - radius; // Centrar verticalmente
+        const targetX = cellCenterX - radius; // Centrar horizontalmente
+    
+        let currentY = -selectedPiece.radius * 2; // Comienza por encima de la vista
+    
+        const dropSpeed = 6; 
+        const animationDuration = 500; 
+        const frames = Math.floor(animationDuration / dropSpeed); 
+        const totalDistance = targetY - currentY; 
+        const incrementY = totalDistance / frames; 
+    
+        // Bucle de animación
+        const dropAnimation = () => {
+            if (currentY < targetY) {
+                currentY += incrementY; 
+                this.clearCanvas(); 
+                this.drawBoard(); 
+    
+                // Dibuja la pieza en su nueva posición con el mismo tamaño que el hint
+                this.ctx.drawImage(
+                    this.getCurrentPlayer().getTokenImage(),
+                    targetX, 
+                    currentY,
+                    radius * 2, // Tamaño igual al hint (ghostPiece)
+                    radius * 2  // Tamaño igual al hint (ghostPiece)
+                );
+    
+                requestAnimationFrame(dropAnimation);
+            } else {
+                this.placePiece(row, col, selectedPiece);
+            }
+        };
+    
+        dropAnimation(); 
     }
 
     // metodo que devuelve la pieza que estamos queriendo arrastrar
+    // hay un error cuando solo queda ocasiona que no pueda arrastrarse, no se a que se debe.
     getSelectedPiece(mousePos) {
-        const allPieces = [...this.player1Pieces, ...this.player2Pieces];
+        const currentPlayer = this.getCurrentPlayer().getName(); // obtener jugador del turno actual
+        const allPieces = currentPlayer === 'Scorpion' ? this.player1Pieces : this.player2Pieces; // elegir las piezas en base al turno
+        
         return allPieces.find(piece => 
             Math.hypot(piece.x - mousePos.x, piece.y - mousePos.y) < piece.radius
         );

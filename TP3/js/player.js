@@ -24,5 +24,9 @@ export class Player {
         return this.tokenImg;
     }
 
+    getName(){
+        return this.name;
+    }
+
     
 }
