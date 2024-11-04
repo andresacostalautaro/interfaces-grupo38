@@ -9,6 +9,7 @@ export class Player {
         this.avatarImg.src = `./assets/player-avatars/${name.toLowerCase()}.jpg`;
         this.tokenImg = new Image();
         this.tokenImg.src = `./assets/player-tokens/${name.toLowerCase()}.svg`;
+        this.isActive = true;
     }
 
    
@@ -28,5 +29,11 @@ export class Player {
         return this.name;
     }
 
-    
+    isActive(){
+        return this.isActive;
+    }
+
+    setActive(){
+        this.isActive = !this.isActive;
+    }
 }

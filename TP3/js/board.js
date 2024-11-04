@@ -1,24 +1,26 @@
 import { Cell } from './cell.js';
 export class Board {
-    constructor(canvas, ctx, rows, columns, backgroundImage, getCurrentPlayerCallback) {
+    constructor(canvas, ctx, rows, columns, backgroundImage, getCurrentPlayerCallback, boardTop, winCondition, playersPanel) {
         this.canvas = canvas;
         this.ctx = ctx;
         this.rows = rows;
         this.columns = columns;
+        this.winCondition = winCondition; // Cantidad de fichas en línea para ganar
         this.backgroundImage = backgroundImage;
+        this.boardTop = boardTop;
+        this.playersPanel = playersPanel;
 
         this.cellSize = Math.min(
             (canvas.width - 20) / this.columns, 
-            (canvas.height - 20) / this.rows
+            (canvas.height - this.boardTop - 20) / this.rows
         );
-        // Calcular el offset (desplazamiento) para centrar el tablero
+        
         this.boardWidth = this.cellSize * this.columns;
         this.boardHeight = this.cellSize * this.rows;
         this.offsetX = (canvas.width - this.boardWidth) / 2;
-        this.offsetY = (canvas.height - this.boardHeight) / 2;
+        this.offsetY = this.boardTop + (canvas.height - this.boardTop - this.boardHeight) / 2;
 
         this.grid = this.initializeGrid();
-        this.margin = 10;
         this.getCurrentPlayer = getCurrentPlayerCallback;
 
         // Fichas de cada jugador
@@ -55,6 +57,8 @@ export class Board {
 
         this.hoveredColumn = null;
         this.selectedCell = null;
+
+
     }
 
     
@@ -70,12 +74,16 @@ export class Board {
 
     clearCanvas() {   
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Limpio el canvas
+        //this.ctx.clearRect(this.offsetX, this.boardTop , this.boardWidth, this.boardHeight); // Limpio solo el tablero
+        
         this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvas.width, this.canvas.height);
     }
 
     // Dibuja el tablero completo
     drawBoard() {
         this.clearCanvas();
+
+        this.playersPanel.draw(); // Dibuja el panel de jugadores
 
         // Dibuja las fichas de ambos jugadores en los laterales
         this.drawPlayerPieces(this.player1Pieces, 50, 20); // Lado izquierdo
@@ -114,7 +122,7 @@ export class Board {
 
         this.ctx.save();
         this.ctx.globalAlpha = 0.5;
-        console.log('current player', this.getCurrentPlayer());
+        
         this.ctx.drawImage(
             this.getCurrentPlayer().getTokenImage(),
             x - radius,
@@ -146,6 +154,7 @@ export class Board {
         return -1;
     }
 
+    
     onMouseMove(event) {
         if (!this.dragging || !this.selectedPiece) return;
         const mousePos = this.getMousePosition(event);
@@ -205,41 +214,42 @@ export class Board {
 
     //el chequeo del ganaador nomas sirve para 4 en linea, 
     //tendria que hacerlo mas generico para que se adapte a cualquier cantidad de fichas en linea
-    checkForWinner(row, col) {
-        const directions = [
-            [1, 0],  
-            [0, 1],  
-            [1, 1],  
-            [1, -1]  
-        ];
-
-        const player = this.getCurrentPlayer();
-
-        for (const [dx, dy] of directions) {
-            if (this.checkDirection(row, col, dx, dy, player) >= 4) {
-                return true;
-            }
-        }
-
-        return false;
+    checkForWinner(row, column) {
+        console.log(this.winCondition);
+        return (
+            this.checkDirection(row, column, 1, 0) ||  // Horizontal
+            this.checkDirection(row, column, 0, 1) ||  // Vertical
+            this.checkDirection(row, column, 1, 1) ||  // Diagonal /
+            this.checkDirection(row, column, 1, -1)     // Diagonal \
+        );
     }
 
-    checkDirection(row, col, dx, dy, player) {
-        let count = 0;
-        let r = row - 3 * dx;
-        let c = col - 3 * dy;
+    checkDirection(row, column, rowIncrement, columnIncrement) {
+        let count = 1; // Contamos la ficha actual
 
-        for (let i = 0; i < 7; i++) {
-            if (this.isWithinBounds(r, c)) {
-                if (this.grid[r][c].isOccupiedBy(player)) {
-                    count++;
-                    if (count >= 4) return count;
-                } else {
-                    count = 0;
-                }
-            }
-            r += dx;
-            c += dy;
+        // Revisar en una dirección
+        count += this.countInDirection(row, column, rowIncrement, columnIncrement);
+        // Revisar en la dirección opuesta
+        count += this.countInDirection(row, column, -rowIncrement, -columnIncrement);
+
+        return count >= this.winCondition;
+    }
+
+    countInDirection(row, column, rowIncrement, columnIncrement) {
+        let count = 0;
+
+        let r = row + rowIncrement;
+        let c = column + columnIncrement;
+
+        
+        while (
+            r >= 0 && r < this.rows &&
+            c >= 0 && c < this.columns &&
+            this.grid[r][c].getTokenImage() === this.getCurrentPlayer().getTokenImage()
+        ) {
+            count++;
+            r += rowIncrement;
+            c += columnIncrement;
         }
 
         return count;
@@ -299,18 +309,6 @@ export class Board {
         );
     }
 
-    // Metodo que limpia el tablero
-    clear() {
-        // Reinicia la cuadricula
-        this.grid = this.initializeGrid();
-        this.hoveredColumn = null;
-        this.selectedCell = null;
-        
-        // Dibuja el fondo y el tablero vacío
-        this.clearCanvas();
-        this.drawBoard();
-    }
-
     // Metodo para dibujar la imagen del ganador
     drawWinnerImage(winnerImage, name) {
         winnerImage.onload = () => {
@@ -355,40 +353,30 @@ export class Board {
 
     // metodo que dibuja las piezas en el canvas
     drawPlayerPieces(pieces, startX, startY) {
-        // Cargar las imágenes
-        const player1Image = new Image();
-        const player2Image = new Image();
-        player1Image.src = './assets/player-tokens/scorpion.svg';
-        player2Image.src = './assets/player-tokens/subzero.svg';
-
-        // Ver que las imagenes se hayan cargado antes de dibujar
-        const imagesLoaded = new Promise((resolve) => {
-            let loadedImages = 0;
-            // verificar que ambas imágenes se han cargado
-            const checkImagesLoaded = () => {
-                loadedImages++;
-                if (loadedImages === 2) {
-                    resolve();
-                }
-            };
-            player1Image.onload = checkImagesLoaded;
-            player2Image.onload = checkImagesLoaded;
-        });
-        // Esperar a que se carguen antes de dibujar
-        imagesLoaded.then(() => {
+        // Cargar las imágenes 
+        const playerImages = {
+            player1: new Image(),
+            player2: new Image()
+        };
+        
+        // Asignar las rutas de las imágenes
+        playerImages.player1.src = './assets/player-tokens/scorpion.svg';
+        playerImages.player2.src = './assets/player-tokens/subzero.svg';
+    
+        // Dibujar las piezas directamente
         pieces.forEach((piece, index) => {
             const y = startY + index * (piece.radius * 2 + 5); // espaciado
             piece.x = startX;
             piece.y = y;
             
-            // Elegir la imagen segun el jugador
-            const imageToDraw = piece.player === 'player1' ? player1Image : player2Image;
-
-            // Dibujar la imagen 
+            // Elegir la imagen según el jugador
+            const imageToDraw = playerImages[piece.player];
+    
+            // Dibujar la imagen
             this.ctx.drawImage(imageToDraw, piece.x - piece.radius, piece.y - piece.radius, piece.radius * 2, piece.radius * 2);
         });
-    });
     }
+    
 
     // metodo que maneja el evento de cuando holdeas el click
     handleMouseDown(event) {
@@ -404,9 +392,21 @@ export class Board {
         }
     }
 
+    /*
+    
+    
+    processPieceDrop
+    
+    */
     // metodo que maneja el evento de cuando levantas el dedo del click
     handleMouseUp(event) {
         if (this.dragging && this.selectedPiece) {
+
+            //Pauso el timer para que no cambie el turno mientras cae la ficha
+            const pauseEvent = new Event('pauseTimer');
+            window.dispatchEvent(pauseEvent);
+
+
             const mousePos = this.getMousePosition(event);
             const col = this.getColumnFromX(mousePos.x);
 
@@ -503,45 +503,3 @@ export class Board {
     }
 
 }
-    
-    //ahora hay que trabajar el hover de las celdas
-    //mientras el mouse este entre las coordenadas xy de la primer y ultima celda de la matriz, se debe pintar la primera celda valida de la columna
-    //tomamos la coordenada x del mouse y vemos a que centro de columna se acerca mas
-    //dibujamos la ficha en esa columna
-    //si el mouse sale de la matriz, no se muestra ninguna ficha
-    //cuando se hace click, se debe agregar la ficha a la matriz
-    //se debe validar si hay un ganador
-    //se debe validar si hay empate
-    //se debe cambiar el turno
-    //se debe mostrar el jugador que tiene el turno
-    //se debe mostrar un timer con el tiempo restante
-    //se debe mostrar un ganador
-
-
-    
-
-    
-
-//mostrar tablero vacio. Solo imagen
-
-//podria mostrar una animacion haciendo que aparezca un avatar por cada lado del tablero y que se muevan hacia el centro del tablero
-
-// mostrar iconos de los jugadores con timer en tiempo max arriba con la barra de progreso llena
-
-//abajo del contenedor de los avatares mostrar un menu 
-    //iniciar juego
-    //opciones de tamaño de tablero 
-        //5 en linea
-        //6 en linea
-        //7 en linea
-    //tiempo por turno (que sea un select con opciones que aumentan de 10 en 10)
-
-    //reiniciar juego (este boton solo se activa cuando el juego ya comenzo)
-    //Si sobra tiempo podriamos hacer un player vs player y player vs cpu
-
-// mostrar iconos de los jugadores con timer en tiempo max 
-
-//una vez iniciado el juego
-//mostrar el tablero con los circulos vacios
-//jugador que empieza = seleccionado
-//jugador seleccionado toca una ficha 

@@ -1,6 +1,7 @@
 import { Board } from './board.js';
 import { Player } from './player.js';
 import { StartMenu } from './startMenu.js';
+import { PlayerPanel } from './playerPanel.js';
 
 export class Game{
     constructor(){
@@ -19,11 +20,11 @@ export class Game{
             new Player(2, 'Subzero')
         ];
         this.currentPlayerIndex = 0;
-
+        this.playersPanel = null;
 
         // observador de eventos, cuando se dispara el evento gameStart desde el startMenu, se ejecuta la función startGame
         window.addEventListener('gameStart', (e) => {
-            this.startGame(e.detail.boardSize, e.detail.turnTime);
+            this.startGame(e.detail.boardSize, e.detail.turnTime, e.detail.winCondition);
         });
 
         // Evento para volver al menú
@@ -40,10 +41,14 @@ export class Game{
         */
         
         this.startMenu = new StartMenu(this.canvas, this.ctx, this.backgroundImage);
-
+        
         this.backgroundImage.onload = () => {
             this.createBoardUI();
         };
+
+        window.addEventListener('turnTimeUp', () => {
+            this.handleTimeUp();
+        });
 
     }
 
@@ -53,54 +58,55 @@ export class Game{
         this.startMenu.showStartMenu();
     }
 
-    startGame(boardSize, turnTime) {
+    startGame(boardSize, turnTime, winCondition) {
+        
+        this.playersPanel = new PlayerPanel(this.canvas, this.ctx, this.players, turnTime);
+
+        const panelHeight = this.playersPanel.getHeight(); // altura del panel de jugadores pero puede ser mas
+        const boardTop = panelHeight + 20; // son 20px de margen
+
         this.board = new Board(
             this.canvas,
             this.ctx,
             boardSize.rows,
             boardSize.columns,
             this.backgroundImage, 
-            () => this.getCurrentPlayer()
+            () => this.getCurrentPlayer(),
+            boardTop, // a partir de aca se va a poder empezar a "construir" el tablero
+            winCondition,
+            this.playersPanel
         );
+
+        this.drawGame();
+    }
+
+    drawGame() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvas.width, this.canvas.height);
+        
+        this.playersPanel.draw();
+
+        console.log(this.playersPanel);
         this.board.drawBoard();
     }
 
     // funcion para actualizar turno
-    updateTurn(){
+    updateTurn() {
         this.currentPlayerIndex = 1 - this.currentPlayerIndex;
-    
+        this.playersPanel.updateActivePlayer(this.currentPlayerIndex);
+        this.drawGame();
     }
 
     getCurrentPlayer() {
         return this.players[this.currentPlayerIndex];
     }
 
-    /*
-    // ESTE METODO YA NO HACE FALTA DADO QUE AHORA SE MANEJA LA LOGICA DE GANADOR CON UN EVENTO
-    // DESPACHADO DESDE LA CLASE BOARD
-    onClick(event) {
-        if (!this.gameOver && this.board) {
-            const rect = this.canvas.getBoundingClientRect();
-            const mouseX = event.clientX - rect.left;
-            
-            const clickedColumn = this.board.getColumnFromX(mouseX);
-            const lowestEmptyRow = this.board.getLowestEmptyRow(clickedColumn);
-            
-            if (lowestEmptyRow !== -1) {
-                
-                //const hasAWinner = this.board.placePiece(lowestEmptyRow, clickedColumn);
-                //console.log("Llamado desde onClick");
-                //this.hasAWinner(hasAWinner);
-            
-            }
-        }
-    }
-    */
-
     // Metodo para manejar el evento de pieza soltada
     handlePieceDropped(event) {
         const { row, col } = event.detail;
 
+        // pauso el timer porque no tiene sentido que siga corriendo mientras cae la ficha
+        this.playersPanel.pauseTimer(); 
         // Chequear si hay un ganador
         const hasAWinner = this.board.checkForWinner(row, col);
         this.hasAWinner(hasAWinner); //
@@ -111,6 +117,8 @@ export class Game{
         if (hasAWinner) {
             console.log(`¡El jugador ${this.getCurrentPlayer().name} ha ganado!`);
             this.gameOver = true;
+
+            this.playersPanel.pauseTimer();
 
             // Aca se llama para poner la imagen del ganador 
             const winnerImg = this.getCurrentPlayer().avatarImg; 
@@ -133,6 +141,10 @@ export class Game{
 
     // Metodo para reiniciar el juego
     resetGame() {
+        if (this.playersPanel) {
+            this.playersPanel.cleanup();
+        }
+
         if (this.board) {
             this.board.clearCanvas();
             this.board = null; // Eliminar referencia al tablero actual
@@ -147,4 +159,11 @@ export class Game{
         this.startMenu = new StartMenu(this.canvas, this.ctx, this.backgroundImage);
         this.createBoardUI();
     }
+
+    handleTimeUp() {
+        console.log('expiro el turno del jugador', this.getCurrentPlayer().getName());
+        this.currentPlayerIndex = 1 - this.currentPlayerIndex; //no llama a updateTurn porque no quiero que se actualice el panel ni que se dibuje el tablero
+        this.hasAWinner(true);
+    }
+
 }

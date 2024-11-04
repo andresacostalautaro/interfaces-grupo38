@@ -4,7 +4,7 @@ export class Cell {
     constructor(row, col, cellSize, offsetX, offsetY) {
         this.row = row; 
         this.col = col; 
-        this.cellSize = cellSize - 15; 
+        this.cellSize = cellSize - 10; 
         this.hovered = false; 
         this.occupied = false; 
 
@@ -102,5 +102,9 @@ export class Cell {
 
     isOccupiedBy(player) {
         return this.imageToken === player.getTokenImage();
+    }
+
+    getTokenImage() {
+        return this.imageToken;
     }
 }

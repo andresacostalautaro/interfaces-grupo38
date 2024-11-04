@@ -9,9 +9,6 @@ export class Carousel{
         this.rightArrow = container.querySelector('.next');
         this.carouselItems = this.carousel.querySelectorAll('.game-card');
 
-        console.log(this.leftArrow);
-        console.log(this.rightArrow);
-
 
         this.startX = 0;
         this.currentTranslate = 0;
