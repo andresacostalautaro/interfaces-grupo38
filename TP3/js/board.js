@@ -1,14 +1,14 @@
 import { Cell } from './cell.js';
 export class Board {
-    constructor(canvas, ctx, rows, columns, backgroundImage, getCurrentPlayerCallback, boardTop, winCondition, playersPanel) {
+    constructor(canvas, ctx, rows, columns, getCurrentPlayerCallback, boardTop, winCondition, drawGameFunction) {
         this.canvas = canvas;
         this.ctx = ctx;
         this.rows = rows;
         this.columns = columns;
         this.winCondition = winCondition; // Cantidad de fichas en línea para ganar
-        this.backgroundImage = backgroundImage;
         this.boardTop = boardTop;
-        this.playersPanel = playersPanel;
+        this.redrawGame = drawGameFunction;
+
 
         this.cellSize = Math.min(
             (canvas.width - 20) / this.columns, 
@@ -18,7 +18,7 @@ export class Board {
         this.boardWidth = this.cellSize * this.columns;
         this.boardHeight = this.cellSize * this.rows;
         this.offsetX = (canvas.width - this.boardWidth) / 2;
-        this.offsetY = this.boardTop + (canvas.height - this.boardTop - this.boardHeight) / 2;
+        this.offsetY = this.boardTop;
 
         this.grid = this.initializeGrid();
         this.getCurrentPlayer = getCurrentPlayerCallback;
@@ -70,20 +70,9 @@ export class Board {
             )
         );
     }
-    
-
-    clearCanvas() {   
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Limpio el canvas
-        //this.ctx.clearRect(this.offsetX, this.boardTop , this.boardWidth, this.boardHeight); // Limpio solo el tablero
-        
-        this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvas.width, this.canvas.height);
-    }
 
     // Dibuja el tablero completo
     drawBoard() {
-        this.clearCanvas();
-
-        this.playersPanel.draw(); // Dibuja el panel de jugadores
 
         // Dibuja las fichas de ambos jugadores en los laterales
         this.drawPlayerPieces(this.player1Pieces, 50, 20); // Lado izquierdo
@@ -168,7 +157,7 @@ export class Board {
         
         if (this.hoveredColumn !== hoveredColumn) {
             this.hoveredColumn = hoveredColumn;
-            this.drawBoard();
+            this.redrawGame();
         }
     }
 
@@ -309,38 +298,6 @@ export class Board {
         );
     }
 
-    // Metodo para dibujar la imagen del ganador
-    drawWinnerImage(winnerImage, name) {
-        winnerImage.onload = () => {
-            this.clearCanvas(); // limpio
-            this.ctx.drawImage(winnerImage, 320, 120, 100, 100); // dibujo la foto
-            
-            // estilo de fuente
-            this.ctx.font = '50px Arial';
-
-            // pos del texto
-            const text = `¡${name} es el ganador!`;
-            const x = 370;
-            const y = 250;
-    
-            // borde amarillo
-            this.ctx.fillStyle = 'yellow';
-            this.ctx.fillText(text, x + 2, y + 2);
-    
-            // borde negro
-            this.ctx.fillStyle = 'black';
-            this.ctx.fillText(text, x - 2, y - 2);
-    
-            // texto principal en rojo
-            this.ctx.fillStyle = 'red';
-            this.ctx.fillText(text, x, y);
-        };
-    
-        if (winnerImage.complete) {
-            winnerImage.onload(); // Llama a la función para dibujar
-        }
-    }
-
     // metodo que crea las piezas para los jugadores
     createPieces(player) {
         // Crea una cantidad de fichas para cada jugador
@@ -453,8 +410,8 @@ export class Board {
         const dropAnimation = () => {
             if (currentY < targetY) {
                 currentY += incrementY; 
-                this.clearCanvas(); 
-                this.drawBoard(); 
+                //this.clearCanvas(); 
+                this.redrawGame(); 
     
                 // Dibuja la pieza en su nueva posición con el mismo tamaño que el hint
                 this.ctx.drawImage(

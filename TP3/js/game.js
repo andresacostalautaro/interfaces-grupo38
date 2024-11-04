@@ -16,8 +16,8 @@ export class Game{
         this.backgroundImage.src = './assets/game-background.svg'
 
         this.players = [
-            new Player(1, 'Scorpion'),
-            new Player(2, 'Subzero')
+            new Player(1, 'Scorpion', 'right'),
+            new Player(2, 'Subzero', 'left')
         ];
         this.currentPlayerIndex = 0;
         this.playersPanel = null;
@@ -60,7 +60,7 @@ export class Game{
 
     startGame(boardSize, turnTime, winCondition) {
         
-        this.playersPanel = new PlayerPanel(this.canvas, this.ctx, this.players, turnTime);
+        this.playersPanel = new PlayerPanel(this.canvas, this.ctx, this.players, turnTime, this.drawGame.bind(this));
 
         const panelHeight = this.playersPanel.getHeight(); // altura del panel de jugadores pero puede ser mas
         const boardTop = panelHeight + 20; // son 20px de margen
@@ -69,12 +69,11 @@ export class Game{
             this.canvas,
             this.ctx,
             boardSize.rows,
-            boardSize.columns,
-            this.backgroundImage, 
+            boardSize.columns, 
             () => this.getCurrentPlayer(),
             boardTop, // a partir de aca se va a poder empezar a "construir" el tablero
             winCondition,
-            this.playersPanel
+            this.drawGame.bind(this), // Pasa la función drawGame
         );
 
         this.drawGame();
@@ -122,7 +121,7 @@ export class Game{
 
             // Aca se llama para poner la imagen del ganador 
             const winnerImg = this.getCurrentPlayer().avatarImg; 
-            this.board.drawWinnerImage(winnerImg, this.getCurrentPlayer().name); // Dibuja el cuadrado del ganador
+            this.drawWinnerImage(winnerImg, this.getCurrentPlayer().name); // Dibuja el cuadrado del ganador
             
             // borro los eventos del board para que no interfieran con la pantalla de ganador
             this.board.removeEvents();
@@ -146,7 +145,7 @@ export class Game{
         }
 
         if (this.board) {
-            this.board.clearCanvas();
+            this.clearCanvas();
             this.board = null; // Eliminar referencia al tablero actual
         }
 
@@ -158,6 +157,42 @@ export class Game{
         this.startMenu = null;
         this.startMenu = new StartMenu(this.canvas, this.ctx, this.backgroundImage);
         this.createBoardUI();
+    }
+
+
+
+    // Metodo para dibujar la imagen del ganador
+    drawWinnerImage(winnerImage, name) {
+        this.clearCanvas(); // limpio
+        this.ctx.drawImage(winnerImage, 320, 120, 100, 100); // dibujo la foto
+        
+        // estilo de fuente
+        this.ctx.font = '50px Arial';
+
+        // pos del texto
+        const text = `¡${name} es el ganador!`;
+        const x = 370;
+        const y = 250;
+
+        // borde amarillo
+        this.ctx.fillStyle = 'yellow';
+        this.ctx.fillText(text, x + 2, y + 2);
+
+        // borde negro
+        this.ctx.fillStyle = 'black';
+        this.ctx.fillText(text, x - 2, y - 2);
+
+        // texto principal en rojo
+        this.ctx.fillStyle = 'red';
+        this.ctx.fillText(text, x, y);
+        
+    }
+
+    clearCanvas() {   
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Limpio el canvas
+        //this.ctx.clearRect(this.offsetX, this.boardTop , this.boardWidth, this.boardHeight); // Limpio solo el tablero
+        
+        this.ctx.drawImage(this.backgroundImage, 0, 0, this.canvas.width, this.canvas.height);
     }
 
     handleTimeUp() {

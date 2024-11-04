@@ -1,15 +1,13 @@
 export class Player {
-    constructor(id, name) {
+    constructor(id, name, side) {
         this.id = id;
-        this.name = name;
-        
-        // this.image = new Image();
-        // Asignar las rutas de acuerdo con el nombre del jugador
+        this.name = name
         this.avatarImg = new Image();
         this.avatarImg.src = `./assets/player-avatars/${name.toLowerCase()}.jpg`;
         this.tokenImg = new Image();
         this.tokenImg.src = `./assets/player-tokens/${name.toLowerCase()}.svg`;
         this.isActive = true;
+        this.side = side;
     }
 
    
