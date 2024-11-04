@@ -53,7 +53,8 @@ export class StartMenu {
 
         this.addEventListeners();
         removeEventListener('gameStart', () => {
-            this.removeEvents();
+            this.removeClickEvent();
+            this.removeMousemoveEvent();
         });
     }
 
@@ -316,8 +317,11 @@ export class StartMenu {
         }
     }
 
-    removeEvents() {
+    removeClickEvent() {
         this.canvas.removeEventListener('click', this.handleCanvasClick);
+    }
+
+    removeMousemoveEvent() {
         this.canvas.removeEventListener('mousemove', this.handleCanvasMouseMove);
     }
 
