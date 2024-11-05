@@ -24,8 +24,9 @@ export class Board {
         this.getCurrentPlayer = getCurrentPlayerCallback;
 
         // Fichas de cada jugador
-        this.player1Pieces = this.createPieces('player1');
-        this.player2Pieces = this.createPieces('player2');
+        const totalPieces = Math.floor((rows * columns) / 2);
+        this.player1Pieces = this.createPieces('player1', totalPieces);
+        this.player2Pieces = this.createPieces('player2', totalPieces);
 
         // Botón de reiniciar el juego
         this.restartButton = {
@@ -75,8 +76,9 @@ export class Board {
     drawBoard() {
 
         // Dibuja las fichas de ambos jugadores en los laterales
-        this.drawPlayerPieces(this.player1Pieces, 50, 20); // Lado izquierdo
-        this.drawPlayerPieces(this.player2Pieces, this.canvas.width - 70, 20); // Lado derecho
+        this.drawPlayerPieces(this.player1Pieces, 10, this.boardTop);
+        this.drawPlayerPieces(this.player2Pieces, this.canvas.width - 10, this.boardTop);
+
 
         for (let row = 0; row < this.rows; row++) {
             for (let col = 0; col < this.columns; col++) {
@@ -299,10 +301,9 @@ export class Board {
     }
 
     // metodo que crea las piezas para los jugadores
-    createPieces(player) {
-        // Crea una cantidad de fichas para cada jugador
+    createPieces(player, totalPieces) {
         const pieces = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < totalPieces; i++) {
             pieces.push({ x: 0, y: 0, radius: 20, player, draggable: true });
         }
         return pieces;
@@ -310,30 +311,63 @@ export class Board {
 
     // metodo que dibuja las piezas en el canvas
     drawPlayerPieces(pieces, startX, startY) {
-        // Cargar las imágenes 
         const playerImages = {
             player1: new Image(),
             player2: new Image()
         };
         
-        // Asignar las rutas de las imágenes
         playerImages.player1.src = './assets/player-tokens/scorpion.svg';
         playerImages.player2.src = './assets/player-tokens/subzero.svg';
-    
-        // Dibujar las piezas directamente
+
+        const pieceSize = pieces[0].radius * 2;
+        const overlap = pieceSize * 0.85; // 85% de superposición para una pila más compacta
+        const effectiveHeight = pieceSize - overlap;
+        
+        // Calcular el espacio disponible
+        const availableHeight = this.canvas.height - this.boardTop - 20;
+        const maxPieces = Math.floor(availableHeight / effectiveHeight);
+
+        // Número de piezas por columna
+        const piecesPerColumn = Math.min(maxPieces, 50); // Limitar a 12 piezas por columna
+
         pieces.forEach((piece, index) => {
-            const y = startY + index * (piece.radius * 2 + 5); // espaciado
-            piece.x = startX;
-            piece.y = y;
+            const column = Math.floor(index / piecesPerColumn);
+            const rowInColumn = index % piecesPerColumn;
             
-            // Elegir la imagen según el jugador
+            // Ajustar el espaciado horizontal entre columnas
+            const columnSpacing = pieceSize ;
+            
+            // Calcular posición X
+            const xOffset = piece.player === 'player1' ? 
+                column * columnSpacing : 
+                -column * columnSpacing;
+            
+            const x = piece.player === 'player1' ? 
+                startX + xOffset : 
+                startX + xOffset - pieceSize;
+            
+            // Calcular posición Y con mayor superposición
+            const y = startY + (rowInColumn * effectiveHeight);
+            
+            // Guardar posición para drag & drop
+            piece.x = x + piece.radius;
+            piece.y = y + piece.radius;
+            
+            // Dibujar la pieza
             const imageToDraw = playerImages[piece.player];
-    
-            // Dibujar la imagen
-            this.ctx.drawImage(imageToDraw, piece.x - piece.radius, piece.y - piece.radius, piece.radius * 2, piece.radius * 2);
+            this.ctx.drawImage(imageToDraw, x, y, pieceSize, pieceSize);
+
+            // Añadir un efecto de sombra para dar profundidad
+            this.ctx.save();
+            this.ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+            this.ctx.shadowBlur = 5;
+            this.ctx.shadowOffsetX = 2;
+            this.ctx.shadowOffsetY = 2;
+            this.ctx.drawImage(imageToDraw, x, y, pieceSize, pieceSize);
+            this.ctx.restore();
         });
     }
-    
+
 
     // metodo que maneja el evento de cuando holdeas el click
     handleMouseDown(event) {

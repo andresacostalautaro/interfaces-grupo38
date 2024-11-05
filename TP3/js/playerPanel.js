@@ -84,7 +84,7 @@ export class PlayerPanel {
             if (index === 0) { 
                 barX = avatarX + avatarSize + 10; // espacio entre el avatar y la barra
             } else { 
-                barX = timerX + this.timerWidth + 10; // empieza post temporizador
+                barX = timerX + this.timerWidth + 50; // empieza post temporizador
             }
 
             const playerWidth = this.canvas.width * 0.31;

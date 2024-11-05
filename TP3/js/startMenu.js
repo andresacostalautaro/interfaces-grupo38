@@ -1,4 +1,4 @@
-import { Board } from './board.js';
+
 export class StartMenu {
     constructor(canvas, ctx, backgroundImage) {
         this.canvas = canvas;
@@ -18,7 +18,7 @@ export class StartMenu {
                 y: 0,
             },
             { 
-                text: 'Tamaño del tablero',
+                text: 'Juego',
                 isSelect: true,
                 options: [
                     { text: '4 en línea', rows: 6, columns: 7, connect: 4 },
@@ -35,9 +35,9 @@ export class StartMenu {
                 text: 'Tiempo por Turno',
                 isSelect: true,
                 options: [
-                    { text: '5 segundos', time: 5 },
-                    { text: '15 segundos', time: 15 },
-                    { text: '25 segundos', time: 25 }
+                    { text: '5 seg', time: 5 },
+                    { text: '15 seg', time: 15 },
+                    { text: '25 seg', time: 25 }
                 ],
                 selectedOption: 0,
                 isDropdownOpen: false,
@@ -147,7 +147,7 @@ export class StartMenu {
 
         // Si el item es un select, muestro el texto de la opcion seleccionada
         let text = item.isSelect 
-            ? `${item.options[item.selectedOption].text}`
+            ? `${item.text}: ${item.options[item.selectedOption].text} ▼`
             : item.text;
         
         ctx.fillText(text, x + width / 2, y + height / 2);

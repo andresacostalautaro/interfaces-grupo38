@@ -164,28 +164,36 @@ export class Game{
     // Metodo para dibujar la imagen del ganador
     drawWinnerImage(winnerImage, name) {
         this.clearCanvas(); // limpio
-        this.ctx.drawImage(winnerImage, 320, 120, 100, 100); // dibujo la foto
+
+        const imageWidth = 100; // ancho de la imagen
+        const imageHeight = 100; // altura de la imagen
+        const centerX = (this.ctx.canvas.width - imageWidth) / 2; // centrar horizontalmente
+        const centerY = (this.ctx.canvas.height) / 2 - imageHeight; // centrar verticalmente
         
-        // estilo de fuente
+        // Dibuja la imagen en el centro
+        this.ctx.drawImage(winnerImage, centerX, centerY, imageWidth, imageHeight);        
+    
+        // Estilo de fuente
         this.ctx.font = '50px Arial';
-
-        // pos del texto
         const text = `¡${name} es el ganador!`;
-        const x = 370;
-        const y = 250;
-
-        // borde amarillo
+        
+        // Calcula la posición x para centrar el texto
+        const x = this.ctx.canvas.width / 2; 
+        console.log('x', x);
+        // La posición y debe estar debajo de la imagen
+        const y = centerY + imageHeight + 40; // Ajusta 40 para un espacio adicional entre la imagen y el texto
+    
+        // Borde amarillo
         this.ctx.fillStyle = 'yellow';
         this.ctx.fillText(text, x + 2, y + 2);
-
-        // borde negro
+    
+        // Borde negro
         this.ctx.fillStyle = 'black';
         this.ctx.fillText(text, x - 2, y - 2);
-
-        // texto principal en rojo
+    
+        // Texto principal en rojo
         this.ctx.fillStyle = 'red';
         this.ctx.fillText(text, x, y);
-        
     }
 
     clearCanvas() {   

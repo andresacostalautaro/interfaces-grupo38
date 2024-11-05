@@ -4,7 +4,7 @@ export class Cell {
     constructor(row, col, cellSize, offsetX, offsetY) {
         this.row = row; 
         this.col = col; 
-        this.cellSize = cellSize - 10; 
+        this.cellSize = cellSize - 5; 
         this.hovered = false; 
         this.occupied = false; 
 

@@ -218,6 +218,10 @@ h1 {
 /* -------------estilos carrusel desktop-------------*/
 
 @media (min-width: 768px) {
+    .page_content{
+        margin-bottom: 25px;
+    }
+
     .page_content .category-container h2 {
         font-size: 1.25rem;
         text-align: left;
@@ -231,7 +235,7 @@ h1 {
     }
 
     .page_content, .breadcrumbs {
-        padding: 1% 15%;
+        padding: 1% 10% 0% 10%;
     }
    
     .category-container {
