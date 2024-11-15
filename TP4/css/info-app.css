@@ -1,0 +1,112 @@
+.app-mas-divertida{
+    margin-bottom: 138px;
+}
+
+.info-app{
+    height: 894px;
+    background-image: url(../assets/backgrounds/info-app-background.svg);
+    background-size: cover;
+}
+
+h2{
+    font-family: 'Lato', 'sans-serif';
+    font-weight: 600;
+    font-size: 47px;
+    /* line-height: 2.776em; */
+    line-height: 94.5%;
+}
+
+.app-descripcion h2{
+    width: 508px;
+}
+
+
+p{
+    font-family: 'Lato';
+    font-size: 20px;
+    line-height: 24px;
+    
+}
+
+.app-descripcion{
+    gap: 22px;
+    width: 704px;
+    display: flex;
+    color: #1B428F;
+    flex-direction: column;
+    padding: 60px 0 27px 100px;
+}
+
+/* --------- estilo de caja con miniatura de video que cambia c/3 segundos --------*/
+.thumbnail{
+    width: 576.38px;
+    height: 324.35px;
+    border: 29px solid #1B5F99;
+    border-radius: var(--border-radius);
+    margin-left: 136px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.thumbnail img{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    animation: cycleImages 12s infinite;
+}
+
+.thumbnail img:nth-child(1) { animation-delay: 0s; }
+.thumbnail img:nth-child(2) { animation-delay: 3s; }
+.thumbnail img:nth-child(3) { animation-delay: 6s; }
+.thumbnail img:nth-child(4) { animation-delay: 9s; }
+
+@keyframes cycleImages {
+    0%, 25%, 100% { opacity: 0; } 
+    3%, 22% { opacity: 1; }
+}
+
+/* ---------- estilo de las 3 cards al final de la seccion */
+.cards-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 100px;
+}
+
+.card{
+    width: 333px;
+    display: flex;
+    flex-direction: column;
+    gap: 23.31px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    
+}
+
+.card img{
+    width: 332.96px;
+    border: 9px solid #2982FF;
+    border-radius: 41px;
+    box-shadow: 4px 5px 0 0 #02187E;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card.animate {
+    animation: floatUp 0.5s ease forwards;
+}
+
+.cards-container .card:nth-child(1) { animation-delay: 0s; }
+.cards-container .card:nth-child(2) { animation-delay: 0.3s; }
+.cards-container .card:nth-child(3) { animation-delay: 0.6s; }

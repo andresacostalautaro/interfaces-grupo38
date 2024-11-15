@@ -1,0 +1,209 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --font-family-button: 'Lato', sans-serif; /*BLACK 20PX LINE-HEIGHT: 94.5% LETTER-SPACING:11%*/
+    --font-family-subtitle: 'Lato', sans-serif; /*SEMIBOLD 47PX LINE-HEIGHT: 94.5% LETTER-SPACING:0%*/
+    --font-family-text: 'Lato', sans-serif; /*REGULAR 20PX LINE-HEIGHT: auto LETTER-SPACING:0%*/
+    --font-family-descubre-section: 'Lato', sans-serif; /* Mixed 61.14PX LINE-HEIGHT: 110% LETTER-SP 0%*/
+    /*DESCARGA NUMBERS BLOCKS HOY REGULAR 31.14PX, 110%, 0%*/
+    /*MAS AMIGOS MAS DIVERSION SEMIBOLD 60PX 94.5% 0%*/
+    /*sumas magicas: REGULAR, 40PX, 94.5% 0%*/
+    --bar-color: #F39E46;
+    --border-radius: 111px;
+    --resolution: 1280px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+
+    /*esto es provisorio para poder usar bien el 1080 centrado*/
+    display: flex;
+    justify-content: center;
+}
+
+main{
+    position: relative;
+    z-index: 0;
+    width: 1280px;
+}
+
+header {
+    width: 100%;
+    height: 103px;
+    padding: 20px 100px;
+    background-color: transparent;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: fixed; 
+    top: 0; /* Para que el header se mantenga arriba */
+    transition: background-color 0.5s, padding 1s;
+    z-index: 100;
+}
+
+header.sticky {
+    height: 82.4px;
+    /* aca tuve que pasar el 00D1D5 a rgba para variar la opacidad*/
+    background: linear-gradient(
+        to bottom, 
+        rgba(0, 209, 213, 1) 0%,  
+        rgba(0, 209, 213, 0.12) 88%,  
+        rgba(0, 209, 213, 0) 100%  
+      );
+}
+
+/* esto es para aplicarlo a todos los elementos dentro de header y poder achicarlos cuando se desplace el scroll*/
+
+header * {
+    transition: transform 0.3s ease-in-out; 
+}
+
+header.sticky .hamburger-menu, 
+header.sticky button {
+    transform: scale(0.8); 
+    transform-origin: top; /*el scale redimensiona pero me hace perder alinemiento entonces uso esto para escalar desde pos inicial (en este caso top)*/
+}
+
+.hamburger-menu {
+    height: 26px;
+    width: 34px;
+    cursor: pointer;
+}
+
+/*-----------------fin del scale---------------------*/
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+.hamburger-menu .bar {
+    width: 100%;
+    height: 4px;
+    position: relative;
+    background-color: #F39E46;
+    border-radius: var(--border-radius);
+    box-shadow: 
+        0 0 0 4px white,  /* creo el box-shadow para simular el outline  */
+        4px 5px 0 4px #02187E;
+    transition: all 0.5s;
+    transform-origin: center;
+
+}
+
+/* ------ Asigno animaciones a cada barrita para transicionar a la cruz ------*/
+
+.hamburger-menu .bar:nth-child(1) {
+    animation: topBarClose 0.5s forwards;
+}
+
+.hamburger-menu .bar:nth-child(3) {
+    animation: bottomBarClose 0.5s forwards;
+}
+
+/* ------ Asigno animaciones a cada barrita para volver a la hamb ------*/
+.hamburger-menu.open .bar{
+    box-shadow: 0 0 0 4px white; /*mantengo solo el outline y saco la sombra azul*/
+}
+
+.hamburger-menu.open .bar:nth-child(1) {
+    animation: topBarOpen 0.5s forwards;
+}
+
+.hamburger-menu.open .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.open .bar:nth-child(3) {
+    animation: bottomBarOpen 0.5s forwards;
+}
+
+/* Animaciones keyframe para generar la cruz */
+@keyframes topBarOpen {
+    0% {
+        transform: translateY(0) rotate(0);
+    }
+    50% {
+        transform: translateY(11px) rotate(0);
+    }
+    100% {
+        transform: translateY(11px) rotate(45deg);
+        
+    }
+}
+
+@keyframes bottomBarOpen {
+    0% {
+        transform: translateY(0) rotate(0);
+    }
+    50% {
+        transform: translateY(-11px) rotate(0);
+    }
+    100% {
+        transform: translateY(-11px) rotate(-45deg);
+    }
+}
+
+
+/* Animaciones keyframe para generar la hamb */
+
+@keyframes topBarClose {
+    0% {
+        transform: translateY(11px) rotate(45deg);
+    }
+    50% {
+        transform: translateY(11px) rotate(0);
+    }
+    100% {
+        transform: translateY(0) rotate(0);
+    }
+}
+
+
+@keyframes bottomBarClose {
+    0% {
+        transform: translateY(-11px) rotate(-45deg);
+    }
+    50% {
+        transform: translateY(-11px) rotate(0);
+    }
+    100% {
+        transform: translateY(0) rotate(0);
+    }
+}
+
+.buy-btn {
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 94.5%;
+    background-color: #83C252;
+    color: white;
+    border: none; 
+    border-radius: var(--border-radius);
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+    box-shadow: 
+    0 0 0 8px white,  /*creo el  box-shadow para simular sombra azul PERO desplazandose los 8px del outline  */
+    4px 5px 0 8px #02187E;  /* creo el box-shadow para simular el outline  */
+}
+
+
+/*--------- HERO SECTION ---------*/
+.hero-container{
+    width: 100%;
+    height: 959px;
+    background-image: url(../assets/backgrounds/hero-background.svg);
+    background-size: cover;
+}
+

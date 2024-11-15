@@ -337,7 +337,8 @@ window.iniciatedSesion = iniciatedSesion;
 
 //función para el formulario de inicio de sesión
 window.getSignInForm = function() {
-    loadForm('frames/form-signIn.html', 'sign in');
+    
+    loadForm('frames/form-signin.html', 'sign in');
     console.log("ejecutandose funcion sign in form");
 }
 
