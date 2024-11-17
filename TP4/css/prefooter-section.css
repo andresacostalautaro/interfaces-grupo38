@@ -1,0 +1,158 @@
+.section-prefooter {
+    position: relative;
+    height: 1570px; /*(1296 + 274)*/
+}
+
+.section-prefooter #background{
+    position: absolute;
+    height: 1296px;
+    top: 273px;
+}
+
+.section-prefooter .container {
+    position: absolute;
+    top: 190px;
+    left: 100px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.section-prefooter .container #title {
+    width: 816px;
+    margin-bottom: 36px;
+
+    font-family: 'lato', sans-serif;
+    font-weight: 600;
+    line-height: 94.5%;
+    font-size: 60px;
+}
+
+.section-prefooter .container .suscribirse {
+    width: 780px;
+    height: 100px;
+
+    display: flex;
+    flex-direction: row;
+
+    background-color: #ECECEC;
+    border: 9px solid #FFFFFF;
+    border-radius: 50px;
+
+    box-shadow: 4px 5px #02187E;
+    overflow: hidden;
+}
+
+.section-prefooter .container .suscribirse input {
+    width: 100%; /*(562px en el figma)*/
+
+    border: none;
+    background: transparent;
+    outline: none;
+
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 94.5%;
+
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+.section-prefooter .container .suscribirse button {
+    width: 218px;
+    color: #FFFFFF;
+    font-family: "Lato", sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 94.5%;
+
+    border: none;
+    border-left: 9px solid #FFFFFF;
+    
+    background: transparent;
+    background-color: #83C252;
+}
+
+.section-prefooter .container #politica {
+    width: 578px;
+    color: #000000;
+    margin-top: 46px;
+    margin-bottom: 11px;
+    
+    font-family: 'lato', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 94.5%;
+}
+
+.section-prefooter .container #politica span.underlined {
+    color: #000000;
+    text-decoration: underline;
+}
+
+.section-prefooter .container #age-restriction {
+    height: 145px;
+    width: 231px;
+}
+
+.section-prefooter #pasto1 {
+    position: relative;
+    height: 389px;
+    top: 1181px;
+
+    z-index: 0;
+}
+
+.section-prefooter #nube1 {
+    position: absolute;
+    height: 181x;
+    top: 819px;
+    left: -56px;
+    opacity: 50%;
+    overflow-x: hidden;
+}
+
+.section-prefooter #nube2 {
+    position: absolute;
+    height: 181px;
+    top: 560px;
+    left: 962px;
+    opacity: 50%;
+    overflow-x: hidden;
+}
+
+.section-prefooter #nube3 {
+    position: absolute;
+    height: 124px;
+    top: 517px;
+    left: 794px;
+    opacity: 50%;
+}
+
+.section-prefooter #character1 {
+    position: absolute;
+    height: 480px;
+    top: 1048px;
+    left: 65px;
+
+    z-index: 1;
+}
+
+.section-prefooter #character2 {
+    position: absolute;
+    height: 509px;
+    top: 1019px;
+    left: 407px;
+
+    z-index: 1;
+}
+
+.section-prefooter #character3 {
+    position: absolute;
+    height: 997px;
+    top: 613px;
+    left: 756px;
+
+    z-index: 1;
+}

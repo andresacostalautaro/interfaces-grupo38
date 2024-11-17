@@ -1,0 +1,38 @@
+.efectos-section{
+    /*width: 1280px;*/
+    height: 1034px;
+    position: relative;
+}
+
+.efectos-section .container{
+    position: absolute;
+    top: 214px;
+    left: 102px;
+}
+
+.efectos-section .container #title {
+    font-family: 'lato', sans-serif;
+    font-weight: 600;
+    font-size: 60px;
+    line-height: 94.5%;
+    color: #9D2121;
+    width: 746px;
+}
+
+.efectos-section .container #descripcion {
+    font-family: 'lato', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 94.5%;
+
+    width: 467px;
+    /*height: 190px;*/
+    margin-top: 43px;
+}
+
+.efectos-section #character{
+    position: absolute;
+    width: 667px;
+    height: 973px;
+    left: 599px;
+}

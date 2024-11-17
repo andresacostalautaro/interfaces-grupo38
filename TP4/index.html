@@ -8,10 +8,15 @@
     <link rel="stylesheet" type="text/css" href="./css/info-app.css">
     <link rel="stylesheet" type="text/css" href="./css/download-section.css">
     <link rel="stylesheet" type="text/css" href="./css/mas-amigos-section.css">
+    <link rel="stylesheet" type="text/css" href="./css/video-section.css">
+    <link rel="stylesheet" type="text/css" href="./css/efectos-section.css">
+    <link rel="stylesheet" type="text/css" href="./css/grilla-section.css">
+    <link rel="stylesheet" type="text/css" href="./css/prefooter-section.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
     <header id="header">
@@ -87,7 +92,7 @@
         </section>
 
         <!-- Descubre el juego / seccion de descarga-->
-         <section class="download-section">
+        <section class="download-section">
             <div class="text-content">
                 <!-- aca use un span y no un h1 porque ya tenia un h1 con dif de un pixel en el size-->
                 <span>Descubre el juego que convierte las Matemáticas en diversión</span>
@@ -96,7 +101,7 @@
             
             <img class="numberBlocks" src="./assets/character-img.svg" alt="">
             
-         </section>
+        </section>
 
         <!-- mas amigos mas diversion seccion-->
         <section class="mas-amigos-section">
@@ -115,6 +120,8 @@
                     <img src="./assets/characters/char6.svg" class="character-img" alt="">
                     <img src="./assets/characters/char7.svg" class="character-img" alt="">
                     <img src="./assets/characters/char8.svg" class="character-img" alt="">
+                    <img src="./assets/characters/char9.svg" class="character-img" alt="">
+                    <img src="./assets/characters/char10.svg" class="character-img" alt="">
                     <img src="" class="" alt="">
                 </div>
 
@@ -166,8 +173,68 @@
                     </section>
                 </div>
             </div>
-           
         </section>
+
+        <!-- Video seccion -->
+        <section class="video-section">
+            <div class="container">
+                <img src="assets/characters/video-section-character.svg" id="character" />
+                <h2 id="title">Mira el video y descubre el sorprendente mundo de los NumberBlocks!</h2>
+                <div class="video-container">
+                    <iframe id="iframe"
+                        src="https://www.youtube.com/embed/0YKa9DQYdRg?si=6LRcFilQ8qrs2hE5&autoplay=0&mute=1"
+                        title="NumberBlocks" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Efectos 3D seccion -->
+        <section class="efectos-section">
+            <model-viewer id="character" src="assets/3dmodels/one.glb" alt="character 3D" camera-controls 
+                touch-action="pan-y" auto-rotate 
+                poster="assets/characters/efectos3D-section-character.svg" shadow-intensity="1">
+            </model-viewer>
+            <div class="container">
+                <h2 id="title">¡Experimenta Efectos 3D Asombrosos en NumberBlocks: Una Aventura Matemática Inmersiva!</h2>
+                <p id="descripcion">En NumberBlocks, la aventura no solo está en el aprendizaje, ¡sino también en la experiencia visual! Disfruta de efectos 3D asombrosos que dan vida a cada número y desafío, haciendo que las matemáticas cobren una nueva dimensión. A medida que los niños interactúan con los personajes y los bloques, verán cómo sus acciones tienen un impacto real en el entorno, creando un aprendizaje dinámico y emocionante. ¡Cada sesión de juego se convierte en una experiencia inolvidable llena de color y diversión!</p>
+            </div>
+        </section>
+
+        <!-- Grilla seccion -->
+        <section class="section-grilla">
+            <div class="container-background">
+                <img src="./assets/grilla/grilla-colores.svg">
+                <!-- No se como se puede hacer esto -->
+            </div>
+        </section>
+
+        <!-- Pre-footer seccion -->
+        <section class="section-prefooter">
+            <img src="./assets/backgrounds/background-pre-footer.svg" id="background"/>
+            <div class="container">
+                <h2 id="title">¿Quieres ser el primero en enterarse de todas las novedades?</h2>
+                <div class="suscribirse">
+                    <input type="text" placeholder="Ingresa aqui tu correo">
+                    <button>SUSCRIBIRSE</button>
+                </div>
+                <p id="politica">Al inscribirse en nuestra lista de correo, nos autoriza a ponernos en contacto con usted para enviarle ofertas y actualizaciones de marketing por correo electrónico, y también acepta nuestra 
+                <span class="underlined">Política de privacidad</span> y las <span class="underlined">Condiciones del servicio.</span></p>
+                <img src="./assets/age-restriction.svg" id="age-restriction"/>
+            </div>
+            
+            
+            <img src="./assets/gifs/character2gif.webp" id="character1"/>
+            <img src="./assets/gifs/character3gif.webp" id="character2"/>
+            <img src="./assets/gifs/character7gif.webp" id="character3"/>
+            <img src="./assets/backgrounds/background-pre-footer-nube.svg" id="nube1"/>
+            <img src="./assets/backgrounds/background-pre-footer-nube.svg" id="nube2"/>
+            <img src="./assets/backgrounds/background-pre-footer-nube.svg" id="nube3"/>
+            <img src="./assets/backgrounds/background-pre-footer-pasto.svg" id="pasto1"/>
+            
+        </section>
+
     </main>
     <footer>
 

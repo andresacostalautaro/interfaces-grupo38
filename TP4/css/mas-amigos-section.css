@@ -1,5 +1,6 @@
 .mas-amigos-section{
     padding: 174px 100px 0 100px ;
+    /*height: 5679.48px = 5117.31 (espacio total de la section) + 562.17 (gap entre el ultimo elemento y la seccion siguiente) */
 }
 
 .mas-amigos-section h1{

@@ -1,0 +1,11 @@
+.section-grilla{
+    position: relative;
+    height: 729px;
+}
+
+.section-grilla .container-background{
+    background-image: url(../assets/grilla/grilla-colores.svg);
+}
+
+
+

@@ -18,7 +18,7 @@ window.addEventListener('scroll', () => {
 
 /* -------- logica para mostrar cards emergentes --------*/
 const cards = document.querySelectorAll('.card');
-          
+
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
         ;
