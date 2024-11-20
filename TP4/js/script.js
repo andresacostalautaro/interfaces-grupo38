@@ -1,3 +1,9 @@
+/* //TODO: 
+    -ajustar mejor las velocidades del parallax para que no quede tan feo
+    -arreglar el desplazamiento sticky de la seccion mas amigos mas diversion porque se rompio
+    -preferentemente no tocar secciones que ya empece
+*/
+
 document.getElementById('hamburger-menu').addEventListener('click', function() {
     this.classList.toggle('open');
 });
@@ -15,6 +21,45 @@ updateStickyHeader = () => {
 window.addEventListener('scroll', () => {
     requestAnimationFrame(updateStickyHeader);
 });
+
+/* -------- logica para efecto parallax en el hero  */
+const heroContainer = document.querySelector('.hero-container');
+const layers = document.querySelectorAll('.layer');
+let ticking = false;
+
+// las velocidades de cada capa
+const speeds = {
+    heroContainer: 0.05,
+    background: 0.2,
+    midground: 0.3,
+    foreground: 0.4,
+    characters: 0.5
+};
+
+function updateParallax(scrollY) {
+    // efecto parallax para el fondo
+    const heroYPos = scrollY * speeds.heroContainer;
+    heroContainer.style.backgroundPosition = `center ${heroYPos}px`;
+
+    // efecto parallax para las capas
+    layers.forEach(layer => {
+        const layerClass = layer.classList[1]; // en este caso la segunda clase seimpre va a ser el nombre de la capa
+        const speed = speeds[layerClass] || 0;
+        const yPos = -scrollY * speed;
+        layer.style.transform = `translateY(${yPos}px)`;
+    });
+
+    ticking = false;
+}
+
+function onScroll() {
+    if (!ticking) { // forma un loop para que no se ejecute muchas veces
+        requestAnimationFrame(() => updateParallax(window.scrollY));
+        ticking = true;
+    }
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
 
 /* -------- logica para mostrar cards emergentes --------*/
 const cards = document.querySelectorAll('.card');
@@ -88,3 +133,5 @@ const checkSections = () => {
 window.addEventListener('scroll', checkSections);
 // verificar al cargar la página
 checkSections();
+
+

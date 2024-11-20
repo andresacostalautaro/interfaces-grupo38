@@ -31,6 +31,7 @@ main{
     position: relative;
     z-index: 0;
     width: 1280px;
+    overflow: hidden;
 }
 
 header {
@@ -50,7 +51,7 @@ header {
 header.sticky {
     height: 82.4px;
     /* aca tuve que pasar el 00D1D5 a rgba para variar la opacidad*/
-    background: linear-gradient(
+    background:  linear-gradient(
         to bottom, 
         rgba(0, 209, 213, 1) 0%,  
         rgba(0, 209, 213, 0.12) 88%,  

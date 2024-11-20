@@ -1,0 +1,177 @@
+/* ----- primero defino la ubicacion de cada elemento para que sea pixel perfect IGUAL al figma*/
+.layer{
+    height: 100%;
+    width: 100%;
+}
+
+/* estilo de los personajes */
+.hero-container .char1{
+    --rotation: -6.51deg;
+    transform: rotate(var(--rotation));
+    position: absolute;
+    top: 512.62px;
+    left: 428.06px;
+    width: 240.4px;
+    height: 314.48px;
+}
+
+.hero-container .char2{
+    --rotation: -6.72deg;
+    transform: rotate(var(--rotation)); 
+    position: absolute;
+    left: 551.11px;
+    top: 413.59px;
+    width: 197px;
+    height: 270px;
+}
+
+.hero-container .char3{
+    --rotation: 8.73deg;
+    transform: rotate(var(--rotation));
+    position: absolute;
+    top: 348.98px;
+    left: 722.12px;
+    width: 174px;
+    height: 384px;
+}
+
+/* estilo de los arbles */
+.tree3{
+    position: absolute;
+    top: 0px;
+    right: 871.79px;
+    width: 560.1px;
+    height: 867.75px;
+}
+
+.tree1{
+    position: absolute;
+    top: 287.7px;
+    left:1081.15px;
+    width: 278.03px;
+    height: 430.85px;
+}
+
+.tree2{
+    position: absolute;
+    left: 881.21px;
+    top: 107.4px;
+    width: 434.21px;
+    height: 672.52px;
+}
+
+
+.bush1{
+    position: absolute;
+    top: 630.79px;
+    left: 1028.64px;
+    width: 191.19px;
+    height: 63.28px;
+}
+
+.bush2{
+    position: absolute;
+    top: 662.43px;
+    left: 1081.15px;
+    width: 244.37px;
+    height: 107.71px;
+}
+
+.bush3{
+    position: absolute;
+    top: 718.3px;
+    left: 161.57px;
+    width: 249.76px;
+    height: 114.44px;
+}
+
+.bush4{
+    position: absolute;
+    top: 821.97px;
+    left: 197.25px;
+    width: 155.51px;
+    height: 102.33px;
+}
+
+.rock1{
+    position: absolute;
+    top: 737.82px;
+    left: 1035.38px;
+    width: 66.65px;
+    height: 56.55px;
+}
+
+.rock2{
+    position: absolute;
+    top: 737.82px;
+    left: 1072.43px;
+    width: 113.77px;
+    height: 74.05px;
+}
+
+.rock3{
+    position: absolute;
+    top: 786.97px;
+    left: 1042.78px;
+    width: 59.24px;
+    height: 35.01px;
+}
+
+.rock4{
+    position: absolute;
+    top: 793.7px;
+    left: 129.25px;
+    width: 145.41px;
+    height: 78.09px;
+}
+
+/* estilo y animacion para efecto parallax*/
+.hero-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.parallax-elem {
+    position: absolute;
+    will-change: transform;
+    transition: transform 0.1s ease-out;
+}
+
+.hero-logo { /* al final lo borre*/
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+@keyframes cargaElem { /* animacion de entrada */
+    from {
+        opacity: 0;
+        transform: translateY(20px) rotate(var(--rotation, 0deg));
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--rotation, 0deg));
+    }
+}
+
+.parallax-elem {
+    opacity: 0;
+    animation: cargaElem 1s ease-out forwards;
+}
+
+/* velocidad dependiendo de la capa */
+.background .parallax-elem { animation-delay: 0.2s; }
+.midground .parallax-elem { animation-delay: 0.4s; }
+.foreground .parallax-elem { animation-delay: 0.6s; }
+.characters .parallax-elem { animation-delay: 0.8s; }
+

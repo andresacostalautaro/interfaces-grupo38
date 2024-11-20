@@ -3,7 +3,8 @@
 }
 
 .info-app{
-    height: 894px;
+    /* height: 894px; */
+    height: 889px;
     background-image: url(../assets/backgrounds/info-app-background.svg);
     background-size: cover;
 }
