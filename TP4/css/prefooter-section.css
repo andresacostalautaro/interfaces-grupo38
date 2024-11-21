@@ -109,7 +109,6 @@
     position: absolute;
     height: 181x;
     top: 819px;
-    left: -56px;
     opacity: 50%;
     overflow-x: hidden;
 }
@@ -118,7 +117,6 @@
     position: absolute;
     height: 181px;
     top: 560px;
-    left: 962px;
     opacity: 50%;
     overflow-x: hidden;
 }
@@ -127,7 +125,6 @@
     position: absolute;
     height: 124px;
     top: 517px;
-    left: 794px;
     opacity: 50%;
 }
 
@@ -145,7 +142,6 @@
     height: 509px;
     top: 1019px;
     left: 407px;
-
     z-index: 1;
 }
 
@@ -157,3 +153,25 @@
 
     z-index: 1;
 }
+
+#nube1, #nube2, #nube3 {
+    transform: translateX(-387px);
+    animation: moverNubes 10s linear infinite;
+}
+
+#nube1{
+    animation-delay: 3s;
+}
+#nube3{
+    animation-delay: 1s;
+}
+
+@keyframes moverNubes {
+    0% {
+        transform: translateX(-387px); /* el tamaño de la nube mas grande, para que no se vea nada */
+    }
+    100% {
+        transform: translateX(1280px);
+    }
+}
+
