@@ -1,0 +1,44 @@
+footer{
+    width: 1280px;
+    background-color: #5E5E5D;
+    height: 585px;
+}
+
+.supported-platforms-logos{
+    background-color: #242424;
+    height: 80px;
+    display: flex;
+    align-items: end;
+}
+
+.supported-platforms-logos img{
+    width: 100%;
+    height: 75px;
+}
+
+.legal-info{
+    padding: 35px 100px;
+    height: 431px; /* 361 como en figma + (35 * 2) */
+    display: flex;
+    flex-direction: column;
+    width: 1020px; /*820px igual al figma + 100 de cada padding lateral */
+    font-size: 20px;
+    color: #FFFFFF;
+    font-family: 'Lato', sans-serif;
+    line-height: 94.5%;
+    letter-spacing: 2.2px;
+}
+
+.legal-links{
+    display: flex;
+    margin-top: 18.9px;
+    gap: 7px;
+}
+
+.legal-links a{
+    color: white;
+}
+
+.socialmedia{
+    padding: 0 0 43px 100px;
+}

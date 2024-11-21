@@ -24,7 +24,8 @@ body {
 
     /*esto es provisorio para poder usar bien el 1080 centrado*/
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 main{

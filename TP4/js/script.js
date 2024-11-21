@@ -108,7 +108,7 @@ const checkSections = () => {
         const sectionTop = section.getBoundingClientRect().top; 
 
         if (sectionTop < triggerBottom && sectionTop > -section.offsetHeight) {
-            if (currentActiveIndex !== index) {
+            
 
                 console.log('seccion', index, 'visible');
                 // oculto todas las imagenes
@@ -122,7 +122,7 @@ const checkSections = () => {
                 sections[index].classList.add('active');
 
                 currentActiveIndex = index;
-            }
+            
 
             
         }
