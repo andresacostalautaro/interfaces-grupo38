@@ -1,4 +1,4 @@
-.mas-amigos-section{
+.mas-amigos-section{ /* clase de la seccion que contiene TOODO*/
     padding: 174px 100px 0 100px ;
     /*height: 5679.48px = 5117.31 (espacio total de la section) + 562.17 (gap entre el ultimo elemento y la seccion siguiente) */
 }
@@ -24,7 +24,9 @@
     margin-top: 68px;
     position: sticky;
     top: 82.4px;
+    overflow: hidden;
 }
+
 
 .character-img{
     width: 100%;
@@ -35,11 +37,12 @@
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.grid-sticky-content .active {
+/*.grid-sticky-content .active {
     opacity: 1;
     transform: scale(1);
     display:block;
-}
+    
+}*/
 
 /* contenedor de la columna con la info de cada personaje*/
 .scroll-column{
@@ -56,7 +59,8 @@
     flex-direction: column;
     gap: 15px;
     opacity: 0;
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, display 0.3s allow-discrete;
+
     @starting-style{
         opacity: 0;
     }
@@ -68,3 +72,27 @@
     font-family: 'Lato', sans-serif;
     font-weight: normal;
 }
+
+.character-img.active {
+    opacity: 1;
+    transform: scale(1);
+    display: block;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.char-info.active {
+    opacity: 1;
+    display: block;
+}
+

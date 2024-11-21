@@ -1,6 +1,7 @@
 .section-prefooter {
     position: relative;
     height: 1570px; /*(1296 + 274)*/
+    overflow: hidden;
 }
 
 .section-prefooter #background{

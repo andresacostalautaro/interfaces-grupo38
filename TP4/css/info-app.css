@@ -1,5 +1,6 @@
-.app-mas-divertida{
-    margin-bottom: 138px;
+.app-mas-divertida{ /* clase de la seccion */
+    position: relative;
+    overflow-x: clip;
 }
 
 .info-app{
@@ -35,7 +36,7 @@ p{
     display: flex;
     color: #1B428F;
     flex-direction: column;
-    padding: 60px 0 27px 100px;
+    padding: 55px 0 27px 100px;
 }
 
 /* --------- estilo de caja con miniatura de video que cambia c/3 segundos --------*/
@@ -49,6 +50,7 @@ p{
     align-items: center;
     position: relative;
     overflow: hidden;
+    margin-top: 4px; /* para tener una distancia de 26px con el texto*/
 }
 
 .thumbnail img{
@@ -73,6 +75,7 @@ p{
     display: flex;
     justify-content: space-between;
     padding: 0 100px;
+    margin-top: 326px;
 }
 
 .card{
@@ -88,6 +91,7 @@ p{
 
 .card img{
     width: 332.96px;
+    height: 302.69px;
     border: 9px solid #2982FF;
     border-radius: 41px;
     box-shadow: 4px 5px 0 0 #02187E;
@@ -111,3 +115,20 @@ p{
 .cards-container .card:nth-child(1) { animation-delay: 0s; }
 .cards-container .card:nth-child(2) { animation-delay: 0.3s; }
 .cards-container .card:nth-child(3) { animation-delay: 0.6s; }
+
+/* ----------- number blocks ---------*/
+
+.numberBlock4{
+    position: absolute;
+    top: 532px;
+    left: 48px;
+    width: 601.64px;
+}
+
+.numberBlock5{
+    position: absolute;
+    width: 572px;
+    height: 1259px;
+    right: -79px;
+    bottom: 704px;
+}

@@ -3,9 +3,10 @@
     -arreglar el desplazamiento sticky de la seccion mas amigos mas diversion porque se rompio
     -preferentemente no tocar secciones que ya empece
 */
-
+const sidebar = document.getElementById('sidebar');
 document.getElementById('hamburger-menu').addEventListener('click', function() {
     this.classList.toggle('open');
+    sidebar.classList.toggle('open');
 });
 
 updateStickyHeader = () => {
@@ -31,9 +32,9 @@ let ticking = false;
 const speeds = {
     heroContainer: 0.05,
     background: 0.2,
-    midground: 0.3,
-    foreground: 0.4,
-    characters: 0.5
+    midground: 0.275,
+    foreground: 0.35,
+    characters: 0.04
 };
 
 function updateParallax(scrollY) {
@@ -98,30 +99,32 @@ document.addEventListener('mousemove', handleMouseMove);
 
 const sections = document.querySelectorAll('.char-info');
 const images = document.querySelectorAll('.character-img');
-
-
-// muestro los primeros elementos
-images[0].classList.add('active');
-sections[0].classList.add('active');
-
+let currentActiveIndex = -1;
 // esta funcion es la que le paso al evento scroll para ver si la imagen esta en el viewport
 const checkSections = () => {
     const triggerBottom = window.innerHeight * 0.8;
 
     sections.forEach((section, index) => {
-        const sectionTop = section.getBoundingClientRect().top;
+        const sectionTop = section.getBoundingClientRect().top; 
 
         if (sectionTop < triggerBottom && sectionTop > -section.offsetHeight) {
-            console.log('seccion', index, 'visible');
-            // oculto todas las imagenes
+            if (currentActiveIndex !== index) {
 
-            images.forEach(img => img.classList.remove('active'));
-            // nomas muestro la imagen que corresponde a la seccion actual
-            images[index].classList.add('active');
+                console.log('seccion', index, 'visible');
+                // oculto todas las imagenes
+    
+                images.forEach(img => img.classList.remove('active'));
+                // nomas muestro la imagen que corresponde a la seccion actual
+                images[index].classList.add('active');
+    
+                console.log('imagen actual', images[index]);
+                sections.forEach(section => section.classList.remove('active'));
+                sections[index].classList.add('active');
 
-            console.log('imagen actual', images[index]);
-            sections.forEach(section => section.classList.remove('active'));
-            sections[index].classList.add('active');
+                currentActiveIndex = index;
+            }
+
+            
         }
     });
 };

@@ -30,15 +30,17 @@
         </div>
         <button class="buy-btn">COMPRAR</button>
     </header>
-    <!--
-        <nav id="header_nav" class="header_nav">
+    
+    <div class="sidebar" id="sidebar">
+        <nav>
             <ul>
-                <li class="nav-item"></li>
-                <li class="nav-item"></li>
-                <li class="nav-item"></li>
+                <li class="nav-item">Inicio</li>
+                <li class="nav-item">Juegos</li>
+                <li class="nav-item">Contacto</li>
             </ul>
         </nav>
-    -->
+    </div>
+    
         <main>
             <section class="hero-container">
                 <div class="layer background">
@@ -78,7 +80,7 @@
 
 
         <!-- 1167 + card container + distancia al container-->
-        <section class="app-mas-divertida" style="height: 1737.875px;">
+        <section class="app-mas-divertida" style="height: 1871px;">
             <div class="info-app">
                 <div class="app-descripcion">
                     <h2>
@@ -96,29 +98,29 @@
                 </div>
             </div>
 
-            <!--dos muñequitos-->
-            <div></div>
-            <div></div>
+            <!--dos muñequitos-->            
+            <div class="numberBlock4">
+                <img src="./assets/big-number-blocks/numberblock4.svg"  alt="number block 4">
+            </div>
+            <div class="numberBlock5">
+                <img src="./assets/big-number-blocks/numberblock5.svg"  alt="number block 5">
+            </div>
+            
+            
 
             <div class="cards-container">
                 <article class="card">
-                    <figure>
-                        <img src="./assets/feature-cards/card1.svg" alt="">
-                    </figure>
+                    <img src="./assets/feature-cards/card1.svg" alt="">        
                     <p>Los niños descubrirán lo divertido que puede ser aprender matemáticas. A través de personajes animados y desafíos interactivos, podrán sumar, restar y entender conceptos básicos de manera fácil y entretenida. ¡Cada número cobra vida para hacer que las matemáticas sean emocionantes!</p>
                 </article>
                 
                 <article class="card">
-                    <figure>
-                        <img src="./assets/feature-cards/card2.svg" alt="">
-                    </figure>
-                    <p>Con NumberBlocks, los niños encontrarán emocionantes retos en cada nivel, diseñados para hacer que el aprendizaje sea tan divertido como un juego. ¡Cada desafío es una nueva aventura matemática!Diviértete e invita a tus amigos, desafíalos y gana premios.</p>
+                    <img src="./assets/feature-cards/card2.svg" alt="">
+                    <p>Con NumberBlocks, los niños encontrarán emocionantes retos en cada nivel, diseñados para hacer que el aprendizaje sea tan divertido como un juego. ¡Cada desafío es una nueva aventura matemática! Diviértete e invita a tus amigos, desafíalos y gana premios.</p>
                 </article>
 
                 <article class="card">
-                    <figure>
-                        <img src="./assets/feature-cards/card3.svg" alt="">
-                    </figure>
+                    <img src="./assets/feature-cards/card3.svg" alt="">
                     <p>Entrena a UNO y Comparte lo que Aprendes!En NumberBlocks, deberás enseñar a UNO cada lección que aprendas, ayudándolo a crecer y superar nuevos desafíos matemáticos. ¡Conviértete en su mejor guía! Se su mejor amigo y diviértete con él.</p>
                 </article>
             </div>
@@ -144,7 +146,7 @@
                 
                 <!--columna con la imagen sticky de c/ personajes-->
                 <div class="sticky-column">
-                    <img src="./assets/characters/char0.svg" class="character-img" alt="">
+                    <img src="./assets/characters/char0.svg" class="character-img active" alt="">
                     <img src="./assets/characters/char1.svg" class="character-img" alt="">
                     <img src="./assets/characters/char2.svg" class="character-img" alt="">
                     <img src="./assets/characters/char3.svg" class="character-img" alt="">
@@ -159,7 +161,7 @@
 
                 <!--columna con la info de c/ personaje-->
                 <div class="scroll-column">
-                    <section class="char-info">
+                    <section class="char-info active">
                         <h3>Sumas Mágicas</h3>
                         <p>Ayuda a UNO y sus amigos a juntar bloques y ver cómo sus números crecen al sumar. Cada vez que sumas correctamente, los NumberBlocks ganan fuerza y desbloquean sorpresas mágicas. ¡Descubre cómo los números se combinan para formar resultados increíbles!</p>
                     </section>
@@ -204,6 +206,7 @@
                         <p>Guía a UNO y sus amigos mientras dividen bloques en partes iguales. Divide los bloques correctamente para que cada NumberBlock tenga su parte justa. Un desafío perfecto para entender la división de una forma divertida y visual.</p>
                     </section>
                 </div>
+
             </div>
         </section>
 
@@ -217,7 +220,8 @@
                         src="https://www.youtube.com/embed/0YKa9DQYdRg?si=6LRcFilQ8qrs2hE5&autoplay=0&mute=1"
                         title="NumberBlocks" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
                 </div>
             </div>
         </section>
