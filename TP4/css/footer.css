@@ -1,0 +1,38 @@
+footer {
+    position: relative;
+    height: 595px;
+    background-color: #5E5E5D;
+}
+
+footer .container {
+    margin-top: 35px;
+    margin-left: 100px;
+}
+
+footer .plataformas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #242424;
+    height: 80px;
+}
+
+footer .container #redes {
+    margin-top: 30px;
+}
+
+footer .container #copyright {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 94.5%;
+    font-size: 20px;
+    color: #FFFFFF;
+    width: 820px;
+    letter-spacing: 11%;
+}
+
+footer .container #copyright a {
+    color: #FFFFFF;
+}
+

@@ -199,6 +199,12 @@ header.sticky button {
     4px 5px 0 8px #02187E;  /* creo el box-shadow para simular el outline  */
 }
 
+.buy-btn:hover {
+    transform: translate(-10px, -5px);
+    box-shadow: 
+    0 0 0 8px white,
+    5px 5px 0 8px #02187E;
+}
 
 /*--------- HERO SECTION ---------*/
 .hero-container{
