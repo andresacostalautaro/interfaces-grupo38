@@ -1,7 +1,9 @@
 footer {
-    position: relative;
+    display: flex;
     height: 595px;
     background-color: #5E5E5D;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 footer .container {
@@ -34,4 +36,45 @@ footer .container #copyright {
 
 footer .container #copyright a {
     color: #FFFFFF;
+}
+
+.spritesheets-container div {
+    width: 480px; /* Ancho de un frame (19200/40) */
+    height: 480px; 
+    position: absolute;
+    background-repeat: no-repeat;
+    animation: bailar 2s steps(40) infinite;
+}
+
+.spritesheet1{
+    background-image: url("../assets/giphy40.png");
+    right: 3px;
+}
+
+.spritesheet2{
+    background-image: url("../assets/giphy40-2.png");
+    left: 46px;
+}
+
+.spritesheet3{
+    background-image: url("../assets/giphy40-3.png");
+    top: 153px;
+}
+
+@keyframes bailar {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -19200px; /* Mover todo el ancho del spritesheet */
+    }
+}
+
+
+
+.spritesheets-container{ 
+    position: relative;
+    position: relative;
+    width: 400px;
+    align-self: flex-end;
 }

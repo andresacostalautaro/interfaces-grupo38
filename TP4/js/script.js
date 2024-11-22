@@ -18,6 +18,7 @@ window.addEventListener('scroll', () => {
     requestAnimationFrame(updateStickyHeader);
 });
 
+
 /* -------- logica para efecto parallax en el hero  */
 document.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
@@ -53,6 +54,40 @@ document.addEventListener('scroll', () => {
 
         character.style.transform = `translateY(${scrollY * -0.5}px) scale(${scaleValue}`;
     });
+
+
+    const logo = document.querySelector('.logo img');
+    const header = document.getElementById('header'); 
+    const headerLogo = header.querySelector('.header-logo'); 
+
+    // rect trae la informacion de la posicion y tamaño de un elemento
+    const logoRect = logo.getBoundingClientRect();
+    const headerRect = header.getBoundingClientRect();
+
+    // alturas del logo y header
+    const logoHeight = logoRect.height;
+    const headerHeight = headerRect.height;
+
+    // calculo cuanto del logo está detrás del header
+    const overlap = headerRect.bottom - logoRect.top;
+    const overlapPercentage = Math.min(overlap / logoHeight, 1); // porcentaje de superposición
+    
+    // logo grande se desliza hacia arriba
+    const scaleValue = Math.max(1 - scrollY * 0.001, 0.5); // entre 1 y 0.5
+    logo.style.transform = `translateY(${scrollY * -0.5}px) scale(${scaleValue})`;
+
+    // desde css inicie el logo desplazado hacia abajo
+    if (headerLogo) {
+        const headerTranslate = overlapPercentage * headerHeight;
+        headerLogo.style.transform = `translateY(${headerHeight - headerTranslate}px)`;
+
+        // Solo cambiar la opacidad cuando el logo grande haya pasado 264px
+        if (overlapPercentage > 0.79) {
+            headerLogo.style.opacity = overlapPercentage; // Ajustar opacidad según el porcentaje visible
+        } else {
+            headerLogo.style.opacity = 0; // Mantenerlo invisible si no ha pasado el umbral de 264px
+        }
+    }
 });
 
 
@@ -133,4 +168,6 @@ sections.forEach((section) => observerStickySections.observe(section));
 
 
 
-
+//mediante el scroll se va a ir subiendo el logo es decir decrementando su valor en y
+//cuando el top del logo toque el bottom del header
+//se va a empezar a mostrar o deslizar la imagen del logo de arriba hacia abajo en el header

@@ -34,7 +34,7 @@ main{
 }
 
 header {
-    width: 100%;
+    width: 1280px;
     height: 103px;
     padding: 20px 100px;
     background-color: transparent;
@@ -45,10 +45,10 @@ header {
     top: 0; /* Para que el header se mantenga arriba */
     transition: background-color 0.5s, padding 1s;
     z-index: 100;
+    overflow: hidden;
 }
 
 header.sticky {
-    height: 82.4px;
     width: 1280px;
     /* aca tuve que pasar el 00D1D5 a rgba para variar la opacidad*/
     background:  rgba(0, 209, 213, 1)/*linear-gradient(
@@ -75,6 +75,23 @@ header.sticky button {
     height: 26px;
     width: 34px;
     cursor: pointer;
+}
+
+.header-logo {
+    opacity: 0;
+    width: 150px;
+    height: 86px;
+    margin-left: 165px;
+    position: relative;
+    top: -25px;
+    transform: translateY(-86px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Mostrar logo con animación */
+.header-logo.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /*-----------------fin del scale---------------------*/
