@@ -14,7 +14,6 @@ h2{
     font-family: 'Lato', 'sans-serif';
     font-weight: 600;
     font-size: 47px;
-    /* line-height: 2.776em; */
     line-height: 94.5%;
 }
 
@@ -97,7 +96,7 @@ h2{
     box-shadow: 4px 5px 0 0 #02187E;
 }
 
-@keyframes floatUp {
+@keyframes floatUp { /* esto le da el efecto ese emmergente */
     0% {
         opacity: 0;
         transform: translateY(50px);

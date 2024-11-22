@@ -5,13 +5,6 @@
 }
 
 :root{
-    --font-family-button: 'Lato', sans-serif; /*BLACK 20PX LINE-HEIGHT: 94.5% LETTER-SPACING:11%*/
-    --font-family-subtitle: 'Lato', sans-serif; /*SEMIBOLD 47PX LINE-HEIGHT: 94.5% LETTER-SPACING:0%*/
-    --font-family-text: 'Lato', sans-serif; /*REGULAR 20PX LINE-HEIGHT: auto LETTER-SPACING:0%*/
-    --font-family-descubre-section: 'Lato', sans-serif; /* Mixed 61.14PX LINE-HEIGHT: 110% LETTER-SP 0%*/
-    /*DESCARGA NUMBERS BLOCKS HOY REGULAR 31.14PX, 110%, 0%*/
-    /*MAS AMIGOS MAS DIVERSION SEMIBOLD 60PX 94.5% 0%*/
-    /*sumas magicas: REGULAR, 40PX, 94.5% 0%*/
     --bar-color: #F39E46;
     --border-radius: 111px;
     --resolution: 1280px;
@@ -50,17 +43,15 @@ header {
 
 header.sticky {
     width: 1280px;
-    /* aca tuve que pasar el 00D1D5 a rgba para variar la opacidad*/
-    background:  rgba(0, 209, 213, 1)/*linear-gradient(
+    background:  linear-gradient(
         to bottom, 
         rgba(0, 209, 213, 1) 0%,  
         rgba(0, 209, 213, 0.12) 88%,  
         rgba(0, 209, 213, 0) 100%  
-      );*/
+      );; /* termine usando un color solido porque era lo que recomendaba el tp*/
 }
 
 /* esto es para aplicarlo a todos los elementos dentro de header y poder achicarlos cuando se desplace el scroll*/
-
 header * {
     transition: transform 0.3s ease-in-out; 
 }
@@ -224,8 +215,6 @@ header.sticky button {
 }
 
 /* -------------- estilo sidebar ----------------*/
-/* Estilos existentes se mantienen sin cambios */
-
 .sidebar {
     position: fixed;
     top: 0;

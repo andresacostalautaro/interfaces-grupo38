@@ -1,9 +1,19 @@
 const sidebar = document.getElementById('sidebar');
+
+/*
+    evento click para el boton hamburguesa
+*/
 document.getElementById('hamburger-menu').addEventListener('click', function() {
     this.classList.toggle('open');
     sidebar.classList.toggle('open');
 });
 
+
+
+/* 
+    evento scroll para que una vez que se haga scroll se muestre el header
+    y se achiquen los elementos del header
+*/
 updateStickyHeader = () => {
     let header = document.getElementById('header');
     
@@ -17,6 +27,7 @@ updateStickyHeader = () => {
 window.addEventListener('scroll', () => {
     requestAnimationFrame(updateStickyHeader);
 });
+
 
 
 /* -------- logica para efecto parallax en el hero  */
@@ -81,11 +92,11 @@ document.addEventListener('scroll', () => {
         const headerTranslate = overlapPercentage * headerHeight;
         headerLogo.style.transform = `translateY(${headerHeight - headerTranslate}px)`;
 
-        // Solo cambiar la opacidad cuando el logo grande haya pasado 264px
+        // Solo cambia la opacidad cuando el logo grande paso 0.79 por debajo del header
         if (overlapPercentage > 0.79) {
-            headerLogo.style.opacity = overlapPercentage; // Ajustar opacidad según el porcentaje visible
+            headerLogo.style.opacity = overlapPercentage;
         } else {
-            headerLogo.style.opacity = 0; // Mantenerlo invisible si no ha pasado el umbral de 264px
+            headerLogo.style.opacity = 0; // si el logo grande aun esta visible en gran parte entonces sigo escondiendo el logo chiquito del header
         }
     }
 });
@@ -94,11 +105,20 @@ document.addEventListener('scroll', () => {
 
 
 /* -------- logica para mostrar cards emergentes --------*/
+/*
+    Selecciona todas las cards
+    y crea un nuevo IntersectionObserver
+    que se encarga de detectar cuando una card
+    está visible en el viewport
+    Si esta visible, se le agrega la clase 'animate'
+    que muestra la card con una animación.
+    Si no, se le quita la clase.
+*/
 const cards = document.querySelectorAll('.card');
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
-        ;
+        
         if (entry.isIntersecting) {
             entry.target.classList.add('animate');
         }else{
@@ -108,6 +128,8 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: [0, 0.8] }); //threshold es el porcentaje visible del elemento que dispara el evento
 
 cards.forEach(card => observer.observe(card));
+
+
 
 /* -------- logica para mover la imagen en direccion contraria al mouse --------*/
 const characterImage = document.querySelector('.numberBlocks');
@@ -127,7 +149,12 @@ function handleMouseMove (e){
 
 document.addEventListener('mousemove', handleMouseMove);
 
+
 /* ---------- logica para la seccion de "mas amigos, mas diversion" ---------- */
+/*
+    aca el observer va a detectar que seccion esta visible en el viewport
+    y va a cambiar la clase 'active' a la seccion que esta visible
+*/
 const sections = document.querySelectorAll('.char-info');
 const images = document.querySelectorAll('.character-img');
 const headerHeight = document.querySelector('header')?.offsetHeight || 0;
@@ -154,7 +181,7 @@ const observerStickySections = new IntersectionObserver(
         });
     },
     {
-        root: null, // Viewport como contenedor
+        root: null, 
         rootMargin: `-${headerHeight}px 0px 0px 0px`, // Considera el header
         threshold: 0.4, // Activa cuando el 40% de la sección es visible
     }
@@ -163,11 +190,3 @@ const observerStickySections = new IntersectionObserver(
 // Observa todas las secciones
 sections.forEach((section) => observerStickySections.observe(section));
 
-
-
-
-
-
-//mediante el scroll se va a ir subiendo el logo es decir decrementando su valor en y
-//cuando el top del logo toque el bottom del header
-//se va a empezar a mostrar o deslizar la imagen del logo de arriba hacia abajo en el header

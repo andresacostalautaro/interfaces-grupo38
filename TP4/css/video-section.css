@@ -7,8 +7,7 @@
 
 .video-section .container {
     width: 100%;
-    position: absolute;
-    top: 0;
+    padding: 308.83px 0px 46px 100px;
 }
 
 .video-section .container #character {
@@ -16,29 +15,24 @@
     height: 989px;
     top: 352px;
     left: 731px;
-    
     z-index: 1;
+
 }
 
 .video-section .container #title {
-    position: absolute;
     width: 802px;
-    top: 309px;
-    left: 100px;
-
     font-family: 'lato', sans-serif;
     font-weight: 600;
     line-height: 94.5%;
     font-size: 60px;
     color: #FFFFFF;
+    margin-bottom: 46px;
+
 }
 
 .video-section .container .video-container {
-    position: absolute;
     width: 804px;
     height: 452px;
-    top: 526px;
-    left: 100px;
 
     border: 29px solid #FFFFFF;
     border-radius: 45px;
