@@ -1,8 +1,3 @@
-/* //TODO: 
-    -ajustar mejor las velocidades del parallax para que no quede tan feo
-    -arreglar el desplazamiento sticky de la seccion mas amigos mas diversion porque se rompio
-    -preferentemente no tocar secciones que ya empece
-*/
 const sidebar = document.getElementById('sidebar');
 document.getElementById('hamburger-menu').addEventListener('click', function() {
     this.classList.toggle('open');
@@ -28,21 +23,40 @@ document.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
     const layers = document.querySelectorAll('.layer');
 
-    layers.forEach((layer, index) => {
-        const speed = (index + 1) * 0.1; // Velocidad variable según la profundidad
-        const direction = index === 0 ? 1 : -1; // Foreground se mueve a la derecha, otras a la izquierda
+    //velocidades para cada tipo de capa
+    const layerSpeeds = {
+        background: 0.1,  
+        midground: 0.2,   
+        foreground: 0.3,  
+        
+    };
 
-        // Movimiento lateral
+    layers.forEach((layer) => {
+        
+        let speed = 0.1;  // Valor por defecto
+        if (layer.classList.contains('midground')) {
+            speed = layerSpeeds.midground;
+        } else if (layer.classList.contains('foreground')) {
+            speed = layerSpeeds.foreground;
+        }
+
+        // si tiene clase 'right', va a la derecha
+        const direction = layer.classList.contains('right') ? 1 : -1;
+
+        // movimiento lateral según la velocidad y dirección
         layer.style.transform = `translateX(${scrollY * speed * direction}px)`;
+    });
 
-        // Escalar los hijos de la capa
-        const images = layer.querySelectorAll('img');
-        images.forEach((image, i) => {
-            const scaleValue = 1 + scrollY * 0.0001 * (3 - index); // Escalado proporcional
-            image.style.transform = `scale(${scaleValue})`; // Aplica el scale a cada imagen
-        });
+    const characters = document.querySelectorAll('.characters');
+    characters.forEach((character) => {
+        const scaleValue = 1 + scrollY * 0.0008; 
+
+        character.style.transform = `translateY(${scrollY * -0.5}px) scale(${scaleValue}`;
     });
 });
+
+
+
 
 /* -------- logica para mostrar cards emergentes --------*/
 const cards = document.querySelectorAll('.card');
