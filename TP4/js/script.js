@@ -52,10 +52,11 @@ const observer = new IntersectionObserver((entries) => {
         ;
         if (entry.isIntersecting) {
             entry.target.classList.add('animate');
-            observer.unobserve(entry.target);
+        }else{
+            entry.target.classList.remove('animate');
         }
     });
-}, { threshold: 0.8 }); //threshold es el porcentaje visible del elemento que dispara el evento
+}, { threshold: [0, 0.8] }); //threshold es el porcentaje visible del elemento que dispara el evento
 
 cards.forEach(card => observer.observe(card));
 
