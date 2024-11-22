@@ -78,45 +78,44 @@ function handleMouseMove (e){
 document.addEventListener('mousemove', handleMouseMove);
 
 /* ---------- logica para la seccion de "mas amigos, mas diversion" ---------- */
-
 const sections = document.querySelectorAll('.char-info');
 const images = document.querySelectorAll('.character-img');
-let currentActiveIndex = -1;
-// esta funcion es la que le paso al evento scroll para ver si la imagen esta en el viewport
-const checkSections = () => {
-    const triggerBottom = window.innerHeight * 0.8;
+const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+const stickyColumn = document.querySelector('.sticky-column');
 
-    sections.forEach((section, index) => {
-        const sectionTop = section.getBoundingClientRect().top; 
+let currentIndex = 0;
+const observerStickySections = new IntersectionObserver(
+    (entries) => { 
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const index = Array.from(sections).indexOf(entry.target);
 
-        if (sectionTop < triggerBottom && sectionTop > -section.offsetHeight) {
-            
+                // Actualiza las clases activas solo si cambia la sección
+                if (currentIndex !== index) {
+                    sections[currentIndex].classList.remove('active');
+                    images[currentIndex].classList.remove('active');
 
-                console.log('seccion', index, 'visible');
-                // oculto todas las imagenes
-    
-                images.forEach(img => img.classList.remove('active'));
-                // nomas muestro la imagen que corresponde a la seccion actual
-                images[index].classList.add('active');
-    
-                console.log('imagen actual', images[index]);
-                sections.forEach(section => section.classList.remove('active'));
-                sections[index].classList.add('active');
+                    sections[index].classList.add('active');
+                    images[index].classList.add('active');
 
-                currentActiveIndex = index;
-            
+                    currentIndex = index;
+                }
+            }
+        });
+    },
+    {
+        root: null, // Viewport como contenedor
+        rootMargin: `-${headerHeight}px 0px 0px 0px`, // Considera el header
+        threshold: 0.4, // Activa cuando el 40% de la sección es visible
+    }
+);
 
-            
-        }
-    });
-};
-
-//FALTA QUE SEA MAS ANIMADO Y SUAVE LA TRANSICION DEL TEXTO Y LA IMAGEN AL APARECER
-//todo:  podria usar el observer asi no se pasa constantemente por el if
+// Observa todas las secciones
+sections.forEach((section) => observerStickySections.observe(section));
 
 
-window.addEventListener('scroll', checkSections);
-// verificar al cargar la página
-checkSections();
+
+
+
 
 

@@ -1,5 +1,6 @@
 .mas-amigos-section{ /* clase de la seccion que contiene TOODO*/
     padding: 174px 100px 0 100px ;
+    height: 5421.17px;
     /*height: 5679.48px = 5117.31 (espacio total de la section) + 562.17 (gap entre el ultimo elemento y la seccion siguiente) */
 }
 
@@ -47,6 +48,7 @@
 /* contenedor de la columna con la info de cada personaje*/
 .scroll-column{
     width: 467px;
+    height: 4628px; /* 4469 + 159*/
     display: flex;
     flex-direction: column;
     gap: 267px;
@@ -61,6 +63,8 @@
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease, display 0.3s allow-discrete;
 
+    
+
     @starting-style{
         opacity: 0;
     }
@@ -69,8 +73,13 @@
 .char-info h3{
     font-size: 40px;
     line-height: 94.5%;
-    font-family: 'Lato', sans-serif;
     font-weight: normal;
+}
+
+.char-info p{
+    font-size: 20px;
+    line-height: 94.5%;
+    font-weight: 500;
 }
 
 .character-img.active {
@@ -93,6 +102,5 @@
 
 .char-info.active {
     opacity: 1;
-    display: block;
 }
 
