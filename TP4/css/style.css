@@ -29,7 +29,6 @@ body {
 }
 
 main{
-    position: relative;
     z-index: 0;
     width: 1280px;
 }
@@ -200,13 +199,11 @@ header.sticky button {
     4px 5px 0 8px #02187E;  /* creo el box-shadow para simular el outline  */
 }
 
-
-/*--------- HERO SECTION ---------*/
-.hero-container{
-    width: 100%;
-    height: 959px;
-    background-image: url(../assets/backgrounds/hero-background.svg);
-    background-size: cover;
+.buy-btn:hover {
+    transform: translate(-10px, -5px);
+    box-shadow: 
+    0 0 0 8px white,
+    5px 5px 0 8px #02187E;
 }
 
 /* -------------- estilo sidebar ----------------*/

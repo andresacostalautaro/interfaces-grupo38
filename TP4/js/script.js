@@ -24,43 +24,25 @@ window.addEventListener('scroll', () => {
 });
 
 /* -------- logica para efecto parallax en el hero  */
-const heroContainer = document.querySelector('.hero-container');
-const layers = document.querySelectorAll('.layer');
-let ticking = false;
+document.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const layers = document.querySelectorAll('.layer');
 
-// las velocidades de cada capa
-const speeds = {
-    heroContainer: 0.05,
-    background: 0.2,
-    midground: 0.275,
-    foreground: 0.35,
-    characters: 0.04
-};
+    layers.forEach((layer, index) => {
+        const speed = (index + 1) * 0.1; // Velocidad variable según la profundidad
+        const direction = index === 0 ? 1 : -1; // Foreground se mueve a la derecha, otras a la izquierda
 
-function updateParallax(scrollY) {
-    // efecto parallax para el fondo
-    const heroYPos = scrollY * speeds.heroContainer;
-    heroContainer.style.backgroundPosition = `center ${heroYPos}px`;
+        // Movimiento lateral
+        layer.style.transform = `translateX(${scrollY * speed * direction}px)`;
 
-    // efecto parallax para las capas
-    layers.forEach(layer => {
-        const layerClass = layer.classList[1]; // en este caso la segunda clase seimpre va a ser el nombre de la capa
-        const speed = speeds[layerClass] || 0;
-        const yPos = -scrollY * speed;
-        layer.style.transform = `translateY(${yPos}px)`;
+        // Escalar los hijos de la capa
+        const images = layer.querySelectorAll('img');
+        images.forEach((image, i) => {
+            const scaleValue = 1 + scrollY * 0.0001 * (3 - index); // Escalado proporcional
+            image.style.transform = `scale(${scaleValue})`; // Aplica el scale a cada imagen
+        });
     });
-
-    ticking = false;
-}
-
-function onScroll() {
-    if (!ticking) { // forma un loop para que no se ejecute muchas veces
-        requestAnimationFrame(() => updateParallax(window.scrollY));
-        ticking = true;
-    }
-}
-
-window.addEventListener('scroll', onScroll, { passive: true });
+});
 
 /* -------- logica para mostrar cards emergentes --------*/
 const cards = document.querySelectorAll('.card');

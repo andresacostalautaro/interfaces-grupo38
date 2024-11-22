@@ -4,8 +4,37 @@
 }
 
 .section-grilla .container-background{
-    background-image: url(../assets/grilla/grilla-colores.svg);
+    background-image: url(../assets/backgrounds/background-grilla.svg);
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    gap: 30px;
+    overflow: hidden;
 }
 
+.block{
+    display: flex;
+    align-items: end;
+    position: relative;
+    overflow: hidden;
+}
 
+.block.top{
+    height: 375px;
+}
+
+.block.bottom{
+    height: 326px;
+}
+
+.block img{    
+    transition: all .5s ease;
+    filter: brightness(0.9);
+}
+
+.block img:hover{
+    transform: scale(1.1);
+    filter: brightness(1.3); 
+}
 
