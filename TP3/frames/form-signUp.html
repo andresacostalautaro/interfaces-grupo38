@@ -6,9 +6,9 @@
         <label>Apellido<span>*</span></label>
         <input type="text" name="lastname" id="lastname" placeholder="Ingrese su apellido">
         <label>Nombre de Usuario<span>*</span></label>
-        <input type="text" name="username" id="username" placeholder="ingrese un nombre de usuario">
-        <label>Nacimiento<span>*</span></label>
-        <input type="date" name="birth" id="birth-date">
+        <input type="text" name="username" id="username" placeholder="Ingrese un nombre de usuario">
+        <label>Edad<span>*</span></label>
+        <input type="number" name="edad" id="birth-date" placeholder="Ingrese su edad">
         <label>Email<span>*</span></label>
         <input type="email" name="email" id="email" placeholder="Ingrese su correo electrónico">
         <label>Contraseña<span>*</span></label>
@@ -21,20 +21,26 @@
         <div id="reCaptcha">
             <button id="re-captcha" type="button"></button>
         </div>
-        <h4>¿Ya tienes cuenta? <a href="javascript:getSignInForm()" id="sign-in">Iniciar Sesión</a></h4>
+        <h4>¿Ya tienes una cuenta? <a href="javascript:getSignInForm()" id="sign-in">Iniciar sesión</a></h4>
         <button type="submit">Registrarse</button>
     </form>
     <style>
-        #reCaptcha{
-            width: 100%;
-            height: 60px;
+        #reCaptcha {
+            width: 372px; 
+            height: 76px;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
         #re-captcha {
-            background-image: url("assets/images/reCAPTCHA.svg");
-            background-size: cover;
+            background-image: url("assets/test/image.png");
+            background-size: contain; 
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: white;
+            width: 100%;
             height: 100%;
+            border: none;
             cursor: pointer;
         }
         #google-button {
@@ -73,6 +79,7 @@
             flex-direction: row;
             width: 85%;
             height: 40px;
+            gap: 15px;
         }
         .page_content {
             min-height: 1000px;
@@ -115,8 +122,8 @@
         }
 
         .form-container label {
-            font-size: 14px;
-            color: #333;
+            font-size: 16px;
+            color: #1E1E1E;
             text-align: left;
             width: 85%;
         }
@@ -133,8 +140,14 @@
             border: 1px solid #ccc;
             border-radius: 10px;
             font-size: 16px;
+            color: #757575;
             width: 85%;
             margin: 0 auto; /* Centra el input horizontalmente */
+        }
+
+        .form-container form input::placeholder {
+            font-size: 16px;
+            color: #757575;
         }
 
         input:focus {
@@ -143,7 +156,15 @@
         }
 
         .form-container h4 {
-            font-weight: lighter;
+            font-weight: normal;
+        }
+
+        .form-container a {
+            text-decoration-line: none;
+        }
+
+        #sign-in{
+            color: #4285F4;
         }
 
         .form-container button {
@@ -154,7 +175,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            width: 60%;
+            width: 85%;
             height: 40px;
         }
 

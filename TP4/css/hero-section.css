@@ -182,8 +182,8 @@
 }
 
 /* velocidad dependiendo de la capa */
-.background .parallax-elem { animation-delay: 0.2s; }
-.midground .parallax-elem { animation-delay: 0.4s; }
-.foreground .parallax-elem { animation-delay: 0.6s; }
-.characters .parallax-elem { animation-delay: 0.8s; }
+.background .parallax-elem { animation-delay: 5s; }
+.midground .parallax-elem { animation-delay: 5.2s; }
+.foreground .parallax-elem { animation-delay: 5.4s; }
+.characters .parallax-elem { animation-delay: 5.6s; }
 

@@ -16,16 +16,22 @@
         <button type="submit">Iniciar Sesión</button>
     </form>
     <style>
-        #reCaptcha{
-            width: 100%;
-            height: 60px;
+        #reCaptcha {
+            width: 372px; 
+            height: 76px;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
         #re-captcha {
-            background-image: url("assets/images/reCAPTCHA.svg");
-            background-size: cover;
+            background-image: url("assets/test/image.png");
+            background-size: contain; 
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: white;
+            width: 100%;
             height: 100%;
+            border: none;
             cursor: pointer;
         }
         #google-button {
@@ -64,6 +70,7 @@
             flex-direction: row;
             width: 85%;
             height: 40px;
+            gap: 15px;
         }
 
         .page_content {
@@ -108,8 +115,8 @@
         }
 
         .form-container label {
-            font-size: 14px;
-            color: #333;
+            font-size: 16px;
+            color: #1E1E1E;
             text-align: left;
             width: 85%;
         }
@@ -126,8 +133,14 @@
             border: 1px solid #ccc;
             border-radius: 10px;
             font-size: 16px;
+            color: #757575;
             width: 85%;
             margin: 0 auto; /* Centra el input horizontalmente */
+        }
+
+        .form-container form input::placeholder {
+            font-size: 16px;
+            color: #757575;
         }
 
         input:focus {
@@ -141,6 +154,10 @@
 
         .form-container a {
             text-decoration-line: none;
+        }
+
+        #sign-up{
+            color: #4285F4;
         }
 
         .form-container button {

@@ -16,7 +16,7 @@ import { Game } from './game.js';
 
 //primera funcion que ocurre al cargar la pagina
 document.addEventListener('DOMContentLoaded', function() {
-/*
+
     const loader = createLoader();
     document.body.appendChild(loader);
 
@@ -25,12 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.body.removeChild(loader);
 
-
-        console.log('ping');
     });
 
-
-*/
     // prometemos traer el header
     console.log("cargando header...");
     let headerLoaded = fetch('frames/header.html')

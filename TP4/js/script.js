@@ -1,3 +1,80 @@
+/*
+    logica para la pantalla de carga
+*/
+
+window.onload = () => {
+    showLoader();
+    initializeObserver(); // Inicia el IntersectionObserver después de la pantalla de carga
+};
+
+// Bloquea el scroll
+function disableScroll() {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth; // Calcula el ancho de la barra de desplazamiento
+    document.body.style.paddingRight = `${scrollbarWidth}px`; // Añade el espacio para compensar la barra de desplazamiento
+    document.body.style.background = 'linear-gradient(to bottom, #c2e9fb, #a1c4fd)'; // Fondo de la pantalla de carga
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+}
+
+// Desbloquea el scroll
+function enableScroll() {
+    document.body.style.paddingRight = ''; // Elimina el padding cuando se desbloquea el scroll
+    document.body.style.background = ''; // Restaura el fondo original
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+}
+
+// Muestra el loader y bloquea el scroll
+function showLoader() {
+    const loadingScreen = document.getElementById('loading-screen');
+    loadingScreen.style.display = 'flex';
+    disableScroll();
+    simulateLoading();
+}
+
+// Oculta el loader y habilita el scroll
+function hideLoader() {
+    const loadingScreen = document.getElementById('loading-screen');
+    loadingScreen.style.opacity = 0;
+    loadingScreen.style.transition = 'opacity 0.5s ease-out';
+    setTimeout(() => {
+        loadingScreen.style.display = 'none';
+        enableScroll();
+    }, 500);
+}
+
+// Simula el progreso de la barra de carga
+function simulateLoading() {
+    const progressBar = document.querySelector('.loading-progress-bar');
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 10; // Incrementa el progreso
+        progressBar.style.width = progress + '%'; // Actualiza la barra de progreso
+
+        if (progress >= 100) {
+            clearInterval(interval); // Detiene el intervalo al llegar al 100%
+            setTimeout(hideLoader, 500); // Esconde el loader al completar
+        }
+    }, 300); // Incrementa cada 300ms
+}
+
+// Generar partículas mágicas
+const particlesContainer = document.getElementById('particles-container');
+function createParticle() {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.top = '100%';
+    particle.style.animationDuration = Math.random() * 2 + 3 + 's';
+    particlesContainer.appendChild(particle);
+
+    setTimeout(() => particle.remove(), 5000); // Eliminar después de la animación
+}
+
+setInterval(createParticle, 200); // Crear partículas cada 200ms
+
+// FIN CODIGO PANTALLA DE CARGA
+
 const sidebar = document.getElementById('sidebar');
 
 /*
@@ -101,6 +178,25 @@ document.addEventListener('scroll', () => {
     }
 });
 
+/* logica para seccion la app mas divertida... */
+
+const numberBlock4 = document.querySelector('.numberBlock4');
+const numberBlock5 = document.querySelector('.numberBlock5');
+const infoApp = document.querySelector('.info-app');
+const thumbnail = document.querySelector('.thumbnail');
+
+// Evento de scroll para detectar la posición del scroll
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;  // Obtiene el desplazamiento vertical actual del scroll
+
+    // Movimiento de los muñequitos
+    numberBlock4.style.transform = `translateY(${scrollY * 0.15}px)`; // Movimiento moderado
+    numberBlock5.style.transform = `translateY(${scrollY * 0.15}px)`; 
+
+    // Movimiento del texto y fotos
+    infoApp.style.transform = `translateY(${scrollY * 0.1}px)`; 
+    thumbnail.style.transform = `translateY(${scrollY * 0.05}px)`;  // Movimiento muy sutil
+});
 
 
 
@@ -188,5 +284,8 @@ const observerStickySections = new IntersectionObserver(
 );
 
 // Observa todas las secciones
-sections.forEach((section) => observerStickySections.observe(section));
+//sections.forEach((section) => observerStickySections.observe(section));
 
+function initializeObserver() {
+    sections.forEach((section) => observerStickySections.observe(section));
+}

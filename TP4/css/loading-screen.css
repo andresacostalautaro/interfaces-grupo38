@@ -1,0 +1,185 @@
+/* Pantalla de carga */
+#loading-screen {
+    z-index: 100;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #c2e9fb, #a1c4fd);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Texto animado */
+.cargandoText {
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #4612d4, #850202);
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: glow 2s infinite;
+    margin-top: 14px;
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 5px #ff6ec4, 0 0 10px #ff6ec4, 0 0 20px #ff6ec4;
+    }
+    50% {
+        text-shadow: 0 0 10px #7873f5, 0 0 20px #7873f5, 0 0 30px #7873f5;
+    }
+}
+
+/* Loader de estrellas */
+.stars-loader {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-top: 20px;
+    animation: rotate 8s linear infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* anim de rotación */
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Estrella base */
+.star {
+    width: 40px;
+    height: 40px;
+    background: yellow;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    position: absolute;
+    animation: orbit 5s linear infinite;
+    transform-origin: center;
+    top: 50%; /* Empieza desde el centro */
+    left: 50%; /* Empieza desde el centro */
+}
+
+/* anim de órbita */
+@keyframes orbit {
+    0% {
+        transform: rotate(0deg) translateX(60px) rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg) translateX(60px) rotate(-360deg);
+    }
+}
+
+/* colores para cada estrella */
+.star.yellow {
+    background: #ffeb3b;
+    animation-delay: 0s;
+}
+
+.star.blue {
+    background: #2196f3;
+    animation-delay: 0.5s;
+}
+
+.star.red {
+    background: #ff3d00;
+    animation-delay: 1s;
+}
+
+.star.green {
+    background: #4caf50;
+    animation-delay: 1.5s;
+}
+
+.star.purple{
+    background: purple;
+    animation-delay: 2s;
+}
+
+.star.cyan{
+    background: rgb(137, 199, 244);
+    animation-delay: 2.5s;
+}
+
+
+/* Barra de progreso */
+.progress-container {
+    position: relative;
+    width: 80%;
+    height: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.loading-progress-bar {
+    width: 0%;  /* se inicia en 0 y se actualiza mediante JS */
+    height: 100%;
+    background: linear-gradient(45deg, #4facfe, #00f2fe, #ff6ec4);
+    background-size: 300% 300%;
+    animation: wave 3s linear infinite;
+}
+
+/* Efecto de la barra de carga */
+@keyframes wave {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+
+/* particulas flotantes */
+#particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: float 4s ease-in-out infinite;
+    opacity: 0.8;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(-30px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-60px);
+        opacity: 0;
+    }
+}
+
+/* transicion */
+#loading-screen.hidden {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+    pointer-events: none;
+}

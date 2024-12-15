@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="./css/grilla-section.css">
     <link rel="stylesheet" type="text/css" href="./css/prefooter-section.css">
     <link rel="stylesheet" type="text/css" href="./css/footer.css">
+    <link rel="stylesheet" type="text/css" href="./css/loading-screen.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,6 +22,24 @@
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
+  
+    <div id="loading-screen">
+        <img id="logoCarga" src="./assets/logo.svg" alt="logo">
+        <div class="stars-loader">
+            <div class="star yellow"></div>
+            <div class="star blue"></div>
+            <div class="star red"></div>
+            <div class="star green"></div>
+            <div class="star purple"></div>
+            <div class="star cyan"></div>
+        </div>
+        <div class="progress-container">
+            <div class="loading-progress-bar"></div>
+        </div>
+        <p class="cargandoText">¡Cargando la magia!</p>
+        <div id="particles-container"></div>
+    </div>
+ 
     <header id="header">
         <div class="hamburger-menu" id="hamburger-menu">
             <div class="wrapper">

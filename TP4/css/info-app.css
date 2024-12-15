@@ -131,3 +131,11 @@ h2{
     right: -79px;
     bottom: 704px;
 }
+
+/* Movimiento de los elementos específicos */
+/*
+.numberBlock4, .numberBlock5, .info-app, .thumbnail {
+    position: absolute;
+    transition: transform 0.2s ease-out;
+}
+*/
