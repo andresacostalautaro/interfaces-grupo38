@@ -63,7 +63,7 @@ export async function signUp(userData) {
   const ageError = document.getElementById('age-error');
   try {
 
-    if (calculateAge(userData.birthDate) < 13) {
+    if (userData.age < 13) {
       ageError.textContent = 'Lo sentimos, debes tener al menos 13 años para registrarte.';
       ageError.style.color = 'red';
       return false;
@@ -91,19 +91,6 @@ export async function signUp(userData) {
 function checkPassword(userData) {
   const { password1, password2 } = userData;
   return password1 === password2;
-}
-
-
-function calculateAge(birthDate) {
-  const today = new Date();
-  const birth = new Date(birthDate);
-  let age = today.getFullYear() - birth.getFullYear();
-  const monthDiff = today.getMonth() - birth.getMonth();
-
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) { // si aun no cumplio años en el año actual
-    age--;
-  }
-  return age;
 }
 
 function showSuccessMessage(action) {  

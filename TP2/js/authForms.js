@@ -40,7 +40,7 @@ export function initSignUpForm(session){
               firstname: document.getElementById("firstname").value,
               lastname: document.getElementById("lastname").value,
               username: document.getElementById("username").value,
-              birthDate: document.getElementById("birth-date").value,
+              age: document.getElementById("age").value,
               email: document.getElementById("email").value,
               password1: document.getElementById("password-1").value,
               password2: document.getElementById("password-2").value

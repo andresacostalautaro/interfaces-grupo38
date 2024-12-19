@@ -7,9 +7,8 @@
         <input type="text" name="lastname" id="lastname" placeholder="Ingrese su apellido" required>
         <label>Nombre de Usuario<span>*</span></label>
         <input type="text" name="username" id="username" placeholder="ingrese un nombre de usuario" required>
-        <label>Nacimiento<span>*</span></label>
-        <input type="date" name="birth" id="birth-date" title="Fecha de Nacimiento" placeholder="Ingrese su fecha de nacimiento" required>
-        <div class="error-message" id="age-error"></div>
+        <label>Edad<span>*</span></label>
+        <input type="number" name="age" id="age" title="Ingrese su edad" placeholder="Ingrese su edad" required min="0">        <div class="error-message" id="age-error"></div>
         <label>Email<span>*</span></label>
         <input type="email" name="email" id="email" placeholder="Ingrese su correo electrónico" required>
         <label>Contraseña<span>*</span></label>
@@ -17,11 +16,11 @@
         <input type="password" name="password-2" id="password-2" placeholder="Repita su contraseña" required>
         <div class="error-message" id="password-error"></div>
         <div id="botones-inicio-sesion">
-            <button id="google-button" type="button"></button>
-            <button id="facebook-button" type="button"></button>
+            <button id="google-button" type="button" title="Sign up with Google"></button>
+            <button id="facebook-button" type="button" title="Sign up with Facebook"></button>
         </div>
         <div id="reCaptcha">
-            <button id="re-captcha" type="button"></button>
+            <button id="re-captcha" type="button" title="reCAPTCHA"></button>
         </div>
         <h4>¿Ya tienes una cuenta? <a href="#" id="sign-in">Iniciar Sesión</a></h4>
         <button type="submit" id="signUp-submit">Registrarme</button>
