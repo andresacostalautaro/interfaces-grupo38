@@ -1,6 +1,3 @@
-import { Carousel } from './carousel.js'; 
-import { SuggestedCarousel } from './suggestedCarousel.js';
-
 class ElementFactory {
 
 

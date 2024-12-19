@@ -7,8 +7,10 @@
 
 :root{
     --primary-color: #003E7D;
+    --secondary-color: #6DE000;
     --border-radius: 20px;
     --gap : 15px;
+    --text-font: 'nunito', sans-serif;
 }
 
 body {
@@ -31,16 +33,23 @@ body {
     justify-content: center;
 }
 
+#breadcrumbs-placeholder{
+    margin-top: 60px;
+}
+
+
 /* Estilo del header */
-#header header {
+#header-placeholder header {
     z-index: 2;
     background-color: #0061C3;
     width: 100%;
     margin: 0;
+    top: 0;
     height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
 }
 
 
@@ -171,6 +180,8 @@ h1 {
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
+
+
 .cart-btn:hover{
     background-color: #003E7D;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -215,6 +226,84 @@ h1 {
 }
 
 
+/*-------------------estilos formulario-------------------*/
+.form-container {
+    transition: all 0.5s ease-out;
+}
+
+.form-container.absorbing {
+    transform: translate(-50%, -50%) scale(0.1);
+    opacity: 0;
+}
+
+.success-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-out;
+    z-index: 1000;
+}
+
+.success-message.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.success-icon {
+    color: #4CAF50;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s ease-out 0.3s;
+}
+
+.success-message.show .success-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.success-message p {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease-out 0.5s;
+}
+
+.success-message.show p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes formAbsorb {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0.1);
+        opacity: 0;
+    }
+}
+
+@keyframes messageEmerge {
+    0% {
+        transform: translate(-50%, -50%) scale(0.1);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
 /* -------------estilos carrusel desktop-------------*/
 
 @media (min-width: 768px) {
@@ -231,9 +320,11 @@ h1 {
         transition: 0.5s ease-out;
     }
 
-    .page_content, .breadcrumbs {
-        padding: 1% 15% 0% 15%;
+    .page_content, .breadcrumb {
+        padding: 1% 5% 0 5%;
     }
+
+
    
     .category-container {
         display: flex;

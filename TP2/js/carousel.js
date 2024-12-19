@@ -1,6 +1,3 @@
-'use strict';
-
-
 export class Carousel{
     constructor(container){
         this.container = container;
@@ -8,9 +5,6 @@ export class Carousel{
         this.leftArrow = container.querySelector('.prev');
         this.rightArrow = container.querySelector('.next');
         this.carouselItems = this.carousel.querySelectorAll('.game-card');
-
-        console.log(this.leftArrow);
-        console.log(this.rightArrow);
 
 
         this.startX = 0;
@@ -135,24 +129,4 @@ export class Carousel{
         });
     }
 
-/*
-    createNavigationDots() {
-        this.dotsContainer = document.createElement('div');
-        this.dotsContainer.className = 'carousel-dots';
-        this.container.appendChild(this.dotsContainer);
-    
-        this.dots = [];
-        const totalFrames = Math.ceil(this.totalWidth / this.visibleWidth);
-    
-        for (let i = 0; i < totalFrames; i++) {
-            const dot = document.createElement('button');
-            dot.className = 'carousel-dot';
-            dot.setAttribute('aria-label', `Ir al frame ${i + 1}`);
-            this.dotsContainer.appendChild(dot);
-            this.dots.push(dot);
-        }
-    
-        this.updateActiveDot();
-    }
-        */
 }

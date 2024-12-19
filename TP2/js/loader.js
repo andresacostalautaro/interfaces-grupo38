@@ -1,9 +1,3 @@
-
-// IDEA al detectar un cambio de dimensiones en la ventana, 
-// se debe recalcular el ancho de los elementos del carrusel e ir a la coordenada 0
-
-
-//esto puede ir en el factory
 export function createLoader() {
     const loader = document.createElement('div');
     loader.className = 'loader-capa';

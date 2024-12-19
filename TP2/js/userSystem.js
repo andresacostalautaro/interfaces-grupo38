@@ -1,256 +1,150 @@
-import { iniciatedSesion} from "./main.js";
+export function checkPasswordStrength() {
+    const password1 = document.getElementById('password-1');
 
-let USER = {
-    username: null,
-    email: null,
-    cart: []
-};
+    
+    const strengthIndicators = document.createElement('div');
+    strengthIndicators.className = 'password-strength';
+    strengthIndicators.innerHTML = `
+        <p><span class="indicator" id="uppercase"><i class="fa-solid fa-circle-check"></i></span> Al menos una mayúscula</p>
+        <p><span class="indicator" id="lowercase"><i class="fa-solid fa-circle-check"></i></span> Al menos una minúscula</p>
+        <p><span class="indicator" id="number"><i class="fa-solid fa-circle-check"></i></span> Al menos un número</p>
+        <p><span class="indicator" id="special"><i class="fa-solid fa-circle-check"></i></span> Al menos un carácter especial</p>
+        <p><span class="indicator" id="length"><i class="fa-solid fa-circle-check"></i></span> Al menos 8 caracteres</p>
+    `;
+    password1.parentNode.insertBefore(strengthIndicators, password1.nextSibling);
 
-//funcion para submit el boton del formulario de inicio de sesion
-export function submitSignInForm(email, password) {
-    console.log("boton submit form ejecutado pra iniciar sesion.");
+    console.log('password1',password1);
+    
+    password1.addEventListener('input', () => updatePasswordStrength(password1)); // Corrección: Usar función anónima para pasar la referencia correctamente
 
-    // Verificar que los campos no estén vacíos
-    if (email && password) {
-        fetch('data/users.json')
-        .then(response => response.json())
-        .then(data => {
+} 
 
-            console.log("users.json fetch.");
-            document.getElementById('email').classList.remove('input-warning');
-            document.getElementById('password').classList.remove('input-warning');
+function updatePasswordStrength(password1) {
+    const password = password1.value;
+    console.log('current password',password)
+    const checks = {
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number: /[0-9]/.test(password),
+        special: /[^A-Za-z0-9]/.test(password),
+        length: password.length >= 8
+    };
 
-            // Buscar el usuario en la base de datos
-            const user = data.find(user => user.email === email || user.username === email);
-
-            if (user) {
-                // Verificar la contraseña del usuario
-                if (user.password === password) {
-
-                    USER.username = user.username;
-                    USER.email = user.email;
-                    USER.cart = user.history ? user.history.cart : []; // Verificar si history existe
-                    console.log(USER.cart[0]);
-
-                    console.log("contraseña correcta.");
-
-                    iniciatedSesion();
-                } else {
-                    // Si la contraseña es incorrecta, mostrar advertencia en el campo de contraseña
-                    document.getElementById('password').classList.add('input-warning');
-                    console.log('contraseña incorrecta.');
-                }
-            } else {
-                // Si no se encuentra el usuario, mostrar advertencia en el campo de email
-                document.getElementById('email').classList.add('input-warning');
-                console.log('User not found');
-            }
-        })
-        .catch(error => console.log('Error fetching users.json:', error));
-    } else {
-        document.getElementById('email').classList.add('input-warning');
-        document.getElementById('password').classList.add('input-warning');
-        // Mostrar un mensaje si los campos están vacíos
-        console.log('llenar todos los campos del formulario.');
+    for (let check in checks) {
+        console.log('checks, check',checks,check);
+        console.log('check',check);
+        const indicator = document.getElementById(check);
+        if (checks[check]) {
+            indicator.style.color = 'green';
+        } else {
+            indicator.style.color = 'grey';
+        }
     }
 }
 
-export function submitSignUpForm(name, lastname, username, birth, email, password1, password2) {
-    let threeValid = 0;
 
-    // Validar si las contraseñas coinciden
-    if (password1 !== password2) {
-        document.getElementById('password-2').classList.add('input-warning');
-        console.log('Las contraseñas no coinciden');
-    } else {
-        threeValid++;
-    }
+export async function signIn() {
+  try {
+    //es una maqueta, no necesitamos chequear que el usuario exista
+    //como ya desde el front se chequea que el email y password no esten vacios, no es necesario chequear aca
+    showSuccessMessage('Inicio de Sesion exitoso').then(() => {
+      const event = new CustomEvent('signUpSuccess');
+      document.dispatchEvent(event);
+    });
 
-    // Validar si el nombre de usuario es válido
-    if (!validateUsername(username)) {
-        document.getElementById('username').classList.add('input-warning');
-        console.log('El nombre de usuario debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo');
-    } else {
-        threeValid++;
-    }
-
-    // Validar si el usuario tiene más de 13 años
-    if (validateAge(birthDate) < 13) {
-        document.getElementById('birth-date').classList.add('input-warning');
-        console.log('Debes ser mayor de 13 años para registrarte');
-    } else {
-        threeValid++;
-    }
-
-    // Verificar si el email o el nombre de usuario ya existen en la base de datos
-    if (threeValid === 3) {
-        fetch('users.json')
-            .then(response => response.json())
-            .then(data => {
-                const existingUser = data.users.find(user => user.username === username);
-                const existingEmail = data.users.find(user => user.email === email);
-
-                if (existingUser) {
-                    document.getElementById('username').classList.add('input-warning');
-                    console.log('El nombre de usuario ya está en uso');
-                } else {
-                    threeValid++;
-                }
-
-                if (existingEmail) {
-                    document.getElementById('email').classList.add('input-warning');
-                    console.log('El correo electrónico ya está en uso');
-                } else {
-                    threeValid++;
-                }
-
-                if (threeValid === 5) {
-                    console.log("registro aprobado");
-                    newId = data.length;
-                    // Crear objeto de nuevo usuario
-                    const newUser = {
-                        id: newId,
-                        username: username,
-                        email: email,
-                        password: password1,
-                        name: name,
-                        lastname: lastname,
-                        birthDate: birth,
-                        avatar: ["assets/images/0-avatar00.jpg"],
-                        history: {
-                            cart: []
-                        }
-                    };
-
-                    // Agregar nuevo usuario a users.json
-                    data.users.push(newUser);
-
-                    fetch('users.json', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    })
-                    .then(() => console.log('Usuario registrado correctamente'))
-                    .catch(error => console.error('Error al registrar el usuario:', error));
-                }
-            })
-            .catch(error => console.error('Error al cargar los datos:', error));
-    }
-}
-function validateUsername(username) {
-    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return regex.test(username);
-}
-function validateAge(birthDate) {
-    const currentDate = new Date();
-    const birth = new Date(birthDate);
-    const age = currentDate.getFullYear() - birth.getFullYear();
-    const month = currentDate.getMonth() - birth.getMonth();
-
-    if (month < 0 || (month === 0 && currentDate.getDate() < birth.getDate())) {
-        return age - 1;
-    }
-    return age;
+  } catch (error) {
+    console.error('Error during sign in:', error);
+    updateUI('error', 'An error occurred during sign in');
+    return false;
+  }
 }
 
-//funcion para traer el usuario
-export function getUser() {
-    return USER; // Retorna el usuario actualmente autenticado
-}
+export async function signUp(userData) {
+  const ageError = document.getElementById('age-error');
+  try {
 
-//funcion para cambiar el perfil del usuario en el header_nav
-let which = false;
-export function updateNav() {
-    console.log("actualizando nav.");
-    which = !which;
-    fixedNav();
-}
-
-//funcion para traer el perfil del usuario en el nav, ya sea en estado conectado o desconectado
-export function fixedNav() {
-    // Actualiza el contenido del perfil del usuario
-    let profile = document.getElementById('user_nav_content');
-
-    if(which && USER.username) {
-        console.log("profile del nav habierto");
-        profile.innerHTML = `
-            <tr>
-                <th>
-                    <a>
-                        <img id="user_photo_nav" class="user_photo_nav" src="assets/images/profile_connect.png" alt="Foto del usuario">
-                    </a>
-                </th>
-                <td class="user-panel" colspan="2">
-                    <h1>${USER.username}</h1>
-                    <div>
-                        <h5 id="btn-MySession">Mi Sesion</h5>
-                        <h5 style=" width: fit-content !important;">|</h5>
-                        <h5 id="btn-Sign-out">Cerrar Sesion</h5>
-                    </div>
-                </td>
-            </tr>
-        `;
-    } else {
-        console.log("profile del nav cerrado");
-        profile.innerHTML = `
-                <tr>
-		            <th><a><img id="user_photo_nav" class="user_photo_nav" src="assets/images/profile_disconect.png" alt="Foto del usuario"></a></th>
-                    <td class="user-panel" colspan="2">
-                        <h4 class="button" id="sign-in">Iniciar Sesion</h4>
-                        <h4 class="button" id="sign-up">Registrarse</h4>
-                    </td>
-                </tr>
-        `;
+    if (calculateAge(userData.birthDate) < 13) {
+      ageError.textContent = 'Lo sentimos, debes tener al menos 13 años para registrarte.';
+      ageError.style.color = 'red';
+      return false;
     }
-}
 
-export function getUserCart() {
-    // Verificar si el carrito existe y tiene elementos
-    if (USER.cart && USER.cart.length > 0) {
-        // id_array ya contiene directamente los valores de USER.cart
-        let id_array = USER.cart; 
-
-        let cart = document.getElementById('cart-items');
-
-        // Fetch al archivo JSON
-        fetch('data/gamesByCategory.json')
-            .then(response => response.json())
-            .then(data => {
-                console.log(`Buscando los juegos del carrito en gamesByCategory.json. Total de IDs: ${id_array.length}`);
-
-                for (let i = 0; i < id_array.length; i++) {
-                    console.log("i=" + i + " : " + id_array[i]);
-                    
-                    // Recorrer las categorías en el JSON
-                    data.forEach(category => {
-                        // Recorrer cada juego dentro de la categoría
-                        category.games.forEach(game => {
-
-                            console.log("Comparando:", id_array[i], "con", game.id);
-
-                            // Si el ID del carrito coincide con el ID del juego, agregarlo al DOM
-                            if (id_array[i].toString() === game.id.toString()) {
-
-                                console.log("Juego encontrado:", game); // Mostrar si se encuentra un juego
-
-                                const price = game.price === 0 ? "FREE" : game.price;
-                                // Crear un nuevo elemento li
-                                const item = `<li>
-                                                <img src="${game.image}" alt="${game.title}">
-                                                <h4>${price}</h4>
-                                                <h2>${game.title}</h2>
-                                            </li>`;
-                                // Añadir el juego al carrito
-                                cart.innerHTML+=item;
-                            }
-                        });
-                    });
-                }
-            })
-            .catch(error => console.error('Error fetching gamesByCategory.json:', error));
-    } else {
-        console.log('El carrito de compras está vacío');
+    if (!checkPassword(userData)) {
+      updateUI('validateSignUp', 'Las contraseñas no coinciden');
+      return false;
     }
+
+    //si las validaciones pasaron, muestro el mensaje de exito y despacho el evento
+    showSuccessMessage('Registro exitoso').then(() => { 
+      const event = new CustomEvent('signUpSuccess');
+      document.dispatchEvent(event);
+    });
+
+    return true;
+
+  } catch (error) {
+    updateUI('error', 'Ocurrio un error al registrarse');
+    return false;
+  }
 }
+
+function checkPassword(userData) {
+  const { password1, password2 } = userData;
+  return password1 === password2;
+}
+
+
+function calculateAge(birthDate) {
+  const today = new Date();
+  const birth = new Date(birthDate);
+  let age = today.getFullYear() - birth.getFullYear();
+  const monthDiff = today.getMonth() - birth.getMonth();
+
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) { // si aun no cumplio años en el año actual
+    age--;
+  }
+  return age;
+}
+
+function showSuccessMessage(action) {  
+  console.log(action);
+  const successMessage = document.getElementById('successMessage');
+  const successMessageText = document.querySelector('.message');
+  successMessageText.innerText = action;
+
+  const form = document.querySelector('.form-container');
+  
+  form.classList.add('success');
+
+  successMessage.classList.add('show');
+  successMessage.setAttribute('aria-hidden', 'false');
+  
+  successMessage.focus();
+  
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();  
+    }, 1400);
+  });
+} 
+
+// ui.js
+export function updateUI(action, data) {
+  switch (action) {
+    case 'signedIn':
+      console.log(`logueado como ${data.username}`);
+      showSuccessMessage('Inicio de Sesion exitoso');
+      break;
+    case 'signUpSuccess':
+      console.log('User registered successfully');
+      showSuccessMessage('Registro exitoso');
+      break;
+    case 'error':
+      console.error('Error:', data);
+      break;
+    default:
+      console.log('Unknown UI update action:', action);
+  }
+}
+
+console.log('Auth module loaded');
