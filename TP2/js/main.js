@@ -7,11 +7,13 @@ import { loadMoreComments } from './comments.js';
 import{ loadHTML } from './loaders.js';
 import { updateAuthUI } from './session.js';
 import { displaySidebar } from './nav.js';
+import { createLoader } from './loader.js';
+import {simulateLoading} from './loader.js';
 
 //primera funcion que ocurre al cargar la pagina
 document.addEventListener('DOMContentLoaded', function() {
 
-    /*
+    
     const loader = createLoader();
     document.body.appendChild(loader);
 
@@ -21,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.removeChild(loader);
         console.log('ping');
     });
-     */
+    
     
     const session = new Session('User1234'); // Usuario logueado inicialmente
 
