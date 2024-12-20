@@ -145,6 +145,7 @@ h1 {
     overflow: hidden;
     border-radius: 8px;
     flex: 0 0 calc(100% / 2.3 - 10px);
+    transition: transform 0.5s ease;
 }
 
 .game-card img, .game-card article {
@@ -471,3 +472,9 @@ h1 {
 
 }
 /* -------------fin estilos carrusel desktop-------------*/
+.tilt-left {
+    transform: skew(5deg);
+}
+.tilt-right {
+    transform: skew(-5deg);
+}

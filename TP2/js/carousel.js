@@ -15,6 +15,8 @@ export class Carousel{
         
         this.updateDimensions();
         this.initEventListeners();
+
+        this.animationTimeout = null;
     }
 
 
@@ -34,7 +36,7 @@ export class Carousel{
         this.rightArrow.addEventListener('click', () => this.move('right'));
         this.leftArrow.addEventListener('click', () => this.move('left'));
         
-        // Eventos para el touch. Capaz me los puedo ahorrar con css
+        // Eventos para el touch. 
         this.carousel.addEventListener('touchstart', this.touchStart.bind(this), {passive: true});
         this.carousel.addEventListener('touchend', this.touchEnd.bind(this));
         this.carousel.addEventListener('touchmove', this.touchMove.bind(this) , {passive: true});
@@ -110,14 +112,22 @@ export class Carousel{
 
         if (direction === 'left') {
             newTranslate = this.currentTranslate + translateAmount;
+            this.applyTiltEffect('left');
         } else {
             newTranslate = this.currentTranslate - translateAmount;
+            this.applyTiltEffect('right');
         }
+
         
-    
         this.setTranslate(newTranslate);
         this.updateArrowVisibility();
         this.updateActiveDot();
+
+        
+        clearTimeout(this.animationTimeout);
+        this.animationTimeout = setTimeout(() => {
+            this.removeTiltEffect();
+        }, 550); //un poquito mas largo que la duracion de la transicion
     }
 
     updateActiveDot() {
@@ -126,6 +136,19 @@ export class Carousel{
         this.dots.forEach((dot, index) => {
             dot.classList.toggle('active', index === currentFrame);
             dot.setAttribute('aria-current', index === currentFrame ? 'true' : 'false');
+        });
+    }
+
+    applyTiltEffect(direction) {
+        this.carouselItems.forEach(item => {
+            item.classList.remove('tilt-left', 'tilt-right');
+            item.classList.add(direction === 'left' ? 'tilt-right' : 'tilt-left');
+        });
+    }
+
+    removeTiltEffect() {
+        this.carouselItems.forEach(item => {
+            item.classList.remove('tilt-left', 'tilt-right');
         });
     }
 
