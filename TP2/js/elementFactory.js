@@ -48,7 +48,7 @@ class ElementFactory {
 
         return  `
         <li class="${classNames}">
-            <article>
+            <article class="tilt-container">
                 <img src="${game.image}" alt="${game.title}"">
                 <div class="game-info">
                     <h3 class="game-title">${game.title}</h3>

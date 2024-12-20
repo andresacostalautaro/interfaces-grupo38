@@ -142,7 +142,6 @@ h1 {
 
 .game-card {
     position: relative;
-    overflow: hidden;
     border-radius: 8px;
     flex: 0 0 calc(100% / 2.3 - 10px);
     transition: transform 0.5s ease;
@@ -152,6 +151,7 @@ h1 {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 8px;
 }
 
 .game-info {
@@ -343,11 +343,14 @@ h1 {
 
     .game-card {
         flex: 0 0 calc((100% / 4.5) - 15px);
-        border-radius: 20px;
     }
 
     .game-info{
         background: none;
+    }
+
+    .game-card, .game-info {
+        border-radius: 20px;
     }
 
     .game-card:hover .game-info{
@@ -380,6 +383,10 @@ h1 {
         background: url(./assets/arrow_nav.svg) no-repeat center;
         background-color: rgba(0, 0, 0, 0.8);
         width: 4%;
+    }
+
+    .game-card img, .game-card article {
+        border-radius: 20px;
     }
 
     .prev {     
@@ -444,7 +451,6 @@ h1 {
     #suggestedGames .big-card {
         height: 100%;
         width:  calc(40% - var(--gap));
-        background-color: green;
         border-radius: 8px;
     }
     
@@ -455,7 +461,6 @@ h1 {
     #suggestedGames .small-card {
         height: calc(50% - (var(--gap) / 2));
         width:  calc(20% - var(--gap));
-        background-color: aqua;
         border-radius: 8px;
     }
     
@@ -472,9 +477,15 @@ h1 {
 
 }
 /* -------------fin estilos carrusel desktop-------------*/
-.tilt-left {
-    transform: skew(5deg);
+.tilt-container{transition: transform 0.5s ease;}
+.tilt-container{
+    width: 100%;
+    height: 100%;
 }
-.tilt-right {
-    transform: skew(-5deg);
+.tilt-left .tilt-container {
+    transform: translateZ(0) skew(5deg);
 }
+.tilt-right .tilt-container {
+    transform: translateZ(0) skew(-5deg);
+}
+
