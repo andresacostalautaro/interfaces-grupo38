@@ -1,6 +1,6 @@
 import { Cell } from './cell.js';
 export class Board {
-    constructor(canvas, ctx, rows, columns, getCurrentPlayerCallback, boardTop, winCondition, drawGameFunction) {
+    constructor(canvas, ctx, rows, columns, getCurrentPlayerCallback, boardTop, winCondition, drawGameFunction, token) {
         this.canvas = canvas;
         this.ctx = ctx;
         this.rows = rows;
@@ -8,6 +8,7 @@ export class Board {
         this.winCondition = winCondition; // Cantidad de fichas en línea para ganar
         this.boardTop = boardTop;
         this.redrawGame = drawGameFunction;
+        this.token = token;
 
 
         this.cellSize = Math.min(
@@ -315,9 +316,14 @@ export class Board {
             player1: new Image(),
             player2: new Image()
         };
-        
-        playerImages.player1.src = './assets/player-tokens/scorpion.svg';
-        playerImages.player2.src = './assets/player-tokens/subzero.svg';
+
+        if (this.token.tokenp1.includes("Alt")) {
+            playerImages.player1.src = './assets/player-tokens/scorpionAlt.svg';
+            playerImages.player2.src = './assets/player-tokens/subzeroAlt.svg';
+        } else {
+            playerImages.player1.src = './assets/player-tokens/scorpion.svg';
+            playerImages.player2.src = './assets/player-tokens/subzero.svg';
+        }
 
         const pieceSize = pieces[0].radius * 2;
         const overlap = pieceSize * 0.85; // 85% de superposición para una pila más compacta
