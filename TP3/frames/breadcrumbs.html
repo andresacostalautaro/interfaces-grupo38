@@ -1,0 +1,32 @@
+<nav id="breadcrumb" class="breadcrumb">
+    <a href="#" title="Home">    
+        <i class="fa-solid fa-house" id="breadcrumbs_home_icon"></i>
+    </a>
+    <span>&gt;</span>
+    <span>Home</span>
+</nav>
+<style>
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .breadcrumb a {
+        color: white;
+        text-decoration: none;
+    }
+
+
+    .breadcrumb a.active {
+        color: var(--secondary-color);
+    }
+
+    #breadcrumbs_home_icon:hover{
+        transform: scale(1.2);
+        color: green;
+    }
+
+</style>
