@@ -24,7 +24,7 @@ export class Game{
 
         // observador de eventos, cuando se dispara el evento gameStart desde el startMenu, se ejecuta la función startGame
         window.addEventListener('gameStart', (e) => {
-            this.startGame(e.detail.boardSize, e.detail.turnTime, e.detail.winCondition);
+            this.startGame(e.detail.boardSize, e.detail.turnTime, e.detail.winCondition, e.detail.token);
         });
 
         // Evento para volver al menú
@@ -58,13 +58,15 @@ export class Game{
         this.startMenu.showStartMenu();
     }
 
-    startGame(boardSize, turnTime, winCondition) {
+    startGame(boardSize, turnTime, winCondition, token) {
         
         this.playersPanel = new PlayerPanel(this.canvas, this.ctx, this.players, turnTime, this.drawGame.bind(this));
 
         const panelHeight = this.playersPanel.getHeight(); // altura del panel de jugadores pero puede ser mas
         const boardTop = panelHeight + 20; // son 20px de margen
 
+        this.players[0].updateToken(token.tokenp1);
+        this.players[1].updateToken(token.tokenp2);
         this.board = new Board(
             this.canvas,
             this.ctx,
@@ -74,6 +76,7 @@ export class Game{
             boardTop, // a partir de aca se va a poder empezar a "construir" el tablero
             winCondition,
             this.drawGame.bind(this), // Pasa la función drawGame
+            token
         );
 
         this.drawGame();

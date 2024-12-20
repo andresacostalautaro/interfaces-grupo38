@@ -6,7 +6,7 @@ export class StartMenu {
         this.backgroundImage = backgroundImage;
 
         this.menuWidth = this.canvas.width * 0.45;
-        this.menuHeight = this.canvas.height * 0.5;
+        this.menuHeight = this.canvas.height * 0.7;
         this.menuGap = this.menuHeight * 0.09;
         this.buttonWidth = this.canvas.width * 0.4;
         this.buttonHeight = this.canvas.height * 0.08;
@@ -43,7 +43,20 @@ export class StartMenu {
                 isDropdownOpen: false,
                 x: 0,
                 y: 0,
+            },
+            {
+                text: 'Estilo de fichas', 
+                isSelect: true,
+                options: [
+                    { text: 'Diseño 1', tokenp1: 'scorpion', tokenp2: 'subzero'},
+                    { text: 'Diseño 2', tokenp1: 'scorpionAlt', tokenp2: 'subzeroAlt'},
+                ],
+                selectedOption: 0,
+                isDropdownOpen: false,
+                x: 0,
+                y: 0,
             }
+
         ];
         
         this.activeDropdown = null; // Nuevo: para rastrear el dropdown activo
@@ -330,11 +343,14 @@ export class StartMenu {
         const { rows, columns } = boardOption;
         const turnTime = this.menuItems[2].options[this.menuItems[2].selectedOption].time;
         const winCondition = boardOption.connect;
+        const tokenDesign1 = this.menuItems[3].options[this.menuItems[3].selectedOption];
+        const { tokenp1, tokenp2 } = tokenDesign1;
         const event = new CustomEvent('gameStart', { 
             detail: { 
                 boardSize: { rows, columns }, 
                 turnTime: turnTime, 
-                winCondition: winCondition 
+                winCondition: winCondition,
+                token: { tokenp1, tokenp2 }
             } 
         });
         window.dispatchEvent(event);
